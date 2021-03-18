@@ -139,8 +139,9 @@
                                             <action selector="stopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xck-6y-VY1"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlayDeselected" highlightedImage="PlaySelected" translatesAutoresizingMaskIntoConstraints="NO" id="A66-dt-VVa">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlayDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="A66-dt-VVa">
                                         <rect key="frame" x="169.5" y="0.0" width="75" height="75"/>
+                                        <imageReference key="highlightedImage" image="PlaySelected" symbolScale="default"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEA-Bi-Yhe">
                                         <rect key="frame" x="169.5" y="0.0" width="75" height="75"/>

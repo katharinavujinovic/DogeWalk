@@ -19,6 +19,16 @@
 		43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3625FB836200799186 /* WalksOverviewViewController.swift */; };
 		43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3925FB83F700799186 /* WalkDetailViewController.swift */; };
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
+		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
+		435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */; };
+		435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */; };
+		435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */; };
+		435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */; };
+		435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B66842603A58000EF2160 /* WalksOverviewTableViewCell.swift */; };
+		435B66872603A58000EF2160 /* WalksOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B66852603A58000EF2160 /* WalksOverviewTableViewCell.xib */; };
+		435B668B2603AB9400EF2160 /* DogOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B66892603AB9400EF2160 /* DogOverviewTableViewCell.swift */; };
+		435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */; };
+		436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436341B126010B58000FC1C9 /* ColorExtention.swift */; };
 		4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4368A07925FF873100BE15B9 /* EditDogViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +47,16 @@
 		43135B3625FB836200799186 /* WalksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewViewController.swift; sourceTree = "<group>"; };
 		43135B3925FB83F700799186 /* WalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailViewController.swift; sourceTree = "<group>"; };
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
+		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCollectionViewCell.swift; sourceTree = "<group>"; };
+		435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniCollectionViewCell.xib; sourceTree = "<group>"; };
+		435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
+		435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogSelectionCollectionViewCell.xib; sourceTree = "<group>"; };
+		435B66842603A58000EF2160 /* WalksOverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewTableViewCell.swift; sourceTree = "<group>"; };
+		435B66852603A58000EF2160 /* WalksOverviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalksOverviewTableViewCell.xib; sourceTree = "<group>"; };
+		435B66892603AB9400EF2160 /* DogOverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogOverviewTableViewCell.swift; sourceTree = "<group>"; };
+		435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogOverviewTableViewCell.xib; sourceTree = "<group>"; };
+		436341B126010B58000FC1C9 /* ColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtention.swift; sourceTree = "<group>"; };
 		4368A07925FF873100BE15B9 /* EditDogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDogViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +90,9 @@
 		43135B1125FB6C1A00799186 /* DogeWalk */ = {
 			isa = PBXGroup;
 			children = (
+				435B6674260393E900EF2160 /* Model */,
+				436341B126010B58000FC1C9 /* ColorExtention.swift */,
+				435B666726037D5800EF2160 /* Constants.swift */,
 				43135B1225FB6C1A00799186 /* AppDelegate.swift */,
 				43135B1425FB6C1A00799186 /* SceneDelegate.swift */,
 				43135B2A25FB80BA00799186 /* Controller */,
@@ -85,6 +108,8 @@
 		43135B2A25FB80BA00799186 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				435B668326039C1D00EF2160 /* TableViewCells */,
+				435B667C2603993400EF2160 /* CollectionViewCells */,
 				43135B1625FB6C1A00799186 /* CurrentWalkViewController.swift */,
 				43135B2C25FB80F500799186 /* DogsOverviewViewController.swift */,
 				43135B2F25FB815600799186 /* DogDetailViewController.swift */,
@@ -94,6 +119,35 @@
 				4368A07925FF873100BE15B9 /* EditDogViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		435B6674260393E900EF2160 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		435B667C2603993400EF2160 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */,
+				435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */,
+				435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */,
+				435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		435B668326039C1D00EF2160 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				435B66842603A58000EF2160 /* WalksOverviewTableViewCell.swift */,
+				435B66852603A58000EF2160 /* WalksOverviewTableViewCell.xib */,
+				435B66892603AB9400EF2160 /* DogOverviewTableViewCell.swift */,
+				435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,8 +208,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				43135B2225FB6C1A00799186 /* LaunchScreen.storyboard in Resources */,
+				435B66872603A58000EF2160 /* WalksOverviewTableViewCell.xib in Resources */,
 				43135B1F25FB6C1A00799186 /* Assets.xcassets in Resources */,
+				435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */,
 				43135B1A25FB6C1A00799186 /* Main.storyboard in Resources */,
+				435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */,
+				435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,14 +226,20 @@
 			files = (
 				43135B1725FB6C1A00799186 /* CurrentWalkViewController.swift in Sources */,
 				43135B2D25FB80F500799186 /* DogsOverviewViewController.swift in Sources */,
+				435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */,
 				43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */,
 				4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */,
 				43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */,
+				435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */,
 				43135B1525FB6C1A00799186 /* SceneDelegate.swift in Sources */,
 				43135B3025FB815600799186 /* DogDetailViewController.swift in Sources */,
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,
 				43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */,
+				436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */,
 				43135B1D25FB6C1A00799186 /* DogeWalk.xcdatamodeld in Sources */,
+				435B668B2603AB9400EF2160 /* DogOverviewTableViewCell.swift in Sources */,
+				435B666826037D5800EF2160 /* Constants.swift in Sources */,
+				435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
