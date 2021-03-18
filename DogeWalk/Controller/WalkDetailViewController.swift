@@ -7,14 +7,23 @@
 
 import Foundation
 import UIKit
+import MapKit
+import CoreData
 
 class WalkDetailViewController: UIViewController {
+    
+    @IBOutlet weak var walkDetailMapView: MKMapView!
+    @IBOutlet weak var walkDetailCollectionView: UICollectionView!
+    // Walk stats
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var walkTimeLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    // present the pressed walk from the walksTableview or the latest from currentwalk
+
     
 
     
