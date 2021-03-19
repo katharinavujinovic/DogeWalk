@@ -25,6 +25,7 @@ class EditDogViewController: UIViewController {
     
     @IBOutlet weak var breedPicker: UIPickerView!
     // femaleButton and maleButton
+    @IBOutlet weak var genderTint: UIView!
     @IBOutlet weak var femaleIcon: UIImageView!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var maleIcon: UIImageView!
@@ -32,10 +33,28 @@ class EditDogViewController: UIViewController {
     
     @IBOutlet weak var addNewDogButton: UIButton!
     
+    var allBreeds: [String] = []
+    var sortedBreeds: [String] = []
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        dogImage.layer.cornerRadius = dogImage.frame.height / 2
+        addNewDogButton.layer.cornerRadius = 15
+        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (data, error) in
+            if let data = data {
+                self.allBreeds = Array(data.message.keys)
+                self.sortedBreeds = self.allBreeds.sorted()
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNewDogButton.layer.cornerRadius = 15
+        breedPicker.delegate = self
+        breedPicker.dataSource = self
     }
     
     
@@ -60,12 +79,30 @@ class EditDogViewController: UIViewController {
     
     // setting the Response when one or the other icon is tapped
     fileprivate func genderIconReaction(mainColor: UIColor, hightlightColor: UIColor, female: Bool, male: Bool) {
-        maleIcon.isHighlighted = true
-        femaleIcon.isHighlighted = false
-        view.setGradientViewBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
+        genderTint.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        maleIcon.isHighlighted = male
+        femaleIcon.isHighlighted = female
+        genderTint.setGradientViewBackground(colorOne: mainColor, colorTwo: hightlightColor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
-    
     
 }
 
-// https://dog.ceo/dog-api/documentation/
+//MARK: - UIPicker
+extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return allBreeds.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return sortedBreeds[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // let selectedDogBreed = dogBreed[row]
+        // save the breed to you CoreData
+    }
+}
