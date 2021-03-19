@@ -7,8 +7,9 @@ The walks also give you an information about your route, as well as how much you
 ### To Do
 - [x] Build a Storyboard Skeleton
 - [x] Create Graphic Elements
-- [x] Finish the storyboard
-- [ ] Network for the Breedpicker
-- [ ] Set up your MapKit
+- [x] Finish the storyboard design
+- [x] Use [DogAPI](https://dog.ceo/dog-api/documentation/) to fetch a list of dog breeds
+- [x] Set up UIPicker to enable selection of dog breeds
 - [ ] Implement CoreData
+- [ ] Set up MapKit
 - [ ] Testing
