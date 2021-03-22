@@ -19,6 +19,7 @@
 		43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3625FB836200799186 /* WalksOverviewViewController.swift */; };
 		43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3925FB83F700799186 /* WalkDetailViewController.swift */; };
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
+		43303E332608A89100E69310 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43303E322608A89100E69310 /* DataController.swift */; };
 		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
 		435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */; };
 		435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */; };
@@ -49,6 +50,7 @@
 		43135B3625FB836200799186 /* WalksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewViewController.swift; sourceTree = "<group>"; };
 		43135B3925FB83F700799186 /* WalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailViewController.swift; sourceTree = "<group>"; };
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
+		43303E322608A89100E69310 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCollectionViewCell.swift; sourceTree = "<group>"; };
 		435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				43135B2025FB6C1A00799186 /* LaunchScreen.storyboard */,
 				43135B2325FB6C1A00799186 /* Info.plist */,
 				43135B1B25FB6C1A00799186 /* DogeWalk.xcdatamodeld */,
+				43303E322608A89100E69310 /* DataController.swift */,
 			);
 			path = DogeWalk;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */,
 				435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */,
 				43135B1525FB6C1A00799186 /* SceneDelegate.swift in Sources */,
+				43303E332608A89100E69310 /* DataController.swift in Sources */,
 				43135B3025FB815600799186 /* DogDetailViewController.swift in Sources */,
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,
 				43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */,
