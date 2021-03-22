@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dog" representedClassName="Dog" syncable="YES" codeGenerationType="class">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="breed" optional="YES" attributeType="String"/>
+        <attribute name="favouriteToy" optional="YES" attributeType="String"/>
+        <attribute name="favouriteTreat" optional="YES" attributeType="String"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="profile" optional="YES" attributeType="Binary"/>
+        <relationship name="walks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="dogs" inverseEntity="Walk"/>
+    </entity>
+    <entity name="Walk" representedClassName="Walk" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="route" optional="YES" attributeType="Transformable"/>
+        <attribute name="startTime" optional="YES" attributeType="Transformable"/>
+        <attribute name="time" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="dogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="walks" inverseEntity="Dog"/>
+    </entity>
+    <elements>
+        <element name="Dog" positionX="-306.364013671875" positionY="8.98858642578125" width="128" height="163"/>
+        <element name="Walk" positionX="-7.4697265625" positionY="38.67431640625" width="128" height="133"/>
+    </elements>
 </model>
