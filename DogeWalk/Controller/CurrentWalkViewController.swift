@@ -33,19 +33,29 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var backSelectDogs: UIBarButtonItem!
     
     let locationManager = CLLocationManager()
+    var userLocations: [CLLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.delegate = self
+        currentWalkMapView.delegate = self
+        currentWalkMapView.mapType = MKMapType(rawValue: 0)!
+        currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
+        
         enableButton(play: true, pause: false, stop: false)
     }
     
     
     // Dismiss this ViewController when select Dogs is pressed
     // backSelectDogs must be hidden during the run!
+    /*
     @IBAction func backSelectDogsPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+ */
     
     // start the distance and time tracking
     
@@ -53,16 +63,21 @@ class CurrentWalkViewController: UIViewController {
         pressPlayLabel.isHidden = true
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
-
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
     
     @IBAction func pauseButtonPressed(_ sender: Any) {
         buttonReaction(play: false, pause: true, stop: false)
+        enableButton(play: true, pause: false, stop: true)
+        stopLocationUpdate()
     }
     
     @IBAction func stopButtonPressed(_ sender: Any) {
         saveIndication()
         buttonReaction(play: false, pause: false, stop: true)
+        enableButton(play: false, pause: false, stop: false)
+        stopLocationUpdate()
         // segue to WalkDetailController with the latest walk
     }
 
@@ -96,12 +111,18 @@ class CurrentWalkViewController: UIViewController {
         }
     }
     
+    func stopLocationUpdate() {
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+    }
+    
+    
     
 //MARK: - Button UI
     fileprivate func saveIndication() {
         savingIndicator.startAnimating()
-        greatJobLabel.isHidden = true
-        savingLabel.isHidden = true
+        greatJobLabel.isHidden = false
+        savingLabel.isHidden = false
     }
     
     fileprivate func buttonReaction(play: Bool, pause: Bool, stop: Bool) {
@@ -121,5 +142,32 @@ class CurrentWalkViewController: UIViewController {
 
 extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
+    func addPolyLineToMap(locations: [CLLocation]) {
+        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
+            return location.coordinate
+        })
+        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
+        currentWalkMapView.addOverlay(polyLine)
+    }
+    
+    // is called when location is updated
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentUserLocation = locations.last
+        let viewRegion = MKCoordinateRegion(center: currentUserLocation!.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        self.userLocations.append(currentUserLocation!)
+        addPolyLineToMap(locations: userLocations)
+        currentWalkMapView.setRegion(viewRegion, animated: true)
+    }
+    
+    // This specifies how the map reads the polyline
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
+            polyLineRenderer.strokeColor = #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1)
+            polyLineRenderer.lineWidth = 5
+            return polyLineRenderer
+        }
+        return MKOverlayRenderer()
+    }
 
 }
