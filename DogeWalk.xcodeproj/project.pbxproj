@@ -108,8 +108,6 @@
 				43135B1E25FB6C1A00799186 /* Assets.xcassets */,
 				43135B2025FB6C1A00799186 /* LaunchScreen.storyboard */,
 				43135B2325FB6C1A00799186 /* Info.plist */,
-				43135B1B25FB6C1A00799186 /* DogeWalk.xcdatamodeld */,
-				43303E322608A89100E69310 /* DataController.swift */,
 			);
 			path = DogeWalk;
 			sourceTree = "<group>";
@@ -117,6 +115,7 @@
 		43135B2A25FB80BA00799186 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				43B191A4260B43450070E372 /* DataController */,
 				435B668326039C1D00EF2160 /* TableViewCells */,
 				435B667C2603993400EF2160 /* CollectionViewCells */,
 				43135B1625FB6C1A00799186 /* CurrentWalkViewController.swift */,
@@ -168,6 +167,15 @@
 				43B191962609DF3D0070E372 /* Walk+Extensions.swift */,
 			);
 			path = "Managed Object Extensions";
+			sourceTree = "<group>";
+		};
+		43B191A4260B43450070E372 /* DataController */ = {
+			isa = PBXGroup;
+			children = (
+				43135B1B25FB6C1A00799186 /* DogeWalk.xcdatamodeld */,
+				43303E322608A89100E69310 /* DataController.swift */,
+			);
+			path = DataController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

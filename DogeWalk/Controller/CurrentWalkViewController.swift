@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 import CoreData
 
 class CurrentWalkViewController: UIViewController {
@@ -31,12 +32,14 @@ class CurrentWalkViewController: UIViewController {
     // NavigationBar
     @IBOutlet weak var backSelectDogs: UIBarButtonItem!
     
-
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkLocationServices()
         enableButton(play: true, pause: false, stop: false)
     }
+    
     
     // Dismiss this ViewController when select Dogs is pressed
     // backSelectDogs must be hidden during the run!
@@ -63,6 +66,37 @@ class CurrentWalkViewController: UIViewController {
         // segue to WalkDetailController with the latest walk
     }
 
+//MARK: - Location Service
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            checkLocationAuthorization()
+        } else {
+            // show alert to let user know why they need to enable this
+        }
+    }
+    
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse:
+            currentWalkMapView.showsUserLocation = true
+        case.denied:
+            // show alert to turn on locationservice
+        break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            currentWalkMapView.showsUserLocation = true
+        case .restricted:
+            // show alert that locationusage is restricted
+        break
+        case .authorizedAlways:
+            break
+        @unknown default:
+            locationManager.requestWhenInUseAuthorization()
+            currentWalkMapView.showsUserLocation = true
+        }
+    }
+    
+    
 //MARK: - Button UI
     fileprivate func saveIndication() {
         savingIndicator.startAnimating()
@@ -83,3 +117,9 @@ class CurrentWalkViewController: UIViewController {
     }
 }
 
+//MARK: - MapKit Extension
+
+extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    
+
+}
