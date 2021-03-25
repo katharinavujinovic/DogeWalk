@@ -35,6 +35,7 @@ class CurrentWalkViewController: UIViewController {
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
     var secondCounter = 0
+    var meterCount = 0.0
     var timer = Timer()
     
     override func viewDidLoad() {
@@ -70,10 +71,7 @@ class CurrentWalkViewController: UIViewController {
         locationManager.startUpdatingHeading()
     }
     
-    @objc func updateTimer() {
-        secondCounter = secondCounter + 1
-        timeLabel.text = displayTime(seconds: secondCounter)
-    }
+
     
     @IBAction func pauseButtonPressed(_ sender: Any) {
         buttonReaction(play: false, pause: true, stop: false)
@@ -136,6 +134,11 @@ class CurrentWalkViewController: UIViewController {
       return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
+    @objc func updateTimer() {
+        secondCounter = secondCounter + 1
+        timeLabel.text = displayTime(seconds: secondCounter)
+    }
+    
 //MARK: - Button UI
     fileprivate func saveIndication() {
         savingIndicator.startAnimating()
@@ -172,6 +175,13 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentUserLocation = locations.last
         let viewRegion = MKCoordinateRegion(center: currentUserLocation!.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        // needs to count the distance from oldLocation to newLocation here
+        if userLocations != [] {
+            let distanceInMeters = currentUserLocation?.distance(from: userLocations.last!)
+            meterCount = meterCount + distanceInMeters!
+            let kmCount = meterCount/1000
+            distanceLabel.text = String(format: "%.2f", kmCount)
+        }
         self.userLocations.append(currentUserLocation!)
         addPolyLineToMap(locations: userLocations)
         currentWalkMapView.setRegion(viewRegion, animated: true)
