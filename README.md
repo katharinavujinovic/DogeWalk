@@ -10,6 +10,8 @@ The walks also give you an information about your route, as well as how much you
 - [x] Finish the storyboard design
 - [x] Use [DogAPI](https://dog.ceo/dog-api/documentation/) to fetch a list of dog breeds
 - [x] Set up UIPicker to enable selection of dog breeds
+- [x] create a Route from the walked distance
+- [x] integration of a timer
+- [x] integration of distance counter
 - [ ] Implement CoreData
-- [ ] Set up MapKit
 - [ ] Testing
