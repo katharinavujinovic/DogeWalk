@@ -34,6 +34,8 @@ class CurrentWalkViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
+    var secondCounter = 0
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +65,21 @@ class CurrentWalkViewController: UIViewController {
         pressPlayLabel.isHidden = true
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+    }
+    
+    @objc func updateTimer() {
+        secondCounter = secondCounter + 1
+        timeLabel.text = displayTime(seconds: secondCounter)
     }
     
     @IBAction func pauseButtonPressed(_ sender: Any) {
         buttonReaction(play: false, pause: true, stop: false)
         enableButton(play: true, pause: false, stop: true)
         stopLocationUpdate()
+        timer.invalidate()
     }
     
     @IBAction func stopButtonPressed(_ sender: Any) {
@@ -78,6 +87,7 @@ class CurrentWalkViewController: UIViewController {
         buttonReaction(play: false, pause: false, stop: true)
         enableButton(play: false, pause: false, stop: false)
         stopLocationUpdate()
+        timer.invalidate()
         // segue to WalkDetailController with the latest walk
     }
 
@@ -116,7 +126,15 @@ class CurrentWalkViewController: UIViewController {
         locationManager.stopUpdatingHeading()
     }
     
+    //MARK: - Timer
+    func displayTime(seconds:Int) -> String {
+        let (h, m, s) = secondsToHoursMinutesSeconds (seconds: seconds)
+      return ("\(h):\(m):\(s)")
+    }
     
+    func secondsToHoursMinutesSeconds(seconds : Int) -> (Int, Int, Int) {
+      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
     
 //MARK: - Button UI
     fileprivate func saveIndication() {
