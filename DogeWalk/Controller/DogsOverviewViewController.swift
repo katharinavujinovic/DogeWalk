@@ -7,26 +7,80 @@
 
 import Foundation
 import UIKit
+import CoreData
 
-class DogsOverviewViewController: UIViewController {
+class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var dogOverviewTableView: UITableView!
     @IBOutlet weak var newDogButton: UIBarButtonItem!
     @IBOutlet weak var walkButton: UIButton!
+    
+    var dataController: DataController!
+    var fetchedResultsController: NSFetchedResultsController<Dog>!
+    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func newDogButtonPressed(_ sender: Any) {
-        // segue to EditDogViewController
+        let newDogViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToEdit) as! DogDetailViewController
+        present(newDogViewController, animated: true, completion: nil)
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        // segue into PreWalkViewController IF there are more than 1 dog. If there is only one dog, segue into CurrentWalkViewController
+        let newWalkViewController = storyboard?.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
+        present(newWalkViewController, animated: true, completion: nil)
     }
     
-    // Has a TableView with all the current dogs!
+    func setupFetchedResultsController() {
+        let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("fetch could not been done")
+        }
+    }
     
-    // if one of the cells is tapped, a segue to the DogDetailViewcontroller will open up
+}
+
+extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?.count ?? 0
+    }
+    
+    fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+        cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let aDog = fetchedResultsController.object(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
+        cell.dogImage.image = UIImage(data: aDog.profile!)
+        cell.ageLabel.text = "\(aDog.age)"
+        cell.breedLabel.text = aDog.breed
+        cell.nameLabel.text = aDog.name
+        cell.toyLabel.text = aDog.favouriteToy
+        cell.treatLabel.text = aDog.favouriteTreat
+        
+        if aDog.gender == "female" {
+            setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
+        } else {
+            setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1))
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dogDetailViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToDetail) as! DogDetailViewController
+        dogDetailViewController.dog = fetchedResultsController.object(at: indexPath)
+        present(dogDetailViewController, animated: true, completion: nil)
+    }
+    
 }

@@ -45,3 +45,26 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
     
 }
+
+extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let aWalk = fetchedResultsController.object(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+        cell.dateLabel.text = "\(String(describing: aWalk.date))"
+        cell.distancelabel.text = aWalk.distance
+        cell.startTimeLabel.text = aWalk.startTime
+        cell.timeLabel.text = aWalk.time
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let walkDetailViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.walkOverviewToDetail) as! WalkDetailViewController
+        walkDetailViewController.walk = fetchedResultsController.object(at: indexPath)
+        present(walkDetailViewController, animated: true, completion: nil)
+    }
+}

@@ -102,7 +102,7 @@ extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // let selectedDogBreed = dogBreed[row]
+        let selectedDogBreed = sortedBreeds[row]
         // save the breed to you CoreData
     }
 }

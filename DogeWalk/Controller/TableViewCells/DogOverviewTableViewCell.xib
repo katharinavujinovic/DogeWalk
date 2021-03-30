@@ -20,6 +20,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-c1-BME">
                         <rect key="frame" x="0.0" y="0.0" width="398" height="161"/>
                         <subviews>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wLE-DS-VTm">
+                                <rect key="frame" x="0.0" y="0.0" width="398" height="161"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6G-cb-Sh5">
                                 <rect key="frame" x="0.0" y="0.0" width="398" height="161"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
@@ -78,12 +82,16 @@
                             <constraint firstItem="YNL-9A-0ix" firstAttribute="centerY" secondItem="6i4-c1-BME" secondAttribute="centerY" id="DiH-OA-Esf"/>
                             <constraint firstItem="30m-aa-goM" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" constant="20" symbolic="YES" id="KhE-UW-T69"/>
                             <constraint firstItem="6Hh-cu-UTW" firstAttribute="top" secondItem="30m-aa-goM" secondAttribute="bottom" constant="5.5" id="KoZ-wI-CTC"/>
+                            <constraint firstAttribute="bottom" secondItem="wLE-DS-VTm" secondAttribute="bottom" id="PJI-8R-baM"/>
+                            <constraint firstItem="wLE-DS-VTm" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" id="Rw3-PA-HPb"/>
                             <constraint firstItem="Q6G-cb-Sh5" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" id="UbA-C4-1CX"/>
                             <constraint firstItem="30m-aa-goM" firstAttribute="leading" secondItem="YNL-9A-0ix" secondAttribute="trailing" constant="18" id="V57-5c-PJ9"/>
                             <constraint firstAttribute="height" constant="161" id="bmU-v9-j1F"/>
                             <constraint firstAttribute="trailing" secondItem="30m-aa-goM" secondAttribute="trailing" constant="20" id="dyh-Tf-plQ"/>
+                            <constraint firstItem="wLE-DS-VTm" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" id="jna-g1-i6d"/>
                             <constraint firstAttribute="bottom" secondItem="Q6G-cb-Sh5" secondAttribute="bottom" id="k4g-oW-n90"/>
                             <constraint firstAttribute="trailing" secondItem="6Hh-cu-UTW" secondAttribute="trailing" constant="20" id="pUM-vx-kX7"/>
+                            <constraint firstAttribute="trailing" secondItem="wLE-DS-VTm" secondAttribute="trailing" id="sN8-TP-cip"/>
                             <constraint firstItem="Q6G-cb-Sh5" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" id="w6L-0w-nSb"/>
                             <constraint firstAttribute="bottom" secondItem="6Hh-cu-UTW" secondAttribute="bottom" constant="16" id="wYB-qX-Dbz"/>
                         </constraints>
@@ -99,6 +107,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="ageLabel" destination="8hq-Sa-f0e" id="w8o-dw-EpK"/>
+                <outlet property="backgroundTint" destination="wLE-DS-VTm" id="Oxb-jd-X7T"/>
                 <outlet property="breedLabel" destination="TnU-Et-98v" id="flc-to-Boc"/>
                 <outlet property="dogImage" destination="YNL-9A-0ix" id="bg1-eN-ND0"/>
                 <outlet property="nameLabel" destination="30m-aa-goM" id="dQm-VG-cWt"/>
