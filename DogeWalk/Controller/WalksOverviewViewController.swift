@@ -7,11 +7,15 @@
 
 import Foundation
 import UIKit
+import CoreData
 
-class WalksOverviewViewController: UIViewController {
+class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
+    
+    var dataController: DataController!
+    var fetchedResultsController: NSFetchedResultsController<Walk>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,5 +29,19 @@ class WalksOverviewViewController: UIViewController {
     // if there are no walks yet, there should be an image stating that
     
     // if one walk is pressed, segue to the WalksDetailViewController
+    
+    func setupFetchedResultsController() {
+        let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "walks")
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("fetch could not been done")
+        }
+    }
     
 }

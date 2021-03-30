@@ -12,10 +12,10 @@
     </entity>
     <entity name="Walk" representedClassName="Walk" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="route" optional="YES" attributeType="Transformable"/>
+        <attribute name="distance" optional="YES" attributeType="String"/>
+        <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="MKPolyline"/>
         <attribute name="startTime" optional="YES" attributeType="String"/>
-        <attribute name="time" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
         <relationship name="dogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="walks" inverseEntity="Dog"/>
     </entity>
     <elements>

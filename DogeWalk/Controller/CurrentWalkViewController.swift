@@ -157,18 +157,54 @@ class CurrentWalkViewController: UIViewController {
         pauseButton.isEnabled = pause
         stopButton.isEnabled = stop
     }
-}
 
+
+//MARK: - PolyLine Archive
+    
+
+    func archive(walk: Walk) {
+        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let newEntity = NSEntityDescription.entity(forEntityName: "Walk", in: managedContext)!
+        let newWalk = NSManagedObject(entity: newEntity, insertInto: managedContext)
+        newWalk.setValue(walk.date, forKey: "date")
+        newWalk.setValue(walk.distance, forKey: "distance")
+        newWalk.setValue(walk.route, forKey: "route")
+        newWalk.setValue(walk.startTime, forKey: "startTime")
+        newWalk.setValue(walk.time, forKey: "time")
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save \(error)")
+        }
+    }
+    
+    /*
+    func polyLineToArchive(polyLine: MKPolyline) -> NSData {
+        let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polyLine.pointCount)
+        polyLine.getCoordinates(coordsPointer, range: NSMakeRange(0, polyLine.pointCount))
+        var coords: [Dictionary<String, AnyObject>] = []
+        for i in 0..<polyLine.pointCount {
+            let latitude = NSNumber(value: coordsPointer[i].latitude)
+            let longitude = NSNumber(value: coordsPointer[i].longitude)
+            let coord = ["latitude": latitude, "longitude": longitude]
+            coords.append(coord)
+        }
+        let polyLineData = try? NSKeyedArchiver.archivedData(withRootObject: coords, requiringSecureCoding: false)
+        return polyLineData! as NSData
+    }
+ */
+    
+}
 //MARK: - MapKit Extension
 
 extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
-    func addPolyLineToMap(locations: [CLLocation]) {
+    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
         let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
             return location.coordinate
         })
         let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
-        currentWalkMapView.addOverlay(polyLine)
+        return polyLine
     }
     
     // is called when location is updated
@@ -183,7 +219,7 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
             distanceLabel.text = String(format: "%.2f", kmCount)
         }
         self.userLocations.append(currentUserLocation!)
-        addPolyLineToMap(locations: userLocations)
+        currentWalkMapView.addOverlay(createPolyLine(locations: userLocations))
         currentWalkMapView.setRegion(viewRegion, animated: true)
     }
     
