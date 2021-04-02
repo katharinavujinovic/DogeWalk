@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import MapKit
 
 class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
@@ -42,7 +43,6 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
             print("fetch could not been done")
         }
     }
-    
 }
 
 extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegate {
@@ -67,3 +67,4 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         present(walkDetailViewController, animated: true, completion: nil)
     }
 }
+

@@ -183,13 +183,14 @@ class CurrentWalkViewController: UIViewController {
         newWalk.date = walk.date
         newWalk.distance = walk.distance
         newWalk.dogs = walk.dogs
-        newWalk.route = walk.route as! MKPolyline
+        let archiveRoute = polyLineToArchive(polyLine: createPolyLine(locations: userLocations))
+        newWalk.route = archiveRoute
         newWalk.startTime = walk.startTime
         newWalk.time = walk.time
         DataController.dataController.saveViewContext()
     }
     
-    /*
+
     func polyLineToArchive(polyLine: MKPolyline) -> NSData {
         let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polyLine.pointCount)
         polyLine.getCoordinates(coordsPointer, range: NSMakeRange(0, polyLine.pointCount))
@@ -203,7 +204,7 @@ class CurrentWalkViewController: UIViewController {
         let polyLineData = try? NSKeyedArchiver.archivedData(withRootObject: coords, requiringSecureCoding: false)
         return polyLineData! as NSData
     }
- */
+
     
 }
 //MARK: - MapKit Extension

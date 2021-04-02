@@ -37,7 +37,25 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
-        walkDetailMapView.addOverlay(walk.route as! MKPolyline)
+        let routeData = walk.value(forKey: "route") as! NSData
+        let polyline = polylineUnarchive(polylineArchive: routeData)
+        walkDetailMapView.addOverlay(polyline!)
+    }
+    func polylineUnarchive(polylineArchive: NSData) -> MKPolyline? {
+        let data = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(polylineArchive as Data)
+        let polyline = data as! [Dictionary<String, AnyObject>]
+
+        var locations: [CLLocation] = []
+        for item in polyline {
+            if let latitude = item["latitude"]?.doubleValue,
+                let longitude = item["longitude"]?.doubleValue {
+                let location = CLLocation(latitude: latitude, longitude: longitude)
+                locations.append(location)
+            }
+        }
+        var coordinates = locations.map({(location: CLLocation) -> CLLocationCoordinate2D in return location.coordinate})
+        let fetchedPolyline = MKPolyline(coordinates: &coordinates, count: locations.count)
+        return fetchedPolyline
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -48,6 +66,18 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
             return polyLineRenderer
         }
         return MKOverlayRenderer()
+    }
+    
+    func log(polyline: MKPolyline) {
+        let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polyline.pointCount)
+        polyline.getCoordinates(coordsPointer, range: NSMakeRange(0, polyline.pointCount))
+        var coords: [Dictionary<String, AnyObject>] = []
+        for i in 0..<polyline.pointCount {
+            let latitude = NSNumber(value: coordsPointer[i].latitude)
+            let longitude = NSNumber(value: coordsPointer[i].longitude)
+            let coord = ["latitude" : latitude, "longitude" : longitude]
+            coords.append(coord)
+        }
     }
 }
 

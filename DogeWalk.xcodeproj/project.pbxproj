@@ -20,7 +20,6 @@
 		43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3925FB83F700799186 /* WalkDetailViewController.swift */; };
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
 		43303E332608A89100E69310 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43303E322608A89100E69310 /* DataController.swift */; };
-		434BF21E260E33B80090C2E9 /* Managed Object Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 434BF21D260E33B80090C2E9 /* Managed Object Extensions */; };
 		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
 		435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */; };
 		435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */; };
@@ -32,7 +31,6 @@
 		435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */; };
 		436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436341B126010B58000FC1C9 /* ColorExtention.swift */; };
 		4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4368A07925FF873100BE15B9 /* EditDogViewController.swift */; };
-		43B191972609DF3D0070E372 /* Walk+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B191962609DF3D0070E372 /* Walk+Extensions.swift */; };
 		43F458C22604A36E00B3CD7B /* DogBreedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */; };
 		43F458C52604A91D00B3CD7B /* DogBreedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */; };
 /* End PBXBuildFile section */
@@ -53,7 +51,6 @@
 		43135B3925FB83F700799186 /* WalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailViewController.swift; sourceTree = "<group>"; };
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
 		43303E322608A89100E69310 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		434BF21D260E33B80090C2E9 /* Managed Object Extensions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Managed Object Extensions"; path = "DogeWalk/Model/Managed Object Extensions"; sourceTree = SOURCE_ROOT; };
 		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCollectionViewCell.swift; sourceTree = "<group>"; };
 		435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -65,7 +62,6 @@
 		435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogOverviewTableViewCell.xib; sourceTree = "<group>"; };
 		436341B126010B58000FC1C9 /* ColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtention.swift; sourceTree = "<group>"; };
 		4368A07925FF873100BE15B9 /* EditDogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDogViewController.swift; sourceTree = "<group>"; };
-		43B191962609DF3D0070E372 /* Walk+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Walk+Extensions.swift"; sourceTree = "<group>"; };
 		43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPI.swift; sourceTree = "<group>"; };
 		43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +132,6 @@
 			children = (
 				43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */,
 				43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */,
-				43B191992609DF430070E372 /* Managed Object Extensions */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,18 +158,9 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		43B191992609DF430070E372 /* Managed Object Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				43B191962609DF3D0070E372 /* Walk+Extensions.swift */,
-			);
-			path = "Managed Object Extensions";
-			sourceTree = "<group>";
-		};
 		43B191A4260B43450070E372 /* DataController */ = {
 			isa = PBXGroup;
 			children = (
-				434BF21D260E33B80090C2E9 /* Managed Object Extensions */,
 				43135B1B25FB6C1A00799186 /* DogeWalk.xcdatamodeld */,
 				43303E322608A89100E69310 /* DataController.swift */,
 			);
@@ -243,7 +229,6 @@
 				43135B1F25FB6C1A00799186 /* Assets.xcassets in Resources */,
 				435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */,
 				43135B1A25FB6C1A00799186 /* Main.storyboard in Resources */,
-				434BF21E260E33B80090C2E9 /* Managed Object Extensions in Resources */,
 				435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */,
 				435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */,
 			);
@@ -274,7 +259,6 @@
 				43135B1D25FB6C1A00799186 /* DogeWalk.xcdatamodeld in Sources */,
 				435B668B2603AB9400EF2160 /* DogOverviewTableViewCell.swift in Sources */,
 				435B666826037D5800EF2160 /* Constants.swift in Sources */,
-				43B191972609DF3D0070E372 /* Walk+Extensions.swift in Sources */,
 				435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

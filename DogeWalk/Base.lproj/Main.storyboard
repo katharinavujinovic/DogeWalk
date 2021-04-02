@@ -921,6 +921,7 @@
                         <outlet property="maleIcon" destination="8VE-A9-TTY" id="uzt-ad-xp1"/>
                         <outlet property="nameTextField" destination="Y13-dF-PWA" id="Ogu-Sw-VSp"/>
                         <outlet property="saveButton" destination="Muk-25-PO4" id="Hzb-su-57c"/>
+                        <outlet property="scrollView" destination="I2A-eN-pHl" id="XGe-t5-T3C"/>
                         <outlet property="selectDogButton" destination="c4F-mO-mEU" id="BCn-Ru-24M"/>
                         <outlet property="toyTextField" destination="zIk-7I-eH6" id="TbS-fV-M8R"/>
                         <outlet property="treatTextField" destination="hf0-IW-SnF" id="svS-Mp-mhK"/>

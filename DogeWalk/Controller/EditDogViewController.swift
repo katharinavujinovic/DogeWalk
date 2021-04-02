@@ -13,6 +13,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     // deletes the dog from a library after showing an alarm
     @IBOutlet weak var deleteDog: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var selectDogButton: UIButton!
     @IBOutlet weak var dogImage: UIImageView!
@@ -66,8 +67,13 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             addNewDogButton.isHidden = true
         } else {
             saveButton.isHidden = true
+            deleteDog.isHidden = true
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
+    
+
     
     
 
@@ -129,6 +135,21 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         self.dismiss(animated: true, completion: nil)
     }
     
+//MARK: - Keyboard
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.scrollView.frame.origin.y == 0 {
+                self.scrollView.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.scrollView.frame.origin.y != 0 {
+            self.scrollView.frame.origin.y = 0
+        }
+    }
+    
 }
 
 //MARK: - UIPicker
@@ -180,3 +201,5 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
         present(imagePickerController, animated: true, completion: nil)
     }
 }
+
+
