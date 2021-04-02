@@ -719,7 +719,7 @@
                                             <constraint firstAttribute="width" constant="125" id="YqC-So-KEe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="postal-code"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QP1-mS-vcv">
                                         <rect key="frame" x="20" y="304" width="27" height="18"/>
@@ -884,16 +884,29 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7K-ND-9Do">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="8pa-5c-mNW">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GW0-yC-VfS">
-                                <rect key="frame" x="320" y="9" width="74" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.74844318629999995" green="0.025977589190000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="trash" catalog="system" symbolScale="large"/>
-                                </state>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="Hkz-76-GMw">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Muk-25-PO4">
+                                    <rect key="frame" x="302" y="3" width="92" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="22"/>
+                                    <state key="normal" title="Save"/>
+                                    <connections>
+                                        <action selector="saveButtonPressed:" destination="vy4-df-odi" eventType="touchUpInside" id="0EC-ma-Atd"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="8pa-5c-mNW">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GW0-yC-VfS">
+                                    <rect key="frame" x="220" y="9" width="74" height="26"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="tintColor" red="0.74844318629999995" green="0.025977589190000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="trash" catalog="system" symbolScale="large"/>
+                                    </state>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addNewDogButton" destination="0lm-N4-yxK" id="2Fk-SN-Xcu"/>
@@ -907,6 +920,7 @@
                         <outlet property="maleButton" destination="LnO-rb-VY1" id="2IN-pM-Qi9"/>
                         <outlet property="maleIcon" destination="8VE-A9-TTY" id="uzt-ad-xp1"/>
                         <outlet property="nameTextField" destination="Y13-dF-PWA" id="Ogu-Sw-VSp"/>
+                        <outlet property="saveButton" destination="Muk-25-PO4" id="Hzb-su-57c"/>
                         <outlet property="selectDogButton" destination="c4F-mO-mEU" id="BCn-Ru-24M"/>
                         <outlet property="toyTextField" destination="zIk-7I-eH6" id="TbS-fV-M8R"/>
                         <outlet property="treatTextField" destination="hf0-IW-SnF" id="svS-Mp-mhK"/>

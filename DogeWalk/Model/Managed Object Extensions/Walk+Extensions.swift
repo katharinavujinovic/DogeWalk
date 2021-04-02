@@ -7,8 +7,12 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 extension Walk {
+    
+    @NSManaged public var route: MKPolyline?
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         date = Date()

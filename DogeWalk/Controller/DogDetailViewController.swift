@@ -28,30 +28,24 @@ class DogDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
+        dogImage.image = UIImage(data: dog.profile!)
+        nameLabel.text = dog.name
+        ageLabel.text = "\(dog.age)"
+        breedLabel.text = dog.breed
+        toyChoice.text = dog.favouriteToy
+        treatChoice.text = dog.favouriteTreat
         // set the backgroundcolor based on gender of dog
         if dog.gender == "female" {
             setcoloredViewBackground(maincolor: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), highlightcolor: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
         } else {
             setcoloredViewBackground(maincolor: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), highlightcolor: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1))
         }
-//
     }
     
     @IBAction func dogStatsPressed(_ sender: Any) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let editDogViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogDetailToEdit) as! EditDogViewController
-        editDogViewController.nameTextField.text = dog.name
-        editDogViewController.dogImage.image = UIImage(data: dog.profile!)
-        editDogViewController.ageTextField.text = "\(dog.age)"
-        editDogViewController.toyTextField.text = dog.favouriteToy
-        editDogViewController.treatTextField.text = dog.favouriteTreat
-        if dog.gender == "female" {
-            editDogViewController.femaleButton.isHighlighted = true
-            editDogViewController.genderTint.setGradientViewBackground(colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
-        } else {
-            editDogViewController.maleButton.isHighlighted = true
-            editDogViewController.genderTint.setGradientViewBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
-        }
+        editDogViewController.dog = dog
     }
 
     

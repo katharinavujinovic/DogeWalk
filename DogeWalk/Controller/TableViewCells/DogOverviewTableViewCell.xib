@@ -36,30 +36,40 @@
                                 <rect key="frame" x="163" y="49" width="215" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Sa-f0e">
-                                        <rect key="frame" x="0.0" y="0.0" width="27" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="215" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnU-Et-98v">
-                                        <rect key="frame" x="0.0" y="26" width="41" height="18"/>
+                                        <rect key="frame" x="0.0" y="26" width="215" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toy of Choice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIN-s7-1ll">
-                                        <rect key="frame" x="0.0" y="52" width="94" height="18"/>
+                                        <rect key="frame" x="0.0" y="52" width="215" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treat of Choice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-qq-aAF">
-                                        <rect key="frame" x="0.0" y="78" width="105" height="18"/>
+                                        <rect key="frame" x="0.0" y="78" width="215" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fIN-s7-1ll" secondAttribute="trailing" id="NsR-TM-Vjh"/>
+                                    <constraint firstAttribute="trailing" secondItem="8hq-Sa-f0e" secondAttribute="trailing" id="TNC-jV-Fzi"/>
+                                    <constraint firstAttribute="trailing" secondItem="h6j-qq-aAF" secondAttribute="trailing" id="VZc-gi-ZSD"/>
+                                    <constraint firstItem="h6j-qq-aAF" firstAttribute="leading" secondItem="6Hh-cu-UTW" secondAttribute="leading" id="W1C-LK-Hv6"/>
+                                    <constraint firstItem="TnU-Et-98v" firstAttribute="leading" secondItem="6Hh-cu-UTW" secondAttribute="leading" id="Y70-G1-IKw"/>
+                                    <constraint firstItem="8hq-Sa-f0e" firstAttribute="leading" secondItem="6Hh-cu-UTW" secondAttribute="leading" id="cee-4m-jtN"/>
+                                    <constraint firstAttribute="trailing" secondItem="TnU-Et-98v" secondAttribute="trailing" id="oG5-14-ohK"/>
+                                    <constraint firstItem="fIN-s7-1ll" firstAttribute="leading" secondItem="6Hh-cu-UTW" secondAttribute="leading" id="sl1-4c-AQT"/>
+                                </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30m-aa-goM">
                                 <rect key="frame" x="163" y="20" width="215" height="23.5"/>
