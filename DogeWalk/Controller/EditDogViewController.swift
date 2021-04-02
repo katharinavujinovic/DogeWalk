@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 import CoreData
 
-// When "has launched before" is false, this needs to be the first page to start with. In that case, hide the toolbar, so the user can't cancel oder edit
-
 class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegate {
     // deletes the dog from a library after showing an alarm
     @IBOutlet weak var deleteDog: UIButton!
@@ -72,10 +70,10 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     }
     
     
-    @IBAction func selectImageButton(_ sender: Any) {
-    // select Dogimage from camera roll or take a picture
-    }
+
     
+    
+//MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {
         genderIconReaction(mainColor: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), hightlightColor: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1), female: true, male: false)
         genderOfDog = "female"
@@ -87,6 +85,17 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         genderOfDog = "male"
     }
     
+
+    // setting the Response when one or the other icon is tapped
+    fileprivate func genderIconReaction(mainColor: UIColor, hightlightColor: UIColor, female: Bool, male: Bool) {
+        genderTint.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        maleIcon.isHighlighted = male
+        femaleIcon.isHighlighted = female
+        genderTint.setGradientViewBackground(colorOne: mainColor, colorTwo: hightlightColor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
+    }
+ 
+    
+//MARK: - Saving
     
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" || genderOfDog == "" {
@@ -96,15 +105,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
     }
     
-    
-    // setting the Response when one or the other icon is tapped
-    fileprivate func genderIconReaction(mainColor: UIColor, hightlightColor: UIColor, female: Bool, male: Bool) {
-        genderTint.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        maleIcon.isHighlighted = male
-        femaleIcon.isHighlighted = female
-        genderTint.setGradientViewBackground(colorOne: mainColor, colorTwo: hightlightColor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
-    }
- 
     @IBAction func saveButtonPressed(_ sender: Any) {
         dog?.name = nameTextField.text
         dog?.profile = dogImage.image?.pngData()
@@ -113,6 +113,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
         DataController.dataController.saveViewContext()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {
@@ -125,6 +126,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         newDog.favouriteToy = favouritToy
         newDog.favouriteTreat = favouriteTreat
         DataController.dataController.saveViewContext()
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -145,6 +147,36 @@ extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedDogBreed = sortedBreeds[row]
-        // save the breed to you CoreData
+    }
+}
+
+//MARK: - ImagePicker
+extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBAction func selectImageButton(_ sender: Any) {
+        let alert = UIAlertController(title: "Add Image", message: "Select how you want to add an Image", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Choose from Photo Library", style: .default, handler: { (action) in
+            self.pickAnImage(sourceType: .photoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title: "Take Picture with Camera", style: .default, handler: { (action) in
+            self.pickAnImage(sourceType: .camera)
+        }))
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.dogImage.image = chosenImage
+        } else {
+            print("not able to use image")
+            return
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func pickAnImage(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true, completion: nil)
     }
 }

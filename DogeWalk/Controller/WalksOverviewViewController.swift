@@ -22,13 +22,12 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
+        
         // segue into PreWalkViewController IF there are more than 1 dog. If there is only one dog, segue into CurrentWalkViewController
     }
     // displays all the walks you have done with your dog/dogs sorted from recent to oldest
     
     // if there are no walks yet, there should be an image stating that
-    
-    // if one walk is pressed, segue to the WalksDetailViewController
     
     func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
