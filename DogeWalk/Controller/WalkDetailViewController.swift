@@ -26,6 +26,8 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         walkDetailMapView.delegate = self
+        walkDetailCollectionView.dataSource = self
+        walkDetailCollectionView.delegate = self
         displaySelectedWalk()
     }
 
@@ -81,5 +83,18 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     }
 }
 
-// display the dogs in your collectionView
+//MARK: - Mini CollectionView
+extension WalkDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dogs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
+        cell.dogImage.image = UIImage(data: dogs[indexPath.row].profile!)
+        return cell
+    }
+    
+    
+}
 

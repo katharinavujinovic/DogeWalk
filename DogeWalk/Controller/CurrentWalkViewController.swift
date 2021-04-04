@@ -37,6 +37,8 @@ class CurrentWalkViewController: UIViewController {
     var secondCounter = 0
     var meterCount = 0.0
     var timer = Timer()
+    var dogs: [Dog]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,8 @@ class CurrentWalkViewController: UIViewController {
 //        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.delegate = self
         currentWalkMapView.delegate = self
+        currentWalkCollectionView.delegate = self
+        currentWalkCollectionView.dataSource = self
         currentWalkMapView.mapType = MKMapType(rawValue: 0)!
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         
@@ -246,4 +250,19 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
         return MKOverlayRenderer()
     }
 
+}
+
+//MARK: - Mini CollectionView
+extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dogs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
+        cell.dogImage.image = UIImage(data: dogs[indexPath.row].profile!)
+        return cell
+    }
+    
+    
 }

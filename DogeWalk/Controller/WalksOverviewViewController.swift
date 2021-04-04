@@ -23,10 +23,9 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        
-        // segue into PreWalkViewController IF there are more than 1 dog. If there is only one dog, segue into CurrentWalkViewController
+        let newWalkViewController = storyboard?.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
+        present(newWalkViewController, animated: true, completion: nil)
     }
-    // displays all the walks you have done with your dog/dogs sorted from recent to oldest
     
     // if there are no walks yet, there should be an image stating that
     
@@ -46,6 +45,8 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
 }
 
 extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
@@ -60,6 +61,13 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        /*
+        guard let tableViewCell = cell as? WalksOverviewTableViewCell else {return}
+        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+ */
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let walkDetailViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.walkOverviewToDetail) as! WalkDetailViewController
@@ -68,3 +76,16 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
+/*
+extension WalksOverviewViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[collectionView.tag] ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let dogs = fetchedResultsController.object(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
+        cell.dogImage.image = UIImage()
+    }
+}
+ */

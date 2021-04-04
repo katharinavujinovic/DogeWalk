@@ -19,13 +19,13 @@ class WalksOverviewTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setCollectionViewDataSourceDelegate(dataSourceDelegate: UICollectionViewDataSource & UICollectionViewDelegate, forRow row: Int) {
+        miniCollectionView.delegate = dataSourceDelegate
+        miniCollectionView.dataSource = dataSourceDelegate
+        miniCollectionView.tag = row
+        miniCollectionView.reloadData()
     }
     
 }
 
-// https://stackoverflow.com/questions/52104047/how-to-properly-add-an-uicollectionview-inside-uitableviewcell-using-ios-12
