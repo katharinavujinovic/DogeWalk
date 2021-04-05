@@ -183,15 +183,15 @@ class CurrentWalkViewController: UIViewController {
     }
     
     func archiveWalk(walk: Walk) {
-        let newWalk = Walk(context: DataController.dataController.viewContext)
+        let newWalk = Walk(context: DataController.shared.viewContext)
         newWalk.date = walk.date
         newWalk.distance = walk.distance
-        newWalk.dogs = walk.dogs
         let archiveRoute = polyLineToArchive(polyLine: createPolyLine(locations: userLocations))
         newWalk.route = archiveRoute
         newWalk.startTime = walk.startTime
         newWalk.time = walk.time
-        DataController.dataController.saveViewContext()
+        newWalk.setValue(dogs, forKey: "participatingDogs")
+        DataController.shared.saveViewContext()
     }
     
 

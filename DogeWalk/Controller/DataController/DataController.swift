@@ -10,7 +10,7 @@ import CoreData
 
 class DataController {
     
-    static let dataController = DataController(modelName: "DogeWalk")
+    static let shared = DataController(modelName: "DogeWalk")
     let persistenceContainer: NSPersistentContainer
     var viewContext: NSManagedObjectContext {
         return persistenceContainer.viewContext

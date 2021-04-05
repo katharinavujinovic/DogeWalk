@@ -118,12 +118,12 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.age = Int16(ageTextField.text!)!
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
-        DataController.dataController.saveViewContext()
+        DataController.shared.saveViewContext()
         self.dismiss(animated: true, completion: nil)
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {
-        let newDog = Dog(context: DataController.dataController.viewContext)
+        let newDog = Dog(context: DataController.shared.viewContext)
         newDog.name = name
         newDog.profile = image.pngData()
         newDog.age = age
@@ -131,7 +131,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         newDog.gender = gender
         newDog.favouriteToy = favouritToy
         newDog.favouriteTreat = favouriteTreat
-        DataController.dataController.saveViewContext()
+        DataController.shared.saveViewContext()
         self.dismiss(animated: true, completion: nil)
     }
     

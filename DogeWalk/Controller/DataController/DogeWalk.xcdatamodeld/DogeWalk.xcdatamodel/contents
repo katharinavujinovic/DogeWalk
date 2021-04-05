@@ -8,18 +8,18 @@
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="profile" optional="YES" attributeType="Binary"/>
-        <relationship name="walks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="dogs" inverseEntity="Walk"/>
+        <relationship name="participatedWalks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="participatingDogs" inverseEntity="Walk"/>
     </entity>
     <entity name="Walk" representedClassName="Walk" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="distance" optional="YES" attributeType="String"/>
-        <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName=""/>
+        <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="startTime" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
-        <relationship name="dogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="walks" inverseEntity="Dog"/>
+        <relationship name="participatingDogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="participatedWalks" inverseEntity="Dog"/>
     </entity>
     <elements>
-        <element name="Dog" positionX="-306.364013671875" positionY="8.98858642578125" width="128" height="163"/>
+        <element name="Dog" positionX="-306.364013671875" positionY="8.98858642578125" width="128" height="149"/>
         <element name="Walk" positionX="-7.4697265625" positionY="38.67431640625" width="128" height="119"/>
     </elements>
 </model>

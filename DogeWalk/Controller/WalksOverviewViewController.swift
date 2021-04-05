@@ -20,6 +20,8 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        walkOverviewTableView.dataSource = self
+        walkOverviewTableView.delegate = self
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
@@ -62,10 +64,8 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        /*
         guard let tableViewCell = cell as? WalksOverviewTableViewCell else {return}
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
- */
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -76,16 +76,22 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
-/*
+
 extension WalksOverviewViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[collectionView.tag] ?? 0
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dogs = fetchedResultsController.object(at: indexPath)
+        let nSSetDogs = fetchedResultsController.object(at: indexPath).value(forKey: "participatingDogs") as! [Dog]
+        
+        var dogImages: [UIImage] = []
+        for dog in nSSetDogs {
+            let image = UIImage(data: dog.profile!)
+            dogImages.append(image!)
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
-        cell.dogImage.image = UIImage()
+        cell.dogImage.image = dogImages[indexPath.row]
+        return cell
     }
 }
- */
