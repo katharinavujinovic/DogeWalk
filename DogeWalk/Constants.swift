@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
+    
+    static let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     
     struct Segue {
         static let dogOverviewToEdit = "DogOverviewToEdit"

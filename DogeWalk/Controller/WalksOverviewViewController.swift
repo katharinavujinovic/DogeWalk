@@ -15,17 +15,17 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
     
-    var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Walk>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupFetchedResultsController()
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        let newWalkViewController = storyboard?.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
+        let newWalkViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
         present(newWalkViewController, animated: true, completion: nil)
     }
     
@@ -36,7 +36,7 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "walks")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "walks")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -46,11 +46,15 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
 }
 
+//MARK: - TableView Controller
 extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

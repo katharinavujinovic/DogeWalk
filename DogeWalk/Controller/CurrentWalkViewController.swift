@@ -172,7 +172,7 @@ class CurrentWalkViewController: UIViewController {
         let newWalk = NSManagedObject(entity: newEntity, insertInto: managedContext)
         newWalk.setValue(walk.date, forKey: "date")
         newWalk.setValue(walk.distance, forKey: "distance")
-        newWalk.setValue(walk.route, forKey: "route")
+//        newWalk.setValue(walk.route, forKey: "route")
         newWalk.setValue(walk.startTime, forKey: "startTime")
         newWalk.setValue(walk.time, forKey: "time")
         do {
@@ -187,7 +187,7 @@ class CurrentWalkViewController: UIViewController {
         newWalk.date = walk.date
         newWalk.distance = walk.distance
         let archiveRoute = polyLineToArchive(polyLine: createPolyLine(locations: userLocations))
-        newWalk.route = archiveRoute
+//        newWalk.route = archiveRoute
         newWalk.startTime = walk.startTime
         newWalk.time = walk.time
         newWalk.setValue(dogs, forKey: "participatingDogs")

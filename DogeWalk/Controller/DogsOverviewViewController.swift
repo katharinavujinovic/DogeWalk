@@ -15,30 +15,26 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
     @IBOutlet weak var newDogButton: UIBarButtonItem!
     @IBOutlet weak var walkButton: UIButton!
     
-    var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Dog>!
-    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupFetchedResultsController()
+        dogOverviewTableView.dataSource = self
+        dogOverviewTableView.delegate = self
     }
-    
-    @IBAction func newDogButtonPressed(_ sender: Any) {
-        let newDogViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToEdit) as! DogDetailViewController
-        present(newDogViewController, animated: true, completion: nil)
-    }
-    
+
     @IBAction func walkButtonPressed(_ sender: Any) {
-        let newWalkViewController = storyboard?.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
+        let newWalkViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
         present(newWalkViewController, animated: true, completion: nil)
     }
-    
+
     func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -47,17 +43,23 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
         }
     }
     
-}
-
-extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
-    }
-    
     fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
+}
+
+//MARK: - TableView Controller
+extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let aDog = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
@@ -78,7 +80,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dogDetailViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToDetail) as! DogDetailViewController
+        let dogDetailViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToDetail) as! DogDetailViewController
         dogDetailViewController.dog = fetchedResultsController.object(at: indexPath)
         present(dogDetailViewController, animated: true, completion: nil)
     }

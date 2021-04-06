@@ -543,17 +543,15 @@
                         <barButtonItem key="rightBarButtonItem" title="New Dog" image="AddDog" id="Vrx-DM-mNm">
                             <color key="tintColor" name="Button_Orange"/>
                             <connections>
-                                <action selector="newDogButtonPressed:" destination="3Uy-Pe-hbY" id="k5X-0l-CIu"/>
+                                <segue destination="vy4-df-odi" kind="show" identifier="DogOverviewToEdit" id="DRD-el-8zJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dogOverviewTableView" destination="j0E-Yf-shH" id="FT8-HR-ggT"/>
-                        <outlet property="newDogButton" destination="Vrx-DM-mNm" id="Gys-yh-L6I"/>
                         <outlet property="walkButton" destination="jk7-t6-EsL" id="jN5-Me-uqC"/>
                         <segue destination="d6w-gL-Hz2" kind="show" identifier="DogOverviewToDetail" id="4CI-QC-Ids"/>
                         <segue destination="Yha-1Z-OQm" kind="presentation" identifier="DogOverviewToPreWalk" id="ZiM-EW-o8w"/>
-                        <segue destination="vy4-df-odi" kind="show" identifier="DogOverviewToEdit" id="ulU-NT-5Mn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OSq-uv-Ix1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -682,7 +680,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZM-zT-WHj">
+                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZM-zT-WHj">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -994,8 +992,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3ZU-n7-8rP"/>
-        <segue reference="q11-x5-cyj"/>
+        <segue reference="DRD-el-8zJ"/>
+        <segue reference="ZiM-EW-o8w"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="Button_Orange"/>
     <resources>
