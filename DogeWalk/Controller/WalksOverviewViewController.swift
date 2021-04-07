@@ -25,8 +25,7 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        let newWalkViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
-        present(newWalkViewController, animated: true, completion: nil)
+        self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
     }
     
     // if there are no walks yet, there should be an image stating that

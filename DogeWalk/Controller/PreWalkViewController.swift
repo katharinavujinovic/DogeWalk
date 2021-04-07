@@ -15,7 +15,6 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var selectedDogs: [Dog] = []
     
@@ -47,7 +46,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()

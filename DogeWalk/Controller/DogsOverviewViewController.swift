@@ -25,8 +25,7 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
     }
 
     @IBAction func walkButtonPressed(_ sender: Any) {
-        let newWalkViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToPreWalk) as! PreWalkViewController
-        present(newWalkViewController, animated: true, completion: nil)
+        self.performSegue(withIdentifier: Constants.Segue.dogOverviewToPreWalk, sender: self)
     }
 
     func setupFetchedResultsController() {

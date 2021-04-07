@@ -62,6 +62,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         super.viewDidLoad()
         breedPicker.delegate = self
         breedPicker.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             addNewDogButton.isHidden = true
@@ -70,13 +71,26 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             deleteDog.isHidden = true
         }
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-
+//MARK: - Keyboard Management
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
+        }
+        let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        scrollView.contentInset = contentsInsets
+        scrollView.scrollIndicatorInsets = contentsInsets
+    }
     
-
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.contentInset = contentsInsets
+        scrollView.scrollIndicatorInsets = contentsInsets
+    }
     
     
 //MARK: - Gender Color Shift
@@ -135,20 +149,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         self.dismiss(animated: true, completion: nil)
     }
     
-//MARK: - Keyboard
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.scrollView.frame.origin.y == 0 {
-                self.scrollView.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.scrollView.frame.origin.y != 0 {
-            self.scrollView.frame.origin.y = 0
-        }
-    }
     
 }
 

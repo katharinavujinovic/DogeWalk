@@ -541,7 +541,6 @@
                     <navigationItem key="navigationItem" title="DogeWalk" largeTitleDisplayMode="always" id="JCB-9o-XUm">
                         <barButtonItem key="backBarButtonItem" title="Dogs" id="gBC-lT-XEn"/>
                         <barButtonItem key="rightBarButtonItem" title="New Dog" image="AddDog" id="Vrx-DM-mNm">
-                            <color key="tintColor" name="Button_Orange"/>
                             <connections>
                                 <segue destination="vy4-df-odi" kind="show" identifier="DogOverviewToEdit" id="DRD-el-8zJ"/>
                             </connections>
