@@ -25,11 +25,13 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBOutlet weak var breedPicker: UIPickerView!
     // femaleButton and maleButton
-    @IBOutlet weak var genderTint: UIView!
     @IBOutlet weak var femaleIcon: UIImageView!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var maleIcon: UIImageView!
     @IBOutlet weak var maleButton: UIButton!
+    
+    @IBOutlet weak var savingScreen: UIView!
+    @IBOutlet weak var savingIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var addNewDogButton: UIButton!
     
@@ -46,7 +48,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
-        addNewDogButton.layer.cornerRadius = 15
         DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (data, error) in
             if let data = data {
                 self.allBreeds = Array(data.message.keys)
@@ -62,6 +63,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         super.viewDidLoad()
         breedPicker.delegate = self
         breedPicker.dataSource = self
+        setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
@@ -95,37 +97,43 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
 //MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {
-        genderIconReaction(mainColor: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), hightlightColor: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1), female: true, male: false)
+        genderIconReaction(female: true, male: false)
         genderOfDog = "female"
     
     }
     
     @IBAction func maleButtonPressed(_ sender: Any) {
-        genderIconReaction(mainColor: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), hightlightColor: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1), female: false, male: true)
+        genderIconReaction(female: false, male: true)
         genderOfDog = "male"
     }
     
 
     // setting the Response when one or the other icon is tapped
-    fileprivate func genderIconReaction(mainColor: UIColor, hightlightColor: UIColor, female: Bool, male: Bool) {
-        genderTint.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+    fileprivate func genderIconReaction(female: Bool, male: Bool) {
         maleIcon.isHighlighted = male
         femaleIcon.isHighlighted = female
-        genderTint.setGradientViewBackground(colorOne: mainColor, colorTwo: hightlightColor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
  
+    func setAddDogButton() {
+        addNewDogButton.layer.cornerRadius = 15
+        addNewDogButton.clipsToBounds = true
+        addNewDogButton.setGradientBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
+    }
     
 //MARK: - Saving
     
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" || genderOfDog == "" {
-            // print an alarm that we need at least name and gender of dog
+            nameTextField.placeholder = "Please give your Dog a name"
         } else {
+            setSaving(isSaving: true)
             archiveNewDog(name: nameTextField.text!, image: dogImage.image!, age: Int16(ageTextField.text!)!, breed: selectedDogBreed, gender: genderOfDog, favouritToy: toyTextField.text ?? "", favouriteTreat: treatTextField.text ?? "")
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        setSaving(isSaving: true)
         dog?.name = nameTextField.text
         dog?.profile = dogImage.image?.pngData()
         dog?.breed = selectedDogBreed
@@ -133,7 +141,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
         DataController.shared.saveViewContext()
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {
@@ -146,9 +154,24 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         newDog.favouriteToy = favouritToy
         newDog.favouriteTreat = favouriteTreat
         DataController.shared.saveViewContext()
-        self.dismiss(animated: true, completion: nil)
     }
     
+    func setSaving(isSaving: Bool) {
+        if isSaving {
+            savingScreen.isHidden = false
+            savingIndicator.startAnimating()
+        } else {
+            savingScreen.isHidden = true
+            savingIndicator.stopAnimating()
+        }
+        selectDogButton.isEnabled = !isSaving
+        ageTextField.isEnabled = !isSaving
+        femaleButton.isEnabled = !isSaving
+        maleButton.isEnabled = !isSaving
+        breedPicker.isUserInteractionEnabled = !isSaving
+        toyTextField.isEnabled = !isSaving
+        treatTextField.isEnabled = !isSaving
+    }
     
 }
 
@@ -182,6 +205,7 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
         alert.addAction(UIAlertAction(title: "Take Picture with Camera", style: .default, handler: { (action) in
             self.pickAnImage(sourceType: .camera)
         }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

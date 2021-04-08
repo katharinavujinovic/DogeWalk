@@ -16,9 +16,14 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     @IBOutlet weak var walkButton: UIButton!
     
     var fetchedResultsController: NSFetchedResultsController<Walk>!
+    var selectedWalk: Walk?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
+        let miniNib = UINib(nibName: "MiniCollectionViewCell", bundle: nil)
+        walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        walkOverviewTableView.register(miniNib, forCellReuseIdentifier: "MiniCollectionViewCell")
         setupFetchedResultsController()
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
@@ -72,10 +77,15 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let walkDetailViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.walkOverviewToDetail) as! WalkDetailViewController
-        walkDetailViewController.walk = fetchedResultsController.object(at: indexPath)
-        present(walkDetailViewController, animated: true, completion: nil)
+        selectedWalk = fetchedResultsController.object(at: indexPath)
+        performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.walkOverviewToDetail {
+            let walkDetailVC = segue.destination as! WalkDetailViewController
+            walkDetailVC.walk = selectedWalk
+        }
     }
 }
 

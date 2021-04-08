@@ -27,6 +27,8 @@ class DogDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
+        dogDetailTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
         dogImage.image = UIImage(data: dog.profile!)
         nameLabel.text = dog.name
@@ -43,9 +45,14 @@ class DogDetailViewController: UIViewController {
     }
     
     @IBAction func dogStatsPressed(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let editDogViewController = storyBoard.instantiateViewController(identifier: Constants.Segue.dogDetailToEdit) as! EditDogViewController
-        editDogViewController.dog = dog
+        performSegue(withIdentifier: Constants.Segue.dogDetailToEdit, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.dogDetailToEdit {
+            let editVC = segue.destination as! EditDogViewController
+            editVC.dog = dog
+        }
     }
 
     

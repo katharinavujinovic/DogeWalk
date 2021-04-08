@@ -31,8 +31,8 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select who is coming with you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypj-9V-ruk">
-                                <rect key="frame" x="76.5" y="49.5" width="261" height="36.5"/>
-                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="20"/>
+                                <rect key="frame" x="94" y="65" width="226.5" height="21"/>
+                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -91,6 +91,7 @@
                         <outlet property="cancelButton" destination="eQ8-Zz-62M" id="880-Tx-rB4"/>
                         <outlet property="continueButton" destination="xwb-VP-j9O" id="vLd-0a-sgj"/>
                         <outlet property="preWalkCollectionViewController" destination="JYq-Rd-law" id="h9p-pe-erH"/>
+                        <outlet property="selectDogLabel" destination="Ypj-9V-ruk" id="XlD-ac-e9C"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="PreWalkToCurrentWalk" id="vYA-Qs-aUl"/>
                     </connections>
                 </viewController>
@@ -560,7 +561,7 @@
         <!--Dog Detail View Controller-->
         <scene sceneID="MKu-4k-NSl">
             <objects>
-                <viewController id="d6w-gL-Hz2" customClass="DogDetailViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DogDetailViewController" id="d6w-gL-Hz2" customClass="DogDetailViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nxg-F7-GZ9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -679,14 +680,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZM-zT-WHj">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-eN-pHl">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="duO-sL-3z7">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="duO-sL-3z7">
                                         <rect key="frame" x="132" y="50" width="150" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="fTS-BU-8ck"/>
@@ -728,40 +725,40 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="DmI-5K-Q2e">
-                                        <rect key="frame" x="47" y="367" width="320" height="216"/>
+                                        <rect key="frame" x="47" y="367" width="320" height="175"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="ZPn-8b-LGl"/>
+                                            <constraint firstAttribute="height" constant="175" id="ZPn-8b-LGl"/>
                                         </constraints>
                                     </pickerView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zIk-7I-eH6">
-                                        <rect key="frame" x="20" y="608" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="567" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourite Toy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKk-Br-PmU">
-                                        <rect key="frame" x="20" y="587" width="91" height="18"/>
+                                        <rect key="frame" x="20" y="546" width="91" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourite Treat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNc-NB-11s">
-                                        <rect key="frame" x="20" y="656" width="102" height="18"/>
+                                        <rect key="frame" x="20" y="615" width="102" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lm-N4-yxK">
-                                        <rect key="frame" x="100" y="729" width="214" height="36"/>
+                                        <rect key="frame" x="100" y="688" width="214" height="36"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
                                         <state key="normal" title="ADD NEW DOG">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
                                         </state>
                                         <connections>
                                             <action selector="addNewDogPressed:" destination="vy4-df-odi" eventType="touchUpInside" id="HLw-5X-gPi"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pencil30" translatesAutoresizingMaskIntoConstraints="NO" id="HbR-Nm-urg">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PencilColor30" translatesAutoresizingMaskIntoConstraints="NO" id="HbR-Nm-urg">
                                         <rect key="frame" x="252" y="165.5" width="30" height="34.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="NOO-5j-nvz"/>
@@ -795,7 +792,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hf0-IW-SnF">
-                                        <rect key="frame" x="20" y="677" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="636" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -809,8 +806,6 @@
                                     <constraint firstItem="hf0-IW-SnF" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" id="6uS-vY-mvB"/>
                                     <constraint firstAttribute="trailing" secondItem="hf0-IW-SnF" secondAttribute="trailing" constant="20" id="79F-hf-vW1"/>
                                     <constraint firstItem="SWY-PP-UJm" firstAttribute="top" secondItem="Y13-dF-PWA" secondAttribute="bottom" constant="19" id="7Wb-gL-TCr"/>
-                                    <constraint firstItem="DmI-5K-Q2e" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="47" id="7xe-gj-7JH"/>
-                                    <constraint firstItem="DmI-5K-Q2e" firstAttribute="centerX" secondItem="I2A-eN-pHl" secondAttribute="centerX" id="8ck-gg-Gtd"/>
                                     <constraint firstItem="LnO-rb-VY1" firstAttribute="leading" secondItem="8VE-A9-TTY" secondAttribute="leading" id="9Ck-1V-8PR"/>
                                     <constraint firstItem="duO-sL-3z7" firstAttribute="trailing" secondItem="c4F-mO-mEU" secondAttribute="trailing" id="AgV-ll-cmp"/>
                                     <constraint firstItem="zIk-7I-eH6" firstAttribute="top" secondItem="OKk-Br-PmU" secondAttribute="bottom" constant="3" id="BEa-h4-bu4"/>
@@ -835,7 +830,7 @@
                                     <constraint firstAttribute="trailing" secondItem="zIk-7I-eH6" secondAttribute="trailing" constant="20" id="W63-XI-VE1"/>
                                     <constraint firstItem="DmI-5K-Q2e" firstAttribute="centerX" secondItem="I2A-eN-pHl" secondAttribute="centerX" id="WDM-DS-hJy"/>
                                     <constraint firstItem="duO-sL-3z7" firstAttribute="trailing" secondItem="HbR-Nm-urg" secondAttribute="trailing" id="YHS-1F-gfa"/>
-                                    <constraint firstItem="DmI-5K-Q2e" firstAttribute="top" secondItem="c9s-qv-wdn" secondAttribute="bottom" constant="8" symbolic="YES" id="YjZ-iF-Zqz"/>
+                                    <constraint firstItem="DmI-5K-Q2e" firstAttribute="top" secondItem="c9s-qv-wdn" secondAttribute="bottom" constant="8" id="YjZ-iF-Zqz"/>
                                     <constraint firstAttribute="trailing" secondItem="zIk-7I-eH6" secondAttribute="trailing" constant="20" symbolic="YES" id="Zhh-0R-m49"/>
                                     <constraint firstItem="duO-sL-3z7" firstAttribute="bottom" secondItem="HbR-Nm-urg" secondAttribute="bottom" id="a6O-cK-v8K"/>
                                     <constraint firstItem="Msl-UI-QG2" firstAttribute="leading" secondItem="SWY-PP-UJm" secondAttribute="leading" id="dqa-Yb-9RG"/>
@@ -849,7 +844,6 @@
                                     <constraint firstItem="QF4-fd-RiZ" firstAttribute="top" secondItem="duO-sL-3z7" secondAttribute="bottom" constant="35" id="kFf-Ma-1xb"/>
                                     <constraint firstItem="zIk-7I-eH6" firstAttribute="centerX" secondItem="I2A-eN-pHl" secondAttribute="centerX" id="kme-Sb-yMd"/>
                                     <constraint firstItem="Y13-dF-PWA" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" id="kzH-gL-zm0"/>
-                                    <constraint firstAttribute="trailing" secondItem="DmI-5K-Q2e" secondAttribute="trailing" constant="47" id="mVr-tM-Gdf"/>
                                     <constraint firstItem="zIk-7I-eH6" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" id="nPh-Co-JPn"/>
                                     <constraint firstItem="duO-sL-3z7" firstAttribute="centerX" secondItem="I2A-eN-pHl" secondAttribute="centerX" id="pB5-TZ-pnf"/>
                                     <constraint firstItem="zNc-NB-11s" firstAttribute="top" secondItem="zIk-7I-eH6" secondAttribute="bottom" constant="14" id="pek-nf-Fcl"/>
@@ -866,18 +860,31 @@
                                     <constraint firstItem="QP1-mS-vcv" firstAttribute="top" secondItem="Y13-dF-PWA" secondAttribute="bottom" constant="14" id="zc9-pA-0Mo"/>
                                 </constraints>
                             </scrollView>
+                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Mh-2u-xWs">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="iWn-ef-eX9">
+                                        <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="iWn-ef-eX9" firstAttribute="centerX" secondItem="2Mh-2u-xWs" secondAttribute="centerX" id="7ri-fm-dsb"/>
+                                    <constraint firstItem="iWn-ef-eX9" firstAttribute="centerY" secondItem="2Mh-2u-xWs" secondAttribute="centerY" id="P2E-o2-pSU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="loR-c0-SxC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="nZM-zT-WHj" secondAttribute="bottom" id="2Of-UF-mNT"/>
                             <constraint firstItem="I2A-eN-pHl" firstAttribute="leading" secondItem="7fY-bq-Twy" secondAttribute="leading" id="3ty-Oj-uaS"/>
-                            <constraint firstItem="loR-c0-SxC" firstAttribute="trailing" secondItem="nZM-zT-WHj" secondAttribute="trailing" id="52Y-p5-ys4"/>
-                            <constraint firstItem="nZM-zT-WHj" firstAttribute="top" secondItem="loR-c0-SxC" secondAttribute="top" id="Uuh-bT-QUa"/>
+                            <constraint firstItem="2Mh-2u-xWs" firstAttribute="top" secondItem="loR-c0-SxC" secondAttribute="top" id="BOw-It-7AR"/>
+                            <constraint firstItem="2Mh-2u-xWs" firstAttribute="leading" secondItem="loR-c0-SxC" secondAttribute="leading" id="Izn-Ft-4v8"/>
                             <constraint firstAttribute="trailing" secondItem="I2A-eN-pHl" secondAttribute="trailing" id="hY5-tB-wsk"/>
                             <constraint firstItem="I2A-eN-pHl" firstAttribute="top" secondItem="loR-c0-SxC" secondAttribute="top" id="lrN-2D-gfh"/>
                             <constraint firstItem="loR-c0-SxC" firstAttribute="bottom" secondItem="I2A-eN-pHl" secondAttribute="bottom" id="m6c-fq-Nwy"/>
-                            <constraint firstItem="nZM-zT-WHj" firstAttribute="leading" secondItem="loR-c0-SxC" secondAttribute="leading" id="sw8-8w-bVU"/>
+                            <constraint firstItem="loR-c0-SxC" firstAttribute="trailing" secondItem="2Mh-2u-xWs" secondAttribute="trailing" id="omJ-14-O0Z"/>
+                            <constraint firstItem="loR-c0-SxC" firstAttribute="bottom" secondItem="2Mh-2u-xWs" secondAttribute="bottom" id="qac-Hx-MFO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7K-ND-9Do">
@@ -887,7 +894,9 @@
                                     <rect key="frame" x="302" y="3" width="92" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="22"/>
-                                    <state key="normal" title="Save"/>
+                                    <state key="normal" title="Save">
+                                        <color key="titleColor" systemColor="systemGrayColor"/>
+                                    </state>
                                     <connections>
                                         <action selector="saveButtonPressed:" destination="vy4-df-odi" eventType="touchUpInside" id="0EC-ma-Atd"/>
                                     </connections>
@@ -913,11 +922,12 @@
                         <outlet property="dogImage" destination="duO-sL-3z7" id="C2w-2G-fJR"/>
                         <outlet property="femaleButton" destination="Msl-UI-QG2" id="lZU-cs-kBC"/>
                         <outlet property="femaleIcon" destination="SWY-PP-UJm" id="dt0-Kg-LP3"/>
-                        <outlet property="genderTint" destination="nZM-zT-WHj" id="h8h-yz-Dr9"/>
                         <outlet property="maleButton" destination="LnO-rb-VY1" id="2IN-pM-Qi9"/>
                         <outlet property="maleIcon" destination="8VE-A9-TTY" id="uzt-ad-xp1"/>
                         <outlet property="nameTextField" destination="Y13-dF-PWA" id="Ogu-Sw-VSp"/>
                         <outlet property="saveButton" destination="Muk-25-PO4" id="Hzb-su-57c"/>
+                        <outlet property="savingIndicator" destination="iWn-ef-eX9" id="yVy-Kt-9j2"/>
+                        <outlet property="savingScreen" destination="2Mh-2u-xWs" id="36o-bb-vh4"/>
                         <outlet property="scrollView" destination="I2A-eN-pHl" id="XGe-t5-T3C"/>
                         <outlet property="selectDogButton" destination="c4F-mO-mEU" id="BCn-Ru-24M"/>
                         <outlet property="toyTextField" destination="zIk-7I-eH6" id="TbS-fV-M8R"/>
@@ -991,10 +1001,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DRD-el-8zJ"/>
+        <segue reference="3ZU-n7-8rP"/>
         <segue reference="ZiM-EW-o8w"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" name="Button_Orange"/>
+    <color key="tintColor" systemColor="systemGrayColor"/>
     <resources>
         <image name="AddDog" width="50" height="30"/>
         <image name="DogHead_Icon" width="30" height="30"/>
@@ -1008,7 +1018,7 @@
         <image name="PauseSelected" width="100" height="50"/>
         <image name="Paws100" width="100" height="100"/>
         <image name="Paws_Icon" width="30" height="30"/>
-        <image name="Pencil30" width="30" height="30"/>
+        <image name="PencilColor30" width="30" height="30"/>
         <image name="PlayDeselected" width="75" height="75"/>
         <image name="PlaySelected" width="75" height="75"/>
         <image name="StopDeselect" width="100" height="50"/>
@@ -1024,6 +1034,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

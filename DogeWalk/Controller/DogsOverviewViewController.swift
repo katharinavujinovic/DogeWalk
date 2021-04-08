@@ -12,14 +12,16 @@ import CoreData
 class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var dogOverviewTableView: UITableView!
-    @IBOutlet weak var newDogButton: UIBarButtonItem!
     @IBOutlet weak var walkButton: UIButton!
     
     var fetchedResultsController: NSFetchedResultsController<Dog>!
+    var selectedDog: Dog?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
+        let nib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
+        dogOverviewTableView.register(nib, forCellReuseIdentifier: "DogOverviewTableViewCell")
         dogOverviewTableView.dataSource = self
         dogOverviewTableView.delegate = self
     }
@@ -39,6 +41,10 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
             try fetchedResultsController.performFetch()
         } catch {
             print("fetch could not been done")
+        }
+        
+        DispatchQueue.main.async {
+            self.dogOverviewTableView.reloadData()
         }
     }
     
@@ -79,9 +85,15 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dogDetailViewController = Constants.storyBoard.instantiateViewController(identifier: Constants.Segue.dogOverviewToDetail) as! DogDetailViewController
-        dogDetailViewController.dog = fetchedResultsController.object(at: indexPath)
-        present(dogDetailViewController, animated: true, completion: nil)
+        selectedDog = fetchedResultsController.object(at: indexPath)
+        self.performSegue(withIdentifier: Constants.Segue.dogOverviewToDetail, sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.dogOverviewToDetail{
+            let dogDetailVC = segue.destination as! DogDetailViewController
+            dogDetailVC.dog = selectedDog
+        }
+    }
+
 }

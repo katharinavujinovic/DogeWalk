@@ -14,14 +14,25 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     @IBOutlet weak var preWalkCollectionViewController: UICollectionView!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var selectDogLabel: UILabel!
     
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var selectedDogs: [Dog] = []
+    var fetchedDogs: [Dog] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "DogSelectionCollectionView", bundle: nil)
+        preWalkCollectionViewController.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionView")
         setContinueButton()
         setupFetchedResultsController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if fetchedDogs == [] {
+            presentAlarm()
+        }
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
@@ -29,9 +40,13 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     }
     
     @IBAction func continuePressed(_ sender: Any) {
-        let currentwalkViewController = storyboard?.instantiateViewController(identifier: Constants.Segue.preWalkToCurrentWalk) as! CurrentWalkViewController
+        if selectedDogs == [] {
+        let currentwalkViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: Constants.Segue.preWalkToCurrentWalk) as! CurrentWalkViewController
         currentwalkViewController.dogs = selectedDogs
         present(currentwalkViewController, animated: true, completion: nil)
+        } else {
+            selectDogLabel.textColor = .red
+        }
     }
     
     fileprivate func setContinueButton() {
@@ -50,9 +65,27 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
+            if let fetchResultsDogs = fetchedResultsController.fetchedObjects {
+                for fetchedDog in fetchResultsDogs {
+                    fetchedDogs.append(fetchedDog)
+                }
+            }
         } catch {
             print("fetch could not been done")
         }
+    
+        
+        DispatchQueue.main.async {
+            self.preWalkCollectionViewController.reloadData()
+        }
+    }
+    
+    func presentAlarm() {
+        let alert = UIAlertController(title: "No Dog registered yet", message: "Make sure to create a profile for your dog before going for a walk", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: { (alert) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
