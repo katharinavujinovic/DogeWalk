@@ -11,7 +11,8 @@ import CoreData
 
 class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
-    @IBOutlet weak var preWalkCollectionViewController: UICollectionView!
+    @IBOutlet weak var preWalkCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var selectDogLabel: UILabel!
@@ -22,10 +23,13 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "DogSelectionCollectionView", bundle: nil)
-        preWalkCollectionViewController.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionView")
-        setContinueButton()
         setupFetchedResultsController()
+        let nib = UINib(nibName: "DogSelectionCollectionViewCell", bundle: nil)
+        preWalkCollectionView.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionViewCell")
+        preWalkCollectionView.dataSource = self
+        preWalkCollectionView.delegate = self
+        preWalkCollectionView.allowsMultipleSelection = true
+        setContinueButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,6 +37,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         if fetchedDogs == [] {
             presentAlarm()
         }
+        preWalkCollectionView.reloadData()
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
@@ -65,18 +70,17 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
-            if let fetchResultsDogs = fetchedResultsController.fetchedObjects {
-                for fetchedDog in fetchResultsDogs {
-                    fetchedDogs.append(fetchedDog)
+            if let fetchedResults = fetchedResultsController.fetchedObjects {
+                for fetchedDogResult in fetchedResults {
+                    fetchedDogs.append(fetchedDogResult)
                 }
             }
         } catch {
             print("fetch could not been done")
         }
     
-        
         DispatchQueue.main.async {
-            self.preWalkCollectionViewController.reloadData()
+            self.preWalkCollectionView.reloadData()
         }
     }
     
@@ -92,29 +96,35 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
 
 //MARK: - Dog Selection CollectionView
 extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (view.frame.width - 8) / 3
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedDogs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let aDog = fetchedResultsController.object(at: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
-        cell.dogImage.image = UIImage(data: aDog.profile!)
+        let cellImage = UIImage(data: fetchedDogs[indexPath.row].profile!)
+        cell.dogImage.image = cellImage
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let aDog = fetchedResultsController.object(at: indexPath)
+        let aDog = fetchedDogs[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
-        // select and deselect!
-        if cell.selectionView.alpha == 0.5 {
-            cell.selectionView.alpha = 1
-            selectedDogs.append(aDog)
-        } else if cell.selectionView.alpha == 1 {
-            cell.selectionView.alpha = 0.5
+        if cell.isSelected == true {
+            cell.isSelected = false
             if let index = selectedDogs.firstIndex(of: aDog) {
                 selectedDogs.remove(at: index)
             }
+        } else {
+            cell.isSelected = true
+            selectedDogs.append(aDog)
         }
     }
+
 }

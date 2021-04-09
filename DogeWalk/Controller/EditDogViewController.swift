@@ -68,6 +68,17 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             addNewDogButton.isHidden = true
+            dogImage.image = UIImage(data: dog!.profile!)
+            nameTextField.text = dog?.name
+            ageTextField.text = "\(dog!.age)"
+            toyTextField.text = dog?.favouriteToy
+            treatTextField.text = dog?.favouriteTreat
+            if dog?.gender == "female" {
+                genderIconReaction(female: true, male: false)
+            } else {
+                genderIconReaction(female: false, male: true)
+            }
+            
         } else {
             saveButton.isHidden = true
             deleteDog.isHidden = true

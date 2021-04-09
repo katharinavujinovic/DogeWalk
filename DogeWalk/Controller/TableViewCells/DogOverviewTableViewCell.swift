@@ -20,7 +20,7 @@ class DogOverviewTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        dogImage.layer.cornerRadius = self.frame.height / 2
+        dogImage.layer.cornerRadius = dogImage.frame.height / 2
         backgroundTint.layer.cornerRadius = 15
     }
 
