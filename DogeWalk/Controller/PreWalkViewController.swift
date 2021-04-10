@@ -46,11 +46,16 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBAction func continuePressed(_ sender: Any) {
         if selectedDogs == [] {
-        let currentwalkViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: Constants.Segue.preWalkToCurrentWalk) as! CurrentWalkViewController
-        currentwalkViewController.dogs = selectedDogs
-        present(currentwalkViewController, animated: true, completion: nil)
-        } else {
             selectDogLabel.textColor = .red
+        } else {
+            self.performSegue(withIdentifier: Constants.Segue.preWalkToCurrentWalk, sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.preWalkToCurrentWalk {
+            let currentWalkVC = segue.destination as! CurrentWalkViewController
+            currentWalkVC.dogs = selectedDogs
         }
     }
     
@@ -96,9 +101,9 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
 
 //MARK: - Dog Selection CollectionView
 extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (view.frame.width - 8) / 3
+        let cellWidth = (collectionView.frame.width - 8) / 3
         return CGSize(width: cellWidth, height: cellWidth)
     }
     
@@ -117,14 +122,17 @@ extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDel
         let aDog = fetchedDogs[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
         if cell.isSelected == true {
-            cell.isSelected = false
-            if let index = selectedDogs.firstIndex(of: aDog) {
-                selectedDogs.remove(at: index)
-            }
-        } else {
-            cell.isSelected = true
             selectedDogs.append(aDog)
         }
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let aDog = fetchedDogs[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
+        if cell.isSelected == false {
+            if let index = selectedDogs.firstIndex(of: aDog) {
+                selectedDogs.remove(at: index)
+            }
+        }
+    }
 }

@@ -28,6 +28,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         walkDetailMapView.delegate = self
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
+        walkDetailMapView.addOverlay(walk.route as! MKOverlay)
         displaySelectedWalk()
     }
 
@@ -39,9 +40,6 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
-        let routeData = walk.value(forKey: "route") as! NSData
-        let polyline = polylineUnarchive(polylineArchive: routeData)
-        walkDetailMapView.addOverlay(polyline!)
         dogs = walk.value(forKey: "participatingDogs") as? [Dog]
     }
     func polylineUnarchive(polylineArchive: NSData) -> MKPolyline? {

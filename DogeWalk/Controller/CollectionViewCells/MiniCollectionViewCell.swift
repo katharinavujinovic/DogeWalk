@@ -13,6 +13,14 @@ class MiniCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        dogImage.layer.cornerRadius = self.frame.height / 2
+        dogImage.layer.cornerRadius = dogImage.frame.height / 2
+    }
+    
+    class var reuseIdentifier: String {
+        return "MiniCollectionViewCell"
+    }
+    
+    class var nibName: String {
+        return "MiniCollectionViewCell"
     }
 }

@@ -11,7 +11,7 @@
         <relationship name="participatedWalks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="participatingDogs" inverseEntity="Walk"/>
     </entity>
     <entity name="Walk" representedClassName="Walk" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="distance" optional="YES" attributeType="String"/>
         <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName="RouteValueTransformer"/>
         <attribute name="startTime" optional="YES" attributeType="String"/>

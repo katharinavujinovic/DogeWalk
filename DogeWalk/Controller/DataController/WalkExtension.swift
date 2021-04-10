@@ -12,7 +12,6 @@ extension Walk {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        date = Date()
     }
     
 }

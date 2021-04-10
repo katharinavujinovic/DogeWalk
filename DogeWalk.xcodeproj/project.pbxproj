@@ -23,9 +23,9 @@
 		434BF237261C50B30090C2E9 /* RouteValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BF236261C50B30090C2E9 /* RouteValueTransformer.swift */; };
 		434BF23A261C563A0090C2E9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BF239261C563A0090C2E9 /* Route.swift */; };
 		434BF23D261C75FB0090C2E9 /* WalkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BF23C261C75FB0090C2E9 /* WalkExtension.swift */; };
+		434BF2482620E1810090C2E9 /* MiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434BF2472620E1800090C2E9 /* MiniCollectionViewCell.xib */; };
 		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
 		435B6679260396FD00EF2160 /* MiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */; };
-		435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */; };
 		435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */; };
 		435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */; };
 		435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B66842603A58000EF2160 /* WalksOverviewTableViewCell.swift */; };
@@ -57,9 +57,9 @@
 		434BF236261C50B30090C2E9 /* RouteValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValueTransformer.swift; sourceTree = "<group>"; };
 		434BF239261C563A0090C2E9 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		434BF23C261C75FB0090C2E9 /* WalkExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkExtension.swift; sourceTree = "<group>"; };
+		434BF2472620E1800090C2E9 /* MiniCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MiniCollectionViewCell.xib; sourceTree = "<group>"; };
 		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCollectionViewCell.swift; sourceTree = "<group>"; };
-		435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniCollectionViewCell.xib; sourceTree = "<group>"; };
 		435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogSelectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		435B66842603A58000EF2160 /* WalksOverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				435B6677260396FD00EF2160 /* MiniCollectionViewCell.swift */,
-				435B6678260396FD00EF2160 /* MiniCollectionViewCell.xib */,
+				434BF2472620E1800090C2E9 /* MiniCollectionViewCell.xib */,
 				435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */,
 				435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */,
 			);
@@ -238,8 +238,8 @@
 				43135B1F25FB6C1A00799186 /* Assets.xcassets in Resources */,
 				435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */,
 				43135B1A25FB6C1A00799186 /* Main.storyboard in Resources */,
+				434BF2482620E1810090C2E9 /* MiniCollectionViewCell.xib in Resources */,
 				435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */,
-				435B667A260396FD00EF2160 /* MiniCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

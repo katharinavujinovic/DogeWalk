@@ -71,11 +71,12 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+    /*
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? WalksOverviewTableViewCell else {return}
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
     }
-    
+    */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedWalk = fetchedResultsController.object(at: indexPath)
         performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
@@ -89,7 +90,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
-
+/*
 extension WalksOverviewViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -108,3 +109,4 @@ extension WalksOverviewViewController: UICollectionViewDataSource, UICollectionV
         return cell
     }
 }
+*/

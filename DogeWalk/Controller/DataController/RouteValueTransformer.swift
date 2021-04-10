@@ -21,7 +21,7 @@ final class RouteValueTransformer: ValueTransformer {
         return true
     }
     
-    override func transformedValue(_ value: Any?) -> Any? {
+    override public func transformedValue(_ value: Any?) -> Any? {
         guard let route = value as? Route else {
             return nil
         }
@@ -34,7 +34,7 @@ final class RouteValueTransformer: ValueTransformer {
         }
     }
     
-    override func reverseTransformedValue(_ value: Any?) -> Any? {
+    override public func reverseTransformedValue(_ value: Any?) -> Any? {
         guard let data = value as? NSData else {
             return nil
         }

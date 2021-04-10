@@ -11,11 +11,13 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    override init() {
+        super.init()
+        RouteValueTransformer.register()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        RouteValueTransformer.register()
         DataController.shared.load()
         return true
     }

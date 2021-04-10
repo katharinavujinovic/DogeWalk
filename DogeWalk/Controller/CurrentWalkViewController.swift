@@ -13,7 +13,8 @@ import CoreData
 class CurrentWalkViewController: UIViewController {
     
     @IBOutlet weak var currentWalkMapView: MKMapView!
-    @IBOutlet weak var currentWalkCollectionView: UICollectionView!
+    @IBOutlet weak var miniCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     // Saving Indicators
     @IBOutlet weak var savingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var greatJobLabel: UILabel!
@@ -35,46 +36,48 @@ class CurrentWalkViewController: UIViewController {
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
     var secondCounter = 0
+    var passedTime = "0:0:0"
     var meterCount = 0.0
     var timer = Timer()
     var dogs: [Dog]!
+    var startTime = ""
+    var date = ""
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
+        //        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.allowsBackgroundLocationUpdates = true
+        registerNib()
         locationManager.delegate = self
         currentWalkMapView.delegate = self
-        currentWalkCollectionView.delegate = self
-        currentWalkCollectionView.dataSource = self
+        miniCollectionView.delegate = self
+        miniCollectionView.dataSource = self
         currentWalkMapView.mapType = MKMapType(rawValue: 0)!
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
-        
+        print(dogs!)
         enableButton(play: true, pause: false, stop: false)
     }
     
-    
-    // Dismiss this ViewController when select Dogs is pressed
-    // backSelectDogs must be hidden during the run!
-    /*
     @IBAction func backSelectDogsPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
- */
-    
+
     // start the distance and time tracking
-    
     @IBAction func playButtonPressed(_ sender: Any) {
+        backSelectDogs.isEnabled = false
         pressPlayLabel.isHidden = true
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
+        if startTime == "" {
+            setTime()
+        }
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }
-    
 
     
     @IBAction func pauseButtonPressed(_ sender: Any) {
@@ -90,7 +93,23 @@ class CurrentWalkViewController: UIViewController {
         enableButton(play: false, pause: false, stop: false)
         stopLocationUpdate()
         timer.invalidate()
+        archiveWalk()
+        self.navigationController?.dismiss(animated: true, completion: nil)
         // segue to WalkDetailController with the latest walk
+    }
+    
+    func setTime() {
+        let now = Date()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        date = dateFormatter.string(from: now)
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+        startTime = timeFormatter.string(from: now)
     }
 
 //MARK: - Location Service
@@ -140,7 +159,8 @@ class CurrentWalkViewController: UIViewController {
     
     @objc func updateTimer() {
         secondCounter = secondCounter + 1
-        timeLabel.text = displayTime(seconds: secondCounter)
+        passedTime = displayTime(seconds: secondCounter)
+        timeLabel.text = passedTime
     }
     
 //MARK: - Button UI
@@ -182,15 +202,16 @@ class CurrentWalkViewController: UIViewController {
         }
     }
     
-    func archiveWalk(walk: Walk) {
+    func archiveWalk() {
         let newWalk = Walk(context: DataController.shared.viewContext)
-        newWalk.date = walk.date
-        newWalk.distance = walk.distance
-        let archiveRoute = polyLineToArchive(polyLine: createPolyLine(locations: userLocations))
-//        newWalk.route = archiveRoute
-        newWalk.startTime = walk.startTime
-        newWalk.time = walk.time
-        newWalk.setValue(dogs, forKey: "participatingDogs")
+        newWalk.date = date
+        newWalk.distance = "\(meterCount)"
+        newWalk.route = createPolyLine(locations: userLocations)
+        newWalk.startTime = startTime
+        newWalk.time = passedTime
+        for dog in dogs {
+            newWalk.addToParticipatingDogs(dog)
+        }
         DataController.shared.saveViewContext()
     }
     
@@ -254,15 +275,33 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
 
 //MARK: - Mini CollectionView
 extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellDimension = (collectionView.frame.height - 4)
+        return CGSize(width: cellDimension, height: cellDimension)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dogs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
-        cell.dogImage.image = UIImage(data: dogs[indexPath.row].profile!)
+        let cellImage = UIImage(data: dogs[indexPath.row].profile!)
+        cell.dogImage.image = cellImage
         return cell
     }
     
+    func registerNib() {
+        let nib = UINib(nibName: MiniCollectionViewCell.nibName, bundle: nil)
+        miniCollectionView.register(nib, forCellWithReuseIdentifier: MiniCollectionViewCell.reuseIdentifier)
+        if let flowLayout = self.miniCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let space: CGFloat = 2
+            let size: CGFloat = miniCollectionView.frame.height - (2 * space)
+            flowLayout.minimumLineSpacing = 2
+            flowLayout.minimumInteritemSpacing = 2
+            flowLayout.itemSize = CGSize(width: size, height: size)
+        }
+    }
     
 }

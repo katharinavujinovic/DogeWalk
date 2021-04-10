@@ -139,7 +139,9 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         } else {
             setSaving(isSaving: true)
             archiveNewDog(name: nameTextField.text!, image: dogImage.image!, age: Int16(ageTextField.text!)!, breed: selectedDogBreed, gender: genderOfDog, favouritToy: toyTextField.text ?? "", favouriteTreat: treatTextField.text ?? "")
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -152,7 +154,9 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
         DataController.shared.saveViewContext()
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {
