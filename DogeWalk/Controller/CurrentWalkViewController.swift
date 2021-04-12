@@ -38,7 +38,7 @@ class CurrentWalkViewController: UIViewController {
     var timer = Timer()
     var dogs: [Dog]!
     var startTime = ""
-    var date = ""
+    var now: Date?
     
 
     
@@ -107,17 +107,11 @@ class CurrentWalkViewController: UIViewController {
     }
     
     func setTime() {
-        let now = Date()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        date = dateFormatter.string(from: now)
-        
+        now = Date()
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .none
         timeFormatter.timeStyle = .short
-        startTime = timeFormatter.string(from: now)
+        startTime = timeFormatter.string(from: now!)
     }
 
 //MARK: - Location Service
@@ -189,7 +183,7 @@ class CurrentWalkViewController: UIViewController {
     
     func archiveWalk() {
         let newWalk = Walk(context: DataController.shared.viewContext)
-        newWalk.date = date
+        newWalk.date = Date()
         let kmCount = meterCount/1000
         newWalk.distance = String(format: "%.2f", kmCount)
         newWalk.route = userLocations

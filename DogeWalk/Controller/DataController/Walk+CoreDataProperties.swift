@@ -16,7 +16,7 @@ extension Walk {
         return NSFetchRequest<Walk>(entityName: "Walk")
     }
 
-    @NSManaged public var date: String?
+    @NSManaged public var date: Date?
     @NSManaged public var distance: String?
     @NSManaged public var route: [CLLocation]?
     @NSManaged public var startTime: String?

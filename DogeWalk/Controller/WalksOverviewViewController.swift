@@ -39,7 +39,7 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     
     func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatedWalks")
@@ -77,7 +77,10 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let aWalk = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        cell.dateLabel.text = "\(String(describing: aWalk.date))"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .short
+        timeFormatter.timeStyle = .none
+        cell.dateLabel.text = timeFormatter.string(from: aWalk.date!)
         cell.distancelabel.text = aWalk.distance
         cell.startTimeLabel.text = aWalk.startTime
         cell.timeLabel.text = aWalk.time

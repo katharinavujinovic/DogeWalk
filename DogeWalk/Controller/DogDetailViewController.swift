@@ -95,7 +95,10 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let aWalk = walks[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        cell.dateLabel.text = "\(String(describing: aWalk.date))"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .short
+        timeFormatter.timeStyle = .none
+        cell.dateLabel.text = timeFormatter.string(from: aWalk.date!)
         cell.distancelabel.text = aWalk.distance
         cell.startTimeLabel.text = aWalk.startTime
         cell.timeLabel.text = aWalk.time

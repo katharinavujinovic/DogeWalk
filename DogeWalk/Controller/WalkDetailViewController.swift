@@ -38,7 +38,10 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     //MARK: - PolyLineUnarchive
     
     func displaySelectedWalk() {
-        dateLabel.text = "\(String(describing: walk.date!))"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .short
+        timeFormatter.timeStyle = .none
+        dateLabel.text = timeFormatter.string(from: walk.date!)
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
