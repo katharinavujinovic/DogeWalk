@@ -511,7 +511,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s6X-af-bIZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s6X-af-bIZ">
                                 <rect key="frame" x="20" y="267" width="374" height="497"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
@@ -622,6 +622,7 @@
                         <outlet property="toyChoice" destination="GO4-xP-fyO" id="jQQ-cQ-m3g"/>
                         <outlet property="treatChoice" destination="1oR-Yo-iAd" id="Lqx-fs-XOP"/>
                         <segue destination="vy4-df-odi" kind="show" identifier="DogDetailToEdit" id="3ZU-n7-8rP"/>
+                        <segue destination="4q6-DN-xp8" kind="show" identifier="DogDetailToWalkDetail" id="fzh-Ot-Ef0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1n-DU-zHN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -960,7 +961,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DRD-el-8zJ"/>
+        <segue reference="3ZU-n7-8rP"/>
+        <segue reference="fzh-Ot-Ef0"/>
         <segue reference="q11-x5-cyj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemGrayColor"/>

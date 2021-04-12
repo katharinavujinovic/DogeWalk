@@ -89,13 +89,9 @@ class CurrentWalkViewController: UIViewController {
         enableButton(play: false, pause: false, stop: false)
         stopLocationUpdate()
         timer.invalidate()
-        archiveWalk()
         let alert = UIAlertController(title: "Do you want to end the walk?", message: "By confirming, you walk will be ended and saved", preferredStyle: .alert)
         let savingAction = UIAlertAction(title: "Stop and Save", style: .default) { (action: UIAlertAction) in
             self.archiveWalk()
-            DispatchQueue.main.async {
-                self.navigationController?.dismiss(animated: true, completion: nil)
-            }
         }
         let continueAction = UIAlertAction(title: "Continue Walk", style: .default) { (action: UIAlertAction) in
             self.enableButton(play: false, pause: true, stop: true)
@@ -194,15 +190,17 @@ class CurrentWalkViewController: UIViewController {
     func archiveWalk() {
         let newWalk = Walk(context: DataController.shared.viewContext)
         newWalk.date = date
-        newWalk.distance = "\(meterCount)"
+        let kmCount = meterCount/1000
+        newWalk.distance = String(format: "%.2f", kmCount)
         newWalk.route = userLocations
         newWalk.startTime = startTime
         newWalk.time = passedTime
         for dog in dogs {
             newWalk.addToParticipatingDogs(dog)
         }
-        print(newWalk)
         DataController.shared.saveViewContext()
+        navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 
     

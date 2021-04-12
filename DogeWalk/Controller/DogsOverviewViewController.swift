@@ -17,9 +17,13 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var selectedDog: Dog?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupFetchedResultsController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupFetchedResultsController()
         let nib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
         dogOverviewTableView.register(nib, forCellReuseIdentifier: "DogOverviewTableViewCell")
         dogOverviewTableView.dataSource = self
@@ -42,7 +46,6 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
         } catch {
             print("fetch could not been done")
         }
-        
         DispatchQueue.main.async {
             self.dogOverviewTableView.reloadData()
         }

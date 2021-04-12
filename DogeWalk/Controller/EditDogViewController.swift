@@ -143,6 +143,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             setSaving(isSaving: true)
             DispatchQueue.main.async {
                 self.archiveNewDog(name: self.nameTextField.text!, image: self.dogImage.image!, age: Int16(self.ageTextField.text!)!, breed: self.selectedDogBreed, gender: self.genderOfDog, favouritToy: self.toyTextField.text ?? "", favouriteTreat: self.treatTextField.text ?? "")
+                self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -151,8 +152,10 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     @IBAction func deleteDogPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { (action: UIAlertAction) in
-            DataController.shared.viewContext.delete(self.dog!)
-            DataController.shared.saveViewContext()
+                DataController.shared.viewContext.delete(self.dog!)
+                DataController.shared.saveViewContext()
+            self.navigationController?.popToRootViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Keep Dog", style: .default) { (action: UIAlertAction) in
             return
@@ -160,9 +163,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
-        DispatchQueue.main.async {
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        }
     }
     
     
@@ -174,10 +174,9 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.age = Int16(ageTextField.text!)!
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
-        DispatchQueue.main.async {
-            DataController.shared.saveViewContext()
-            self.dismiss(animated: true, completion: nil)
-        }
+        DataController.shared.saveViewContext()
+        self.navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {

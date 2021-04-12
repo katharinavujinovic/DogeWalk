@@ -16,6 +16,7 @@ struct Constants {
         static let dogOverviewToEdit = "DogOverviewToEdit"
         static let dogOverviewToDetail = "DogOverviewToDetail"
         static let dogDetailToEdit = "DogDetailToEdit"
+        static let dogDetailToWalkDetail = "DogDetailToWalkDetail"
         static let dogOverviewToPreWalk = "DogOverviewToPreWalk"
         static let walkOverviewToPrewalk = "WalkOverviewToPreWalk"
         static let walkOverviewToDetail = "WalkOverviewToDetail"

@@ -18,11 +18,15 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     var fetchedResultsController: NSFetchedResultsController<Walk>!
     var selectedWalk: Walk?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupFetchedResultsController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
         walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
-        setupFetchedResultsController()
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
     }
