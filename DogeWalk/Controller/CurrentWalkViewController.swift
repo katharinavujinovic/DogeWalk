@@ -11,14 +11,12 @@ import CoreLocation
 import CoreData
 
 class CurrentWalkViewController: UIViewController {
+    @IBOutlet weak var selectDogsButton: UINavigationItem!
     
     @IBOutlet weak var currentWalkMapView: MKMapView!
     @IBOutlet weak var miniCollectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    // Saving Indicators
-    @IBOutlet weak var savingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var greatJobLabel: UILabel!
-    @IBOutlet weak var savingLabel: UILabel!
+
     // Play/Pause/Stop
     @IBOutlet weak var playImage: UIImageView!
     @IBOutlet weak var playButton: UIButton!
@@ -31,7 +29,6 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     // NavigationBar
-    @IBOutlet weak var backSelectDogs: UIBarButtonItem!
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
@@ -48,7 +45,7 @@ class CurrentWalkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
-        //        locationManager.allowsBackgroundLocationUpdates = true
+//        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         registerNib()
         locationManager.delegate = self
@@ -67,7 +64,7 @@ class CurrentWalkViewController: UIViewController {
 
     // start the distance and time tracking
     @IBAction func playButtonPressed(_ sender: Any) {
-        backSelectDogs.isEnabled = false
+        selectDogsButton.hidesBackButton = true
         pressPlayLabel.isHidden = true
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
@@ -88,14 +85,29 @@ class CurrentWalkViewController: UIViewController {
     }
     
     @IBAction func stopButtonPressed(_ sender: Any) {
-        saveIndication()
         buttonReaction(play: false, pause: false, stop: true)
         enableButton(play: false, pause: false, stop: false)
         stopLocationUpdate()
         timer.invalidate()
         archiveWalk()
-        self.navigationController?.dismiss(animated: true, completion: nil)
-        // segue to WalkDetailController with the latest walk
+        let alert = UIAlertController(title: "Do you want to end the walk?", message: "By confirming, you walk will be ended and saved", preferredStyle: .alert)
+        let savingAction = UIAlertAction(title: "Stop and Save", style: .default) { (action: UIAlertAction) in
+            self.archiveWalk()
+            DispatchQueue.main.async {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
+        let continueAction = UIAlertAction(title: "Continue Walk", style: .default) { (action: UIAlertAction) in
+            self.enableButton(play: false, pause: true, stop: true)
+            self.buttonReaction(play: true, pause: false, stop: false)
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+            self.locationManager.startUpdatingLocation()
+            self.locationManager.startUpdatingHeading()
+        }
+        
+        alert.addAction(savingAction)
+        alert.addAction(continueAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func setTime() {
@@ -164,12 +176,6 @@ class CurrentWalkViewController: UIViewController {
     }
     
 //MARK: - Button UI
-    fileprivate func saveIndication() {
-        savingIndicator.startAnimating()
-        greatJobLabel.isHidden = false
-        savingLabel.isHidden = false
-    }
-    
     fileprivate func buttonReaction(play: Bool, pause: Bool, stop: Bool) {
         playImage.isHighlighted = play
         pauseImage.isHighlighted = pause
@@ -183,51 +189,20 @@ class CurrentWalkViewController: UIViewController {
     }
 
 
-//MARK: - PolyLine Archive
-    
-
-    func archive(walk: Walk) {
-        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let newEntity = NSEntityDescription.entity(forEntityName: "Walk", in: managedContext)!
-        let newWalk = NSManagedObject(entity: newEntity, insertInto: managedContext)
-        newWalk.setValue(walk.date, forKey: "date")
-        newWalk.setValue(walk.distance, forKey: "distance")
-//        newWalk.setValue(walk.route, forKey: "route")
-        newWalk.setValue(walk.startTime, forKey: "startTime")
-        newWalk.setValue(walk.time, forKey: "time")
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save \(error)")
-        }
-    }
+//MARK: - Archive
     
     func archiveWalk() {
         let newWalk = Walk(context: DataController.shared.viewContext)
         newWalk.date = date
         newWalk.distance = "\(meterCount)"
-        newWalk.route = createPolyLine(locations: userLocations)
+        newWalk.route = userLocations
         newWalk.startTime = startTime
         newWalk.time = passedTime
         for dog in dogs {
             newWalk.addToParticipatingDogs(dog)
         }
+        print(newWalk)
         DataController.shared.saveViewContext()
-    }
-    
-
-    func polyLineToArchive(polyLine: MKPolyline) -> NSData {
-        let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polyLine.pointCount)
-        polyLine.getCoordinates(coordsPointer, range: NSMakeRange(0, polyLine.pointCount))
-        var coords: [Dictionary<String, AnyObject>] = []
-        for i in 0..<polyLine.pointCount {
-            let latitude = NSNumber(value: coordsPointer[i].latitude)
-            let longitude = NSNumber(value: coordsPointer[i].longitude)
-            let coord = ["latitude": latitude, "longitude": longitude]
-            coords.append(coord)
-        }
-        let polyLineData = try? NSKeyedArchiver.archivedData(withRootObject: coords, requiringSecureCoding: false)
-        return polyLineData! as NSData
     }
 
     

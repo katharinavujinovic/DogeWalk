@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="Yha-1Z-OQm" customClass="PreWalkViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vLi-vE-Ps3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J4J-1e-wkB">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="54" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="cancel" id="eQ8-Zz-62M">
@@ -30,16 +30,16 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select who is coming with you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypj-9V-ruk">
-                                <rect key="frame" x="94" y="65" width="226.5" height="21"/>
+                                <rect key="frame" x="94" y="153" width="226.5" height="21"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-Rd-law">
-                                <rect key="frame" x="20" y="115" width="374" height="593"/>
+                                <rect key="frame" x="20" y="203" width="374" height="510"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Lcd-eM-7Rd">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -47,7 +47,7 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwb-VP-j9O">
-                                <rect key="frame" x="100" y="723" width="214" height="55"/>
+                                <rect key="frame" x="100" y="728" width="214" height="55"/>
                                 <color key="backgroundColor" name="Button_Orange"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="jAf-b3-g33"/>
@@ -76,7 +76,9 @@
                             <constraint firstItem="IlJ-h3-oIQ" firstAttribute="trailing" secondItem="xwb-VP-j9O" secondAttribute="trailing" constant="100" id="v9f-dm-tiS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="jZp-hW-9eh"/>
+                    <navigationItem key="navigationItem" id="jZp-hW-9eh">
+                        <barButtonItem key="backBarButtonItem" title="select dogs" id="JZ4-8F-UBm"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="eQ8-Zz-62M" id="880-Tx-rB4"/>
                         <outlet property="continueButton" destination="xwb-VP-j9O" id="vLd-0a-sgj"/>
@@ -95,14 +97,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CurrentWalkViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="97c-Nr-ZqC">
-                                <rect key="frame" x="0.0" y="44" width="414" height="508"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="469"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qlY-wc-NgC">
-                                <rect key="frame" x="0.0" y="552" width="414" height="290"/>
+                                <rect key="frame" x="0.0" y="557" width="414" height="339"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PauseDeselcted" highlightedImage="PauseSelected" translatesAutoresizingMaskIntoConstraints="NO" id="MXP-7Z-EDF">
                                         <rect key="frame" x="79.5" y="12" width="100" height="50"/>
@@ -211,97 +213,56 @@
                                     <constraint firstItem="A66-dt-VVa" firstAttribute="top" secondItem="qlY-wc-NgC" secondAttribute="top" id="zgi-EK-LtW"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-MR-jx7">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                <items>
-                                    <barButtonItem title="select dogs" id="sIV-be-8S0">
-                                        <connections>
-                                            <action selector="backSelectDogsPressed:" destination="BYZ-38-t0r" id="fjH-yg-zsZ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c8w-Ew-0q6">
-                                <rect key="frame" x="20" y="44" width="374" height="70"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="press PLAY to start your walk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-yH-Mxq">
+                                <rect key="frame" x="98" y="528" width="218" height="31"/>
+                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c8w-Ew-0q6">
+                                <rect key="frame" x="20" y="108" width="374" height="65"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="tBr-EY-nQe"/>
+                                    <constraint firstAttribute="height" constant="65" id="tBr-EY-nQe"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8GR-e8-SdB">
-                                    <size key="itemSize" width="67" height="67"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8GR-e8-SdB">
+                                    <size key="itemSize" width="65" height="65"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lT1-D1-b01">
-                                <rect key="frame" x="188.5" y="223" width="37" height="37"/>
-                                <color key="color" name="DogeWalk_Green"/>
-                            </activityIndicatorView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="your walk will be saved" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGz-Uv-j6h">
-                                <rect key="frame" x="122.5" y="304" width="169.5" height="31"/>
-                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Great Job!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jH-19-ybu">
-                                <rect key="frame" x="143" y="268" width="128" height="35"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="30"/>
-                                <color key="textColor" name="DogeWalk_Green"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="press PLAY to start your walk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-yH-Mxq">
-                                <rect key="frame" x="98" y="523" width="218" height="31"/>
-                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="97c-Nr-ZqC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7f2-gA-8rL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FtF-yH-Mxq" secondAttribute="bottom" constant="254" id="9pl-Lh-oTv"/>
                             <constraint firstItem="97c-Nr-ZqC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Awc-gD-puA"/>
-                            <constraint firstItem="9jH-19-ybu" firstAttribute="top" secondItem="lT1-D1-b01" secondAttribute="bottom" constant="8" symbolic="YES" id="BdO-Os-aN5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c8w-Ew-0q6" secondAttribute="trailing" constant="20" id="CvI-ng-x5o"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="97c-Nr-ZqC" secondAttribute="bottom" constant="256" id="Ddi-e1-juz"/>
-                            <constraint firstItem="lT1-D1-b01" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EZi-22-LLw"/>
                             <constraint firstItem="qlY-wc-NgC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="F5d-fc-Ups"/>
-                            <constraint firstItem="c8w-Ew-0q6" firstAttribute="top" secondItem="jc4-MR-jx7" secondAttribute="bottom" symbolic="YES" id="OBI-yc-AxB"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="trailing" secondItem="97c-Nr-ZqC" secondAttribute="trailing" id="PvG-gf-JNK"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Rsv-NZ-yW9"/>
-                            <constraint firstItem="SGz-Uv-j6h" firstAttribute="top" secondItem="9jH-19-ybu" secondAttribute="bottom" constant="1" id="bIJ-Ox-nQg"/>
+                            <constraint firstItem="c8w-Ew-0q6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="LyA-RN-550"/>
                             <constraint firstItem="c8w-Ew-0q6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="baQ-8i-CNS"/>
-                            <constraint firstItem="SGz-Uv-j6h" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d2U-aY-RIl"/>
                             <constraint firstItem="97c-Nr-ZqC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eBU-qy-RQe"/>
                             <constraint firstItem="qlY-wc-NgC" firstAttribute="top" secondItem="97c-Nr-ZqC" secondAttribute="bottom" id="eQx-vu-k52"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="centerX" secondItem="c8w-Ew-0q6" secondAttribute="centerX" id="hmu-Bw-CB9"/>
-                            <constraint firstItem="97c-Nr-ZqC" firstAttribute="top" secondItem="jc4-MR-jx7" secondAttribute="bottom" id="inB-kr-dix"/>
                             <constraint firstItem="FtF-yH-Mxq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l0t-VO-64r"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="trailing" secondItem="qlY-wc-NgC" secondAttribute="trailing" id="lTK-xQ-h4L"/>
                             <constraint firstItem="qlY-wc-NgC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nBh-DA-VD8"/>
-                            <constraint firstItem="lT1-D1-b01" firstAttribute="top" secondItem="97c-Nr-ZqC" secondAttribute="top" constant="179" id="og3-3k-F3P"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="leading" secondItem="97c-Nr-ZqC" secondAttribute="leading" id="uNd-9H-KtC"/>
-                            <constraint firstItem="jc4-MR-jx7" firstAttribute="leading" secondItem="qlY-wc-NgC" secondAttribute="leading" id="vfp-Yd-nXo"/>
-                            <constraint firstItem="9jH-19-ybu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w6E-jV-DzI"/>
                             <constraint firstAttribute="bottom" secondItem="qlY-wc-NgC" secondAttribute="bottom" id="y88-ri-ATn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mb2-cN-5N8"/>
                     <connections>
-                        <outlet property="backSelectDogs" destination="sIV-be-8S0" id="AV5-fs-qfY"/>
                         <outlet property="currentWalkMapView" destination="97c-Nr-ZqC" id="tGF-vX-Zkk"/>
                         <outlet property="distanceLabel" destination="Ts1-aE-hoD" id="TZX-4O-20V"/>
                         <outlet property="flowLayout" destination="8GR-e8-SdB" id="F51-i1-jyx"/>
-                        <outlet property="greatJobLabel" destination="9jH-19-ybu" id="QWR-mW-u43"/>
                         <outlet property="miniCollectionView" destination="c8w-Ew-0q6" id="9Xg-lk-UbV"/>
                         <outlet property="pauseButton" destination="J6J-Qh-iL2" id="VOv-zJ-bQJ"/>
                         <outlet property="pauseImage" destination="MXP-7Z-EDF" id="hvv-ju-6jJ"/>
                         <outlet property="playButton" destination="tTJ-lR-TQ0" id="rGx-KO-z72"/>
                         <outlet property="playImage" destination="A66-dt-VVa" id="KAr-yO-RKD"/>
                         <outlet property="pressPlayLabel" destination="FtF-yH-Mxq" id="gnY-Q5-swE"/>
-                        <outlet property="savingIndicator" destination="lT1-D1-b01" id="ocs-Vy-7Mi"/>
-                        <outlet property="savingLabel" destination="SGz-Uv-j6h" id="Klv-ot-uD5"/>
+                        <outlet property="selectDogsButton" destination="mb2-cN-5N8" id="exB-Mz-Ypm"/>
                         <outlet property="stopButton" destination="zVD-7L-T1y" id="UBD-EU-V09"/>
                         <outlet property="stopImage" destination="7c4-sf-qDg" id="Xxb-a8-YmJ"/>
                         <outlet property="timeLabel" destination="LoS-29-wQp" id="TUH-IM-djk"/>
@@ -353,7 +314,7 @@
                         <outlet property="walkButton" destination="rRc-LL-VdP" id="qHA-oE-376"/>
                         <outlet property="walkOverviewTableView" destination="0MY-nN-ZJP" id="hGX-Ez-OMW"/>
                         <segue destination="4q6-DN-xp8" kind="show" identifier="WalkOverviewToDetail" id="Paa-vT-wCx"/>
-                        <segue destination="Yha-1Z-OQm" kind="presentation" identifier="WalkOverviewToPreWalk" id="q11-x5-cyj"/>
+                        <segue destination="Yha-1Z-OQm" kind="show" identifier="WalkOverviewToPreWalk" id="q11-x5-cyj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czF-rl-KWP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -378,9 +339,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LFI-Ey-IaI">
-                                <rect key="frame" x="20" y="523" width="374" height="65"/>
+                                <rect key="frame" x="20" y="523" width="374" height="70"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="pAn-Jo-OWk"/>
+                                    <constraint firstAttribute="height" constant="70" id="pAn-Jo-OWk"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kR7-bR-wq5">
                                     <size key="itemSize" width="67" height="67"/>
@@ -491,9 +453,10 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rff-yg-nC1">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j0E-Yf-shH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j0E-Yf-shH">
                                 <rect key="frame" x="20" y="100" width="374" height="661"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="separatorColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jk7-t6-EsL">
                                 <rect key="frame" x="157" y="723" width="100" height="100"/>
@@ -533,7 +496,7 @@
                         <outlet property="dogOverviewTableView" destination="j0E-Yf-shH" id="FT8-HR-ggT"/>
                         <outlet property="walkButton" destination="jk7-t6-EsL" id="jN5-Me-uqC"/>
                         <segue destination="d6w-gL-Hz2" kind="show" identifier="DogOverviewToDetail" id="4CI-QC-Ids"/>
-                        <segue destination="Yha-1Z-OQm" kind="presentation" identifier="DogOverviewToPreWalk" id="ZiM-EW-o8w"/>
+                        <segue destination="Yha-1Z-OQm" kind="show" identifier="DogOverviewToPreWalk" id="ZiM-EW-o8w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OSq-uv-Ix1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -903,6 +866,9 @@
                                     <state key="normal">
                                         <imageReference key="image" image="trash" catalog="system" symbolScale="large"/>
                                     </state>
+                                    <connections>
+                                        <action selector="deleteDogPressed:" destination="vy4-df-odi" eventType="touchUpInside" id="JqN-3L-wMJ"/>
+                                    </connections>
                                 </button>
                             </barButtonItem>
                         </rightBarButtonItems>

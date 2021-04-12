@@ -21,14 +21,16 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var distanceLabel: UILabel!
     
     var walk: Walk!
-    var dogs: [Dog]!
+    var dogs: [Dog] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "MiniCollectionViewCell", bundle: nil)
+        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: "MiniCollectionViewCell")
         walkDetailMapView.delegate = self
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
-        walkDetailMapView.addOverlay(walk.route as! MKOverlay)
+        walkDetailMapView.addOverlay(createPolyLine(locations: walk.route!))
         displaySelectedWalk()
     }
 
@@ -36,28 +38,16 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     //MARK: - PolyLineUnarchive
     
     func displaySelectedWalk() {
-        dateLabel.text = "\(String(describing: walk.date))"
+        dateLabel.text = "\(String(describing: walk.date!))"
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
-        dogs = walk.value(forKey: "participatingDogs") as? [Dog]
+        let setOfDogs = walk.participatingDogs!
+        dogs = setOfDogs.allObjects as! [Dog]
+        let viewRegion = MKCoordinateRegion(center: walk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        walkDetailMapView.setRegion(viewRegion, animated: true)
     }
-    func polylineUnarchive(polylineArchive: NSData) -> MKPolyline? {
-        let data = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(polylineArchive as Data)
-        let polyline = data as! [Dictionary<String, AnyObject>]
-
-        var locations: [CLLocation] = []
-        for item in polyline {
-            if let latitude = item["latitude"]?.doubleValue,
-                let longitude = item["longitude"]?.doubleValue {
-                let location = CLLocation(latitude: latitude, longitude: longitude)
-                locations.append(location)
-            }
-        }
-        var coordinates = locations.map({(location: CLLocation) -> CLLocationCoordinate2D in return location.coordinate})
-        let fetchedPolyline = MKPolyline(coordinates: &coordinates, count: locations.count)
-        return fetchedPolyline
-    }
+ 
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
@@ -79,6 +69,14 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
             let coord = ["latitude" : latitude, "longitude" : longitude]
             coords.append(coord)
         }
+    }
+    
+    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
+        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
+            return location.coordinate
+        })
+        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
+        return polyLine
     }
 }
 

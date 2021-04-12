@@ -86,17 +86,9 @@
                                     <constraint firstAttribute="width" constant="125" id="l3K-i5-Lny"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6G-cb-Sh5">
-                                <rect key="frame" x="0.0" y="0.0" width="398" height="161"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <size key="titleShadowOffset" width="14" height="0.0"/>
-                                <state key="normal">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                </state>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Q6G-cb-Sh5" secondAttribute="trailing" id="83Y-Xl-jwK"/>
+                            <constraint firstItem="YNL-9A-0ix" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" constant="18" id="4r8-j4-mG6"/>
                             <constraint firstItem="erJ-WB-5XB" firstAttribute="centerY" secondItem="6i4-c1-BME" secondAttribute="centerY" id="8co-uC-5HA"/>
                             <constraint firstItem="YNL-9A-0ix" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" constant="20" symbolic="YES" id="9na-5O-E0K"/>
                             <constraint firstItem="6Hh-cu-UTW" firstAttribute="leading" secondItem="YNL-9A-0ix" secondAttribute="trailing" constant="18" id="A1P-Xq-PDm"/>
@@ -106,15 +98,12 @@
                             <constraint firstItem="6Hh-cu-UTW" firstAttribute="top" secondItem="30m-aa-goM" secondAttribute="bottom" constant="18" id="KoZ-wI-CTC"/>
                             <constraint firstAttribute="bottom" secondItem="wLE-DS-VTm" secondAttribute="bottom" constant="10" id="PJI-8R-baM"/>
                             <constraint firstItem="wLE-DS-VTm" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" constant="10" id="Rw3-PA-HPb"/>
-                            <constraint firstItem="Q6G-cb-Sh5" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" id="UbA-C4-1CX"/>
                             <constraint firstItem="30m-aa-goM" firstAttribute="leading" secondItem="YNL-9A-0ix" secondAttribute="trailing" constant="18" id="V57-5c-PJ9"/>
                             <constraint firstAttribute="height" constant="161" id="bmU-v9-j1F"/>
                             <constraint firstAttribute="trailing" secondItem="30m-aa-goM" secondAttribute="trailing" constant="20" id="dyh-Tf-plQ"/>
                             <constraint firstItem="wLE-DS-VTm" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" constant="10" id="jna-g1-i6d"/>
-                            <constraint firstAttribute="bottom" secondItem="Q6G-cb-Sh5" secondAttribute="bottom" id="k4g-oW-n90"/>
                             <constraint firstAttribute="trailing" secondItem="6Hh-cu-UTW" secondAttribute="trailing" constant="20" id="pUM-vx-kX7"/>
                             <constraint firstAttribute="trailing" secondItem="wLE-DS-VTm" secondAttribute="trailing" constant="10" id="sN8-TP-cip"/>
-                            <constraint firstItem="Q6G-cb-Sh5" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" id="w6L-0w-nSb"/>
                             <constraint firstAttribute="bottom" secondItem="6Hh-cu-UTW" secondAttribute="bottom" constant="12" id="wYB-qX-Dbz"/>
                         </constraints>
                     </view>

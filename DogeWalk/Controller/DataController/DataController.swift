@@ -27,7 +27,6 @@ class DataController {
             guard error == nil else {
                 fatalError(error!.localizedDescription)
             }
-            self.autoSaveViewContext()
             self.configureContexts()
             completion?()
         }
@@ -45,18 +44,6 @@ class DataController {
     
     func saveViewContext() {
         try? viewContext.save()
-    }
-    
-    func autoSaveViewContext(interval : TimeInterval = 30) {
-        guard interval > 0 else {
-            return
-        }
-        if viewContext.hasChanges {
-            saveViewContext()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
-            self.autoSaveViewContext(interval: interval)
-        }
     }
     
 }

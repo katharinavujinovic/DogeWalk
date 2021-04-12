@@ -21,9 +21,7 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        let miniNib = UINib(nibName: "MiniCollectionViewCell", bundle: nil)
         walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
-        walkOverviewTableView.register(miniNib, forCellReuseIdentifier: "MiniCollectionViewCell")
         setupFetchedResultsController()
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
@@ -40,13 +38,24 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "walks")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatedWalks")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print("fetch could not been done")
         }
+        DispatchQueue.main.async {
+            self.walkOverviewTableView.reloadData()
+        }
+    }
+    
+    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
+        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
+            return location.coordinate
+        })
+        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
+        return polyLine
     }
 }
 
@@ -68,15 +77,14 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         cell.distancelabel.text = aWalk.distance
         cell.startTimeLabel.text = aWalk.startTime
         cell.timeLabel.text = aWalk.time
+        let locations = aWalk.route!
+        cell.mapView.addOverlay(createPolyLine(locations: locations))
+        let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        cell.mapView.setRegion(viewRegion, animated: true)
         return cell
     }
-    
-    /*
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let tableViewCell = cell as? WalksOverviewTableViewCell else {return}
-        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
-    }
-    */
+
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedWalk = fetchedResultsController.object(at: indexPath)
         performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
@@ -90,23 +98,3 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
-/*
-extension WalksOverviewViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let nSSetDogs = fetchedResultsController.object(at: indexPath).value(forKey: "participatingDogs") as! [Dog]
-        
-        var dogImages: [UIImage] = []
-        for dog in nSSetDogs {
-            let image = UIImage(data: dog.profile!)
-            dogImages.append(image!)
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
-        cell.dogImage.image = dogImages[indexPath.row]
-        return cell
-    }
-}
-*/

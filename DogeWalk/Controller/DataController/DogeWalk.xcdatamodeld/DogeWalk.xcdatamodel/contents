@@ -8,12 +8,12 @@
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="profile" optional="YES" attributeType="Binary"/>
-        <relationship name="participatedWalks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="participatingDogs" inverseEntity="Walk"/>
+        <relationship name="participatedWalks" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Walk" inverseName="participatingDogs" inverseEntity="Walk"/>
     </entity>
-    <entity name="Walk" representedClassName="Walk" syncable="YES" codeGenerationType="class">
+    <entity name="Walk" representedClassName="Walk" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="distance" optional="YES" attributeType="String"/>
-        <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName="RouteValueTransformer"/>
+        <attribute name="route" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[CLLocation]"/>
         <attribute name="startTime" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
         <relationship name="participatingDogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="participatedWalks" inverseEntity="Dog"/>

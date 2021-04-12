@@ -23,11 +23,5 @@ class DogOverviewTableViewCell: UITableViewCell {
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
         backgroundTint.layer.cornerRadius = 15
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
 }

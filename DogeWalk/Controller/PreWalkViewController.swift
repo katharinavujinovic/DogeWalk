@@ -71,7 +71,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatingDogs")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()

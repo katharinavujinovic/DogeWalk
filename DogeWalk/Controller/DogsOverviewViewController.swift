@@ -35,7 +35,7 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "dogs")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatingDogs")
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -90,7 +90,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Segue.dogOverviewToDetail{
+        if segue.identifier == Constants.Segue.dogOverviewToDetail {
             let dogDetailVC = segue.destination as! DogDetailViewController
             dogDetailVC.dog = selectedDog
         }

@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import MapKit
 
 class WalksOverviewTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var miniCollectionView: UICollectionView!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var distancelabel: UILabel!
@@ -17,15 +18,20 @@ class WalksOverviewTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        mapView.delegate = self
     }
     
-    func setCollectionViewDataSourceDelegate(dataSourceDelegate: UICollectionViewDataSource & UICollectionViewDelegate, forRow row: Int) {
-        miniCollectionView.delegate = dataSourceDelegate
-        miniCollectionView.dataSource = dataSourceDelegate
-        miniCollectionView.tag = row
-        miniCollectionView.reloadData()
+}
+
+extension WalksOverviewTableViewCell: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
+            polyLineRenderer.strokeColor = #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1)
+            polyLineRenderer.lineWidth = 5
+            return polyLineRenderer
+        }
+        return MKOverlayRenderer()
     }
-    
 }
 

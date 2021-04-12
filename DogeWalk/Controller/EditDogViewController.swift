@@ -52,6 +52,9 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             if let data = data {
                 self.allBreeds = Array(data.message.keys)
                 self.sortedBreeds = self.allBreeds.sorted()
+                DispatchQueue.main.async {
+                    self.breedPicker.reloadAllComponents()
+                }
             } else {
                 print(error!.localizedDescription)
             }
@@ -138,12 +141,30 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             nameTextField.placeholder = "Please give your Dog a name"
         } else {
             setSaving(isSaving: true)
-            archiveNewDog(name: nameTextField.text!, image: dogImage.image!, age: Int16(ageTextField.text!)!, breed: selectedDogBreed, gender: genderOfDog, favouritToy: toyTextField.text ?? "", favouriteTreat: treatTextField.text ?? "")
             DispatchQueue.main.async {
+                self.archiveNewDog(name: self.nameTextField.text!, image: self.dogImage.image!, age: Int16(self.ageTextField.text!)!, breed: self.selectedDogBreed, gender: self.genderOfDog, favouritToy: self.toyTextField.text ?? "", favouriteTreat: self.treatTextField.text ?? "")
                 self.dismiss(animated: true, completion: nil)
             }
         }
     }
+    
+    @IBAction func deleteDogPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { (action: UIAlertAction) in
+            DataController.shared.viewContext.delete(self.dog!)
+            DataController.shared.saveViewContext()
+        }
+        let cancelAction = UIAlertAction(title: "Keep Dog", style: .default) { (action: UIAlertAction) in
+            return
+        }
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         setSaving(isSaving: true)
@@ -153,8 +174,8 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         dog?.age = Int16(ageTextField.text!)!
         dog?.favouriteToy = toyTextField.text
         dog?.favouriteTreat = treatTextField.text
-        DataController.shared.saveViewContext()
         DispatchQueue.main.async {
+            DataController.shared.saveViewContext()
             self.dismiss(animated: true, completion: nil)
         }
     }
