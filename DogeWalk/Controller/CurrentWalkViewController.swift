@@ -63,6 +63,7 @@ class CurrentWalkViewController: UIViewController {
         buttonReaction(play: true, pause: false, stop: false)
         // set the startTime
         if startTime == "" {
+            now = Date()
             startTime = startTime(date: now!)
         }
         // start the Timer
