@@ -25,23 +25,20 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // nib registration
         let nib = UINib(nibName: "MiniCollectionViewCell", bundle: nil)
         walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: "MiniCollectionViewCell")
+        // delegation assigning
         walkDetailMapView.delegate = self
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
+        // UI
         walkDetailMapView.addOverlay(createPolyLine(locations: walk.route!))
         displaySelectedWalk()
     }
-
-    
-    //MARK: - PolyLineUnarchive
     
     func displaySelectedWalk() {
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .short
-        timeFormatter.timeStyle = .none
-        dateLabel.text = timeFormatter.string(from: walk.date!)
+        dateLabel.text = timeFormatter(date: walk.date!)
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
@@ -61,26 +58,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         }
         return MKOverlayRenderer()
     }
-    
-    func log(polyline: MKPolyline) {
-        let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polyline.pointCount)
-        polyline.getCoordinates(coordsPointer, range: NSMakeRange(0, polyline.pointCount))
-        var coords: [Dictionary<String, AnyObject>] = []
-        for i in 0..<polyline.pointCount {
-            let latitude = NSNumber(value: coordsPointer[i].latitude)
-            let longitude = NSNumber(value: coordsPointer[i].longitude)
-            let coord = ["latitude" : latitude, "longitude" : longitude]
-            coords.append(coord)
-        }
-    }
-    
-    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
-        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
-            return location.coordinate
-        })
-        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
-        return polyLine
-    }
+        
 }
 
 //MARK: - Mini CollectionView
@@ -94,7 +72,5 @@ extension WalkDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.dogImage.image = UIImage(data: dogs[indexPath.row].profile!)
         return cell
     }
-    
-    
 }
 

@@ -24,8 +24,10 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // nib registration
         let nib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
         dogOverviewTableView.register(nib, forCellReuseIdentifier: "DogOverviewTableViewCell")
+        // delegation assigning
         dogOverviewTableView.dataSource = self
         dogOverviewTableView.delegate = self
     }
@@ -51,7 +53,7 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
         }
     }
     
-    fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+    func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
@@ -63,7 +65,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
@@ -92,6 +94,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
         self.performSegue(withIdentifier: Constants.Segue.dogOverviewToDetail, sender: self)
     }
     
+    //MARK: - Segue Preparation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.dogOverviewToDetail {
             let dogDetailVC = segue.destination as! DogDetailViewController

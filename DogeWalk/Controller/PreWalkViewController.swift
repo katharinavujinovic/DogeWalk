@@ -24,11 +24,14 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
+        // nib registration
         let nib = UINib(nibName: "DogSelectionCollectionViewCell", bundle: nil)
         preWalkCollectionView.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionViewCell")
+        // delegation assigning
         preWalkCollectionView.dataSource = self
         preWalkCollectionView.delegate = self
         preWalkCollectionView.allowsMultipleSelection = true
+        // UI
         setContinueButton()
     }
     
@@ -52,6 +55,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
     }
     
+    //MARK: - Segue Preparation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.preWalkToCurrentWalk {
             let currentWalkVC = segue.destination as! CurrentWalkViewController
@@ -59,8 +63,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
     }
     
-    fileprivate func setContinueButton() {
-        // set the button to have a gradient and rounded corners
+    func setContinueButton() {
         continueButton.layer.cornerRadius = 15
         continueButton.clipsToBounds = true
         continueButton.setGradientBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)

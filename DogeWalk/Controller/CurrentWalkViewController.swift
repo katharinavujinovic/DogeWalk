@@ -11,8 +11,8 @@ import CoreLocation
 import CoreData
 
 class CurrentWalkViewController: UIViewController {
-    @IBOutlet weak var selectDogsButton: UINavigationItem!
     
+    @IBOutlet weak var selectDogsButton: UINavigationItem!
     @IBOutlet weak var currentWalkMapView: MKMapView!
     @IBOutlet weak var miniCollectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
@@ -28,7 +28,6 @@ class CurrentWalkViewController: UIViewController {
     // Walkstats
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    // NavigationBar
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
@@ -40,12 +39,10 @@ class CurrentWalkViewController: UIViewController {
     var startTime = ""
     var now: Date?
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
-//        locationManager.allowsBackgroundLocationUpdates = true
+        // locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         registerNib()
         locationManager.delegate = self
@@ -57,10 +54,6 @@ class CurrentWalkViewController: UIViewController {
         print(dogs!)
         enableButton(play: true, pause: false, stop: false)
     }
-    
-    @IBAction func backSelectDogsPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
 
     // start the distance and time tracking
     @IBAction func playButtonPressed(_ sender: Any) {
@@ -68,9 +61,11 @@ class CurrentWalkViewController: UIViewController {
         pressPlayLabel.isHidden = true
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
+        // set the startTime
         if startTime == "" {
-            setTime()
+            startTime = startTime(date: now!)
         }
+        // start the Timer
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
@@ -105,50 +100,7 @@ class CurrentWalkViewController: UIViewController {
         alert.addAction(continueAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    func setTime() {
-        now = Date()
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .none
-        timeFormatter.timeStyle = .short
-        startTime = timeFormatter.string(from: now!)
-    }
 
-//MARK: - Location Service
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            checkLocationAuthorization()
-        } else {
-            // show alert to let user know why they need to enable this
-        }
-    }
-    
-    func checkLocationAuthorization() {
-        switch locationManager.authorizationStatus {
-        case .authorizedWhenInUse:
-            currentWalkMapView.showsUserLocation = true
-        case.denied:
-            // show alert to turn on locationservice
-        break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            currentWalkMapView.showsUserLocation = true
-        case .restricted:
-            // show alert that locationusage is restricted
-        break
-        case .authorizedAlways:
-            break
-        @unknown default:
-            locationManager.requestWhenInUseAuthorization()
-            currentWalkMapView.showsUserLocation = true
-        }
-    }
-    
-    func stopLocationUpdate() {
-        locationManager.stopUpdatingLocation()
-        locationManager.stopUpdatingHeading()
-    }
-    
     //MARK: - Timer
     func displayTime(seconds:Int) -> String {
         let (h, m, s) = secondsToHoursMinutesSeconds (seconds: seconds)
@@ -202,14 +154,6 @@ class CurrentWalkViewController: UIViewController {
 //MARK: - MapKit Extension
 
 extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegate {
-    
-    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
-        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
-            return location.coordinate
-        })
-        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
-        return polyLine
-    }
     
     // is called when location is updated
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

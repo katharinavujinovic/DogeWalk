@@ -13,5 +13,6 @@ The walks also give you an information about your route, as well as how much you
 - [x] create a Route from the walked distance
 - [x] integration of a timer
 - [x] integration of distance counter
-- [ ] Implement CoreData
+- [x] Implement CoreData
+- [ ] Refactor
 - [ ] Testing

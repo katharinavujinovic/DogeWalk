@@ -25,8 +25,10 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // nib registration
         let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
         walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
     }
@@ -36,7 +38,6 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     // if there are no walks yet, there should be an image stating that
-    
     func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
@@ -54,13 +55,6 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
         }
     }
     
-    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
-        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
-            return location.coordinate
-        })
-        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
-        return polyLine
-    }
 }
 
 //MARK: - TableView Controller
@@ -77,10 +71,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let aWalk = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .short
-        timeFormatter.timeStyle = .none
-        cell.dateLabel.text = timeFormatter.string(from: aWalk.date!)
+        cell.dateLabel.text = timeFormatter(date: aWalk.date!)
         cell.distancelabel.text = aWalk.distance
         cell.startTimeLabel.text = aWalk.startTime
         cell.timeLabel.text = aWalk.time
@@ -97,6 +88,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
     }
     
+    //MARK: - Segue Preparation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.walkOverviewToDetail {
             let walkDetailVC = segue.destination as! WalkDetailViewController

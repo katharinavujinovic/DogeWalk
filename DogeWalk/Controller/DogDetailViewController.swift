@@ -27,22 +27,25 @@ class DogDetailViewController: UIViewController {
     var walks: [Walk] = []
     var selectedWalk: Walk?
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // nib registration
         let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
         dogDetailTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        // delegation assigning
         dogDetailTableView.delegate = self
         dogDetailTableView.dataSource = self
+        // UI
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
         setDogProfile()
     }
     
+    // Perform a segue to the EditDogVC to adjust and alter the dogs properties
     @IBAction func dogStatsPressed(_ sender: Any) {
         performSegue(withIdentifier: Constants.Segue.dogDetailToEdit, sender: self)
     }
     
+    //MARK: - Segue Preparation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.dogDetailToEdit {
             let editVC = segue.destination as! EditDogViewController
@@ -54,6 +57,7 @@ class DogDetailViewController: UIViewController {
         }
     }
 
+    // Set UI
     func setDogProfile() {
         dogImage.image = UIImage(data: dog.profile!)
         nameLabel.text = dog.name
@@ -71,21 +75,16 @@ class DogDetailViewController: UIViewController {
         walks = setOfWalks.allObjects as! [Walk]
     }
     
+    // Set Background of coloredView
     func setcoloredViewBackground(maincolor: UIColor, highlightcolor: UIColor) {
         coloredView.layer.cornerRadius = 10
         coloredView.clipsToBounds = true
         coloredView.setGradientViewBackground(colorOne: maincolor, colorTwo: highlightcolor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-    func createPolyLine(locations: [CLLocation]) -> MKPolyline {
-        let coordinates = locations.map({ (location: CLLocation!) -> CLLocationCoordinate2D in
-            return location.coordinate
-        })
-        let polyLine = MKPolyline(coordinates: coordinates, count: locations.count)
-        return polyLine
-    }
 }
 
+//MARK: - UITableView
 extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,10 +94,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let aWalk = walks[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .short
-        timeFormatter.timeStyle = .none
-        cell.dateLabel.text = timeFormatter.string(from: aWalk.date!)
+        cell.dateLabel.text = timeFormatter(date: aWalk.date!)
         cell.distancelabel.text = aWalk.distance
         cell.startTimeLabel.text = aWalk.startTime
         cell.timeLabel.text = aWalk.time
