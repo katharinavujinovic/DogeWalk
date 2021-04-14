@@ -43,7 +43,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var dog: Dog?
-    
+
     var genderOfDog = ""
     
     
@@ -68,13 +68,25 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.dismissKeyboard()
         breedPicker.delegate = self
         breedPicker.dataSource = self
+        
+        nameTextField.delegate = self
+        ageTextField.delegate = self
+        toyTextField.delegate = self
+        treatTextField.delegate = self
+        
         setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        setInterface()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             addNewDogButton.isHidden = true
@@ -93,8 +105,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             saveButton.isHidden = true
             deleteDog.isHidden = true
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
 //MARK: - Keyboard Management
@@ -114,7 +124,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         scrollView.contentInset = contentsInsets
         scrollView.scrollIndicatorInsets = contentsInsets
     }
-    
+
     
 //MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {

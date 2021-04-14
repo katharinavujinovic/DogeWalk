@@ -36,6 +36,7 @@
 		43CA00F22625856B003242FF /* DateSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00F12625856B003242FF /* DateSetter.swift */; };
 		43CA00F72625879F003242FF /* PolyLineCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00F62625879F003242FF /* PolyLineCreation.swift */; };
 		43CA00FB26258A15003242FF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00FA26258A15003242FF /* LocationService.swift */; };
+		43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00FE2627090C003242FF /* TextFieldExtension.swift */; };
 		43F458C22604A36E00B3CD7B /* DogBreedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */; };
 		43F458C52604A91D00B3CD7B /* DogBreedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		43CA00F12625856B003242FF /* DateSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSetter.swift; sourceTree = "<group>"; };
 		43CA00F62625879F003242FF /* PolyLineCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyLineCreation.swift; sourceTree = "<group>"; };
 		43CA00FA26258A15003242FF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		43CA00FE2627090C003242FF /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPI.swift; sourceTree = "<group>"; };
 		43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +145,7 @@
 				43CA00F12625856B003242FF /* DateSetter.swift */,
 				43CA00F62625879F003242FF /* PolyLineCreation.swift */,
 				43CA00FA26258A15003242FF /* LocationService.swift */,
+				43CA00FE2627090C003242FF /* TextFieldExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				43CA00F22625856B003242FF /* DateSetter.swift in Sources */,
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,
 				43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */,
+				43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */,
 				43B51F1B26243623008185FB /* Walk+CoreDataProperties.swift in Sources */,
 				436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */,
 				43135B1D25FB6C1A00799186 /* DogeWalk.xcdatamodeld in Sources */,
