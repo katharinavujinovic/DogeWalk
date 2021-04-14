@@ -95,6 +95,7 @@ class PreWalkViewController: UIViewController, NSFetchedResultsControllerDelegat
     func presentAlarm() {
         let alert = UIAlertController(title: "No Dog registered yet", message: "Make sure to create a profile for your dog before going for a walk", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: { (alert) in
+            self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)

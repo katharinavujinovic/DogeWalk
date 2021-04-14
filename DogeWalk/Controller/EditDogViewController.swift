@@ -24,6 +24,8 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     @IBOutlet weak var treatTextField: UITextField!
     
     @IBOutlet weak var breedPicker: UIPickerView!
+    @IBOutlet weak var breedPickerActivityIndicator: UIActivityIndicatorView!
+    
     // femaleButton and maleButton
     @IBOutlet weak var femaleIcon: UIImageView!
     @IBOutlet weak var femaleButton: UIButton!
@@ -53,10 +55,15 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
                 self.allBreeds = Array(data.message.keys)
                 self.sortedBreeds = self.allBreeds.sorted()
                 DispatchQueue.main.async {
+                    self.breedPickerActivityIndicator.stopAnimating()
                     self.breedPicker.reloadAllComponents()
                 }
             } else {
-                print(error!.localizedDescription)
+                self.breedPickerActivityIndicator.stopAnimating()
+                let alert = UIAlertController(title: "No Internet Connection", message: "You can come back to this profile another time to add the breed", preferredStyle: .alert)
+                let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
+                alert.addAction(okButton)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
