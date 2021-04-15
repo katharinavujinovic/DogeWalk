@@ -50,21 +50,30 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
-        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (data, error) in
-            if let data = data {
-                self.allBreeds = Array(data.message.keys)
-                self.sortedBreeds = self.allBreeds.sorted()
-                DispatchQueue.main.async {
-                    self.breedPickerActivityIndicator.stopAnimating()
-                    self.breedPicker.reloadAllComponents()
-                }
-            } else {
+        loadBreedList()
+    }
+    
+    func loadBreedList() {
+        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL, completionhandler: handleLoadBreedList(dogbreeds:error:))
+    }
+    
+    func handleLoadBreedList(dogbreeds: DogBreedResponse?, error: Error?) {
+        if let dogbreeds = dogbreeds {
+            allBreeds = Array(dogbreeds.message.keys)
+            sortedBreeds = allBreeds.sorted()
+            DispatchQueue.main.async {
                 self.breedPickerActivityIndicator.stopAnimating()
-                let alert = UIAlertController(title: "No Internet Connection", message: "You can come back to this profile another time to add the breed", preferredStyle: .alert)
-                let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
-                alert.addAction(okButton)
-                self.present(alert, animated: true, completion: nil)
+                self.breedPicker.reloadAllComponents()
             }
+        } else {
+            DispatchQueue.main.async {
+                self.breedPickerActivityIndicator.stopAnimating()
+            }
+            let alert = UIAlertController(title: "No Internet Connection", message: "You can come back to this profile another time to add the breed", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(okButton)
+            self.present(alert, animated: true, completion: nil)
+            print(error!.localizedDescription)
         }
     }
     

@@ -19,8 +19,17 @@ class DogBreedAPI {
                 return
             }
             let decoder = JSONDecoder()
-            let breedList = try! decoder.decode(DogBreedResponse.self, from: data)
-            completionhandler(breedList, nil)
+            
+            do {
+            let breedList = try decoder.decode(DogBreedResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completionhandler(breedList, nil)
+              }
+            } catch {
+                DispatchQueue.main.async {
+                    completionhandler(nil, error)
+                }
+            }
         }
         task.resume()
     }
