@@ -22,15 +22,25 @@
                         <subviews>
                             <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wLE-DS-VTm">
                                 <rect key="frame" x="10" y="10" width="378" height="141"/>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greaterthan.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="erJ-WB-5XB">
-                                <rect key="frame" x="353" y="66" width="30" height="29"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDz-fK-8nx">
+                                        <rect key="frame" x="0.0" y="0.0" width="378" height="141"/>
+                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <size key="titleShadowOffset" width="14" height="0.0"/>
+                                        <state key="normal" image="chevron.forward.circle" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.73141795399999998" green="0.73152464630000003" blue="0.73139470819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="WUR-FK-uOy"/>
-                                    <constraint firstAttribute="width" constant="30" id="nU9-AW-llg"/>
+                                    <constraint firstItem="iDz-fK-8nx" firstAttribute="top" secondItem="wLE-DS-VTm" secondAttribute="top" id="0Rr-yD-GEv"/>
+                                    <constraint firstItem="iDz-fK-8nx" firstAttribute="leading" secondItem="wLE-DS-VTm" secondAttribute="leading" id="QqF-eZ-asn"/>
+                                    <constraint firstAttribute="bottom" secondItem="iDz-fK-8nx" secondAttribute="bottom" id="iXC-Qt-dDR"/>
+                                    <constraint firstAttribute="trailing" secondItem="iDz-fK-8nx" secondAttribute="trailing" id="xbG-G7-d3i"/>
+                                    <constraint firstItem="iDz-fK-8nx" firstAttribute="leading" secondItem="wLE-DS-VTm" secondAttribute="leading" id="zjd-bd-3RR"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="6Hh-cu-UTW">
                                 <rect key="frame" x="163" y="59.5" width="215" height="89.5"/>
                                 <subviews>
@@ -89,10 +99,8 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="YNL-9A-0ix" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" constant="18" id="4r8-j4-mG6"/>
-                            <constraint firstItem="erJ-WB-5XB" firstAttribute="centerY" secondItem="6i4-c1-BME" secondAttribute="centerY" id="8co-uC-5HA"/>
                             <constraint firstItem="YNL-9A-0ix" firstAttribute="leading" secondItem="6i4-c1-BME" secondAttribute="leading" constant="20" symbolic="YES" id="9na-5O-E0K"/>
                             <constraint firstItem="6Hh-cu-UTW" firstAttribute="leading" secondItem="YNL-9A-0ix" secondAttribute="trailing" constant="18" id="A1P-Xq-PDm"/>
-                            <constraint firstAttribute="trailing" secondItem="erJ-WB-5XB" secondAttribute="trailing" constant="15" id="CNt-7b-EdE"/>
                             <constraint firstItem="YNL-9A-0ix" firstAttribute="centerY" secondItem="6i4-c1-BME" secondAttribute="centerY" id="DiH-OA-Esf"/>
                             <constraint firstItem="30m-aa-goM" firstAttribute="top" secondItem="6i4-c1-BME" secondAttribute="top" constant="18" id="KhE-UW-T69"/>
                             <constraint firstItem="6Hh-cu-UTW" firstAttribute="top" secondItem="30m-aa-goM" secondAttribute="bottom" constant="18" id="KoZ-wI-CTC"/>
@@ -125,11 +133,11 @@
                 <outlet property="toyLabel" destination="fIN-s7-1ll" id="OXT-ec-Rzf"/>
                 <outlet property="treatLabel" destination="h6j-qq-aAF" id="rOf-oP-QcN"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="153.01339285714286"/>
+            <point key="canvasLocation" x="134.78260869565219" y="149.66517857142856"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="greaterthan.circle" catalog="system" width="128" height="121"/>
+        <image name="chevron.forward.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -25,13 +25,11 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // nib registration
-        let nib = UINib(nibName: "MiniCollectionViewCell", bundle: nil)
-        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: "MiniCollectionViewCell")
         // delegation assigning
         walkDetailMapView.delegate = self
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
+        walkDetailCollectionView.backgroundColor = .clear
         // UI
         walkDetailMapView.addOverlay(createPolyLine(locations: walk.route!))
         displaySelectedWalk()
@@ -44,6 +42,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         distanceLabel.text = walk.distance
         let setOfDogs = walk.participatingDogs!
         dogs = setOfDogs.allObjects as! [Dog]
+        print(dogs)
         let viewRegion = MKCoordinateRegion(center: walk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         walkDetailMapView.setRegion(viewRegion, animated: true)
     }
@@ -68,8 +67,10 @@ extension WalkDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
-        cell.dogImage.image = UIImage(data: dogs[indexPath.row].profile!)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! WalkDetailMiniCollectionViewCell
+        let cellImage = UIImage(data: dogs[indexPath.row].profile!)
+            cell.miniImage.image = cellImage
+
         return cell
     }
 }

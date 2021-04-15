@@ -14,12 +14,21 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
     @IBOutlet weak var dogOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
     
+    @IBOutlet weak var addDogLabel: UILabel!
+    @IBOutlet weak var arrowImage: UIImageView!
+    
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var selectedDog: Dog?
+    var dogs: [Dog] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        dogs = []
         setupFetchedResultsController()
+        if dogs != [] {
+            arrowImage.isHidden = true
+            addDogLabel.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
@@ -45,6 +54,10 @@ class DogsOverviewViewController: UIViewController, NSFetchedResultsControllerDe
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
+            let fetchedDogs = fetchedResultsController.fetchedObjects
+            for dog in fetchedDogs! {
+                dogs.append(dog)
+            }
         } catch {
             print("fetch could not been done")
         }

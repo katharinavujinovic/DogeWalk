@@ -15,7 +15,6 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var selectDogsButton: UINavigationItem!
     @IBOutlet weak var currentWalkMapView: MKMapView!
     @IBOutlet weak var miniCollectionView: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
     // Play/Pause/Stop
     @IBOutlet weak var playImage: UIImageView!
@@ -44,11 +43,11 @@ class CurrentWalkViewController: UIViewController {
         checkLocationServices()
         // locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        registerNib()
         locationManager.delegate = self
         currentWalkMapView.delegate = self
         miniCollectionView.delegate = self
         miniCollectionView.dataSource = self
+        miniCollectionView.backgroundColor = .clear
         currentWalkMapView.mapType = MKMapType(rawValue: 0)!
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         print(dogs!)
@@ -188,32 +187,15 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
 //MARK: - Mini CollectionView
 extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellDimension = (collectionView.frame.height - 4)
-        return CGSize(width: cellDimension, height: cellDimension)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dogs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniCollectionViewCell", for: indexPath) as! MiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! MiniCollectionViewCell
         let cellImage = UIImage(data: dogs[indexPath.row].profile!)
-        cell.dogImage.image = cellImage
+        cell.miniImage.image = cellImage
         return cell
-    }
-    
-    func registerNib() {
-        let nib = UINib(nibName: MiniCollectionViewCell.nibName, bundle: nil)
-        miniCollectionView.register(nib, forCellWithReuseIdentifier: MiniCollectionViewCell.reuseIdentifier)
-        if let flowLayout = self.miniCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let space: CGFloat = 2
-            let size: CGFloat = miniCollectionView.frame.height - (2 * space)
-            flowLayout.minimumLineSpacing = 2
-            flowLayout.minimumInteritemSpacing = 2
-            flowLayout.itemSize = CGSize(width: size, height: size)
-        }
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  MiniCollectionViewCell.swift
+//  WalkDetailMiniCollectionViewCell.swift
 //  DogeWalk
 //
 //  Created by Katharina Müllek on 14.04.21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MiniCollectionViewCell: UICollectionViewCell {
+class WalkDetailMiniCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var miniImage: UIImageView!
     
