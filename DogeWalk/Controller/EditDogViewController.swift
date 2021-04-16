@@ -40,7 +40,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     var allBreeds: [String] = []
     var sortedBreeds: [String] = []
     var selectedDogBreed = ""
-    
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var dog: Dog?
 
@@ -53,30 +52,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         loadBreedList()
     }
     
-    func loadBreedList() {
-        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL, completionhandler: handleLoadBreedList(dogbreeds:error:))
-    }
-    
-    func handleLoadBreedList(dogbreeds: DogBreedResponse?, error: Error?) {
-        if let dogbreeds = dogbreeds {
-            allBreeds = Array(dogbreeds.message.keys)
-            sortedBreeds = allBreeds.sorted()
-            DispatchQueue.main.async {
-                self.breedPickerActivityIndicator.stopAnimating()
-                self.breedPicker.reloadAllComponents()
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.breedPickerActivityIndicator.stopAnimating()
-            }
-            let alert = UIAlertController(title: "No Internet Connection", message: "You can come back to this profile another time to add the breed", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
-            alert.addAction(okButton)
-            self.present(alert, animated: true, completion: nil)
-            print(error!.localizedDescription)
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         super.dismissKeyboard()
@@ -87,7 +62,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         ageTextField.delegate = self
         toyTextField.delegate = self
         treatTextField.delegate = self
-        
+//        checkNetwork()
         setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         setInterface()
@@ -95,20 +70,57 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    
+    
+    func loadBreedList() {
+        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (dogResponse, error) in
+                if let dogResponse = dogResponse {
+                    self.allBreeds = Array(dogResponse.message.keys)
+                    self.sortedBreeds = self.allBreeds.sorted()
+                    DispatchQueue.main.async {
+                        self.breedPickerActivityIndicator.stopAnimating()
+                        self.breedPicker.reloadAllComponents()
+                    }
+                } else {
+                    print("your error is: \(error!.localizedDescription)")
+                }
+        }
+        displayNetworkIssue()
+    }
+    
+    func displayNetworkIssue() {
+        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { timer in
+            if self.allBreeds == [] {
+                DispatchQueue.main.async {
+                    self.breedPickerActivityIndicator.stopAnimating()
+                    let alert = UIAlertController(title: "Very Slow or No Internet Connection", message: "Don't Worry, you can come back to this profile another time to add the breed", preferredStyle: .alert)
+                    let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
+                    alert.addAction(okButton)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
+    
+    
     func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
-            addNewDogButton.isHidden = true
-            dogImage.image = UIImage(data: dog!.profile!)
-            nameTextField.text = dog?.name
-            ageTextField.text = "\(dog!.age)"
-            toyTextField.text = dog?.favouriteToy
-            treatTextField.text = dog?.favouriteTreat
-            if dog?.gender == "female" {
-                genderIconReaction(female: true, male: false)
-            } else {
-                genderIconReaction(female: false, male: true)
+            DispatchQueue.main.async { [self] in
+                addNewDogButton.isHidden = true
+                dogImage.image = UIImage(data: dog!.profile!)
+                nameTextField.text = dog?.name
+                ageTextField.text = "\(dog!.age)"
+                toyTextField.text = dog?.favouriteToy
+                treatTextField.text = dog?.favouriteTreat
+                if dog?.gender == "female" {
+                    genderIconReaction(female: true, male: false)
+                } else {
+                    genderIconReaction(female: false, male: true)
+                }
             }
+            
             
         } else {
             saveButton.isHidden = true
@@ -123,15 +135,21 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         else {
             return
         }
-        let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
-        scrollView.contentInset = contentsInsets
-        scrollView.scrollIndicatorInsets = contentsInsets
+        DispatchQueue.main.async {
+            let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            self.scrollView.contentInset = contentsInsets
+            self.scrollView.scrollIndicatorInsets = contentsInsets
+        }
+        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-        scrollView.contentInset = contentsInsets
-        scrollView.scrollIndicatorInsets = contentsInsets
+        DispatchQueue.main.async {
+            let contentsInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.scrollView.contentInset = contentsInsets
+            self.scrollView.scrollIndicatorInsets = contentsInsets
+        }
+        
     }
 
     
