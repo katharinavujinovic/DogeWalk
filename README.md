@@ -19,8 +19,17 @@ The walk will be saved and can be viewed in your DogeWalk App!
 3. Build & run!
 
 ### Requirements
-This App was designed and build with `Swift 5` and `Xcode 12`.
+- `Swift 5+`
+- `Xcode 12+`.
 Please make sure to not use older versions of Xcode to ensure a smooth build 
 
 ### Used API
 For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to fetch a list of dog breeds
+
+### What are the upcoming implementations for DogeWalk
+- [ ] Migration from CoreData to Cloudbased Service
+- [ ] Implementation of Authentification via Google or Facebook
+- [ ] Tracking your Dogs activity during the walk
+- [ ] Implementation of Dogs activity during the day
+- [ ] Implementation of a Dog calendar for doctor appointments
+- [ ] Display statistics for your dog
