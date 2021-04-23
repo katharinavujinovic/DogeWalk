@@ -11,17 +11,9 @@ import MapKit
 
 class DogDetailViewController: UIViewController {
     // displays the walks the dog finished
-    @IBOutlet weak var dogDetailTableView: UITableView!
+    @IBOutlet weak var dogTableView: UITableView!
+    @IBOutlet weak var walksTableView: UITableView!
     // Dog stats
-    @IBOutlet weak var dogImage: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var breedLabel: UILabel!
-    @IBOutlet weak var toyChoice: UILabel!
-    @IBOutlet weak var treatChoice: UILabel!
-    // is either pink or blue depending on gender of dog
-    @IBOutlet weak var coloredView: UIView!
-    @IBOutlet weak var editButton: UIButton!
 
     var dog: Dog!
     var walks: [Walk] = []
@@ -30,19 +22,16 @@ class DogDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        dogDetailTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        let dogNib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
+        dogTableView.register(dogNib, forCellReuseIdentifier: "DogOverviewTableViewCell")
+        
+        let walkNib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
+        walksTableView.register(walkNib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
         // delegation assigning
-        dogDetailTableView.delegate = self
-        dogDetailTableView.dataSource = self
-        // UI
-        dogImage.layer.cornerRadius = dogImage.frame.height / 2
-        setDogProfile()
-    }
-    
-    // Perform a segue to the EditDogVC to adjust and alter the dogs properties
-    @IBAction func dogStatsPressed(_ sender: Any) {
-        performSegue(withIdentifier: Constants.Segue.dogDetailToEdit, sender: self)
+        walksTableView.delegate = self
+        walksTableView.dataSource = self
+        dogTableView.delegate = self
+        dogTableView.dataSource = self
     }
     
     //MARK: - Segue Preparation
@@ -56,30 +45,9 @@ class DogDetailViewController: UIViewController {
             walkDetailVC.walk = selectedWalk
         }
     }
-
-    // Set UI
-    func setDogProfile() {
-        dogImage.image = UIImage(data: dog.profile!)
-        nameLabel.text = dog.name
-        ageLabel.text = "\(dog.age)"
-        breedLabel.text = dog.breed
-        toyChoice.text = dog.favouriteToy
-        treatChoice.text = dog.favouriteTreat
-        // set the backgroundcolor based on gender of dog
-        if dog.gender == "female" {
-            setcoloredViewBackground(maincolor: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), highlightcolor: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
-        } else {
-            setcoloredViewBackground(maincolor: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), highlightcolor: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1))
-        }
-        let setOfWalks = dog.participatedWalks!
-        walks = setOfWalks.allObjects as! [Walk]
-    }
     
-    // Set Background of coloredView
-    func setcoloredViewBackground(maincolor: UIColor, highlightcolor: UIColor) {
-        coloredView.layer.cornerRadius = 10
-        coloredView.clipsToBounds = true
-        coloredView.setGradientViewBackground(colorOne: maincolor, colorTwo: highlightcolor, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
+    func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+        cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
 }
@@ -88,10 +56,21 @@ class DogDetailViewController: UIViewController {
 extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return walks.count
+        if tableView == self.walksTableView {
+            if walks.count == 0 {
+                return 1
+            } else {
+                return walks.count
+            }
+        }
+        else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // create an idicator when there are no walks yet
+        if tableView == self.walksTableView {
         let aWalk = walks[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
         cell.dateLabel.text = timeFormatter(date: aWalk.date!)
@@ -103,11 +82,37 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         cell.mapView.setRegion(viewRegion, animated: true)
         return cell
+        }
+        else if tableView == self.dogTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
+            cell.dogImage.image = UIImage(data: dog.profile!)
+            cell.ageLabel.text = "\(dog.age)"
+            cell.breedLabel.text = dog.breed
+            cell.nameLabel.text = dog.name
+            cell.toyLabel.text = dog.favouriteToy
+            cell.treatLabel.text = dog.favouriteTreat
+            
+            if dog.gender == "female" {
+                setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
+            } else {
+                setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1))
+            }
+            return cell
+        }
+        else {
+            return UITableViewCell()
+        }
+        
     }
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.walksTableView {
         selectedWalk = walks[indexPath.row]
         performSegue(withIdentifier: Constants.Segue.dogDetailToWalkDetail, sender: self)
+        }
+        if tableView == self.dogTableView {
+            performSegue(withIdentifier: Constants.Segue.dogDetailToEdit, sender: self)
+        }
     }
 }
