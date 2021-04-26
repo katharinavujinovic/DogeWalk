@@ -5,7 +5,7 @@
         <attribute name="breed" optional="YES" attributeType="String"/>
         <attribute name="favouriteToy" optional="YES" attributeType="String"/>
         <attribute name="favouriteTreat" optional="YES" attributeType="String"/>
-        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="isFemale" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="profile" optional="YES" attributeType="Binary"/>
         <relationship name="participatedWalks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Walk" inverseName="participatingDogs" inverseEntity="Walk"/>

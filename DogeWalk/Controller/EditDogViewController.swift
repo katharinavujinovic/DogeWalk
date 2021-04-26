@@ -43,7 +43,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     var fetchedResultsController: NSFetchedResultsController<Dog>!
     var dog: Dog?
 
-    var genderOfDog = ""
+    var genderOfDog: Bool?
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +114,8 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
                 ageTextField.text = "\(dog!.age)"
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
-                if dog?.gender == "female" {
+
+                if dog?.isFemale == true {
                     genderIconReaction(female: true, male: false)
                 } else {
                     genderIconReaction(female: false, male: true)
@@ -156,13 +157,13 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
 //MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {
         genderIconReaction(female: true, male: false)
-        genderOfDog = "female"
+        genderOfDog = true
     
     }
     
     @IBAction func maleButtonPressed(_ sender: Any) {
         genderIconReaction(female: false, male: true)
-        genderOfDog = "male"
+        genderOfDog = false
     }
     
 
@@ -181,12 +182,12 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
 //MARK: - Saving
     
     @IBAction func addNewDogPressed(_ sender: Any) {
-        if nameTextField.text == "" || genderOfDog == "" {
+        if nameTextField.text == "" || genderOfDog == nil {
             nameTextField.placeholder = "Please give your Dog a name"
         } else {
             setSaving(isSaving: true)
             DispatchQueue.main.async {
-                self.archiveNewDog(name: self.nameTextField.text!, image: self.dogImage.image!, age: Int16(self.ageTextField.text!)!, breed: self.selectedDogBreed, gender: self.genderOfDog, favouritToy: self.toyTextField.text ?? "", favouriteTreat: self.treatTextField.text ?? "")
+                self.archiveNewDog(name: self.nameTextField.text!, image: self.dogImage.image!, age: Int16(self.ageTextField.text!)!, breed: self.selectedDogBreed, isFemale: self.genderOfDog!, favouritToy: self.toyTextField.text ?? "", favouriteTreat: self.treatTextField.text ?? "")
                 self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -223,13 +224,13 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, gender: String, favouritToy: String, favouriteTreat: String) {
+    func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, isFemale: Bool, favouritToy: String, favouriteTreat: String) {
         let newDog = Dog(context: DataController.shared.viewContext)
         newDog.name = name
         newDog.profile = image.pngData()
         newDog.age = age
         newDog.breed = breed
-        newDog.gender = gender
+        newDog.isFemale = isFemale
         newDog.favouriteToy = favouritToy
         newDog.favouriteTreat = favouriteTreat
         DataController.shared.saveViewContext()

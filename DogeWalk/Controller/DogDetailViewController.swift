@@ -92,7 +92,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
             cell.toyLabel.text = dog.favouriteToy
             cell.treatLabel.text = dog.favouriteTreat
             
-            if dog.gender == "female" {
+            if dog.isFemale == true {
                 setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
             } else {
                 setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.8156862745, green: 0.9019607843, blue: 0.6470588235, alpha: 1))
