@@ -1,8 +1,7 @@
 # DogeWalk
 
 DogeWalk is my gratuation Project for the [Udacity iOS Developer Nanodegree](https://www.udacity.com/course/ios-developer-nanodegree--nd003).
-This App lets you save little Profiles for your Dogs and logs walks you take with them. 
-The walks also give you an information about your route, as well as how much you walked and how long the walk lasted. 
+Even after passing the program, i continue to tweek and improve this App as a passion project with the plan of eventually releasing it on the App Store in the future.
 
 ### What does DogeWalk do?
 With Dogewalk you can add create a profile for your dog and track your walks together. 
@@ -27,7 +26,8 @@ Please make sure to not use older versions of Xcode to ensure a smooth build
 For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to fetch a list of dog breeds
 
 ### What are the upcoming implementations for DogeWalk
-- [ ] Tracking your Dogs activity during the walk
-- [ ] Implementation of Dogs activity during the day
-- [ ] Implementation of a Dog calendar for doctor appointments
+- [ ] Addition of trackable activities during the walk
+- [ ] Implementation of a Dog calendar for doctor appointments and overall dog mood
+- [ ] migration from API usage for dog breed to storing breedlist locally
+- [ ] migration from CoraData to Realm
 - [ ] Display statistics for your dog
