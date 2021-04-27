@@ -28,6 +28,11 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    // Add annotations
+    @IBOutlet weak var poopButton: UIButton!
+    @IBOutlet weak var peeButton: UIButton!
+    
+    
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
     var secondCounter = 0

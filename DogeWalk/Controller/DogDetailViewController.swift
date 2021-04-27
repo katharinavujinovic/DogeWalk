@@ -57,11 +57,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.walksTableView {
-            if walks.count == 0 {
-                return 1
-            } else {
-                return walks.count
-            }
+            return walks.count
         }
         else {
             return 1
@@ -71,17 +67,17 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create an idicator when there are no walks yet
         if tableView == self.walksTableView {
-        let aWalk = walks[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        cell.dateLabel.text = timeFormatter(date: aWalk.date!)
-        cell.distancelabel.text = aWalk.distance
-        cell.startTimeLabel.text = aWalk.startTime
-        cell.timeLabel.text = aWalk.time
-        let locations = aWalk.route!
-        cell.mapView.addOverlay(createPolyLine(locations: locations))
-        let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        cell.mapView.setRegion(viewRegion, animated: true)
-        return cell
+                let aWalk = walks[indexPath.row]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+                cell.dateLabel.text = timeFormatter(date: aWalk.date!)
+                cell.distancelabel.text = aWalk.distance
+                cell.startTimeLabel.text = aWalk.startTime
+                cell.timeLabel.text = aWalk.time
+                let locations = aWalk.route!
+                cell.mapView.addOverlay(createPolyLine(locations: locations))
+                let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+                cell.mapView.setRegion(viewRegion, animated: true)
+                return cell
         }
         else if tableView == self.dogTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
