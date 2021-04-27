@@ -26,8 +26,16 @@ Please make sure to not use older versions of Xcode to ensure a smooth build
 For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to fetch a list of dog breeds
 
 ### What are the upcoming implementations for DogeWalk
-- [ ] Addition of trackable activities during the walk
-- [ ] Implementation of a Dog calendar for doctor appointments and overall dog mood
+#### General tasks
 - [ ] migration from API usage for dog breed to storing breedlist locally
 - [ ] migration from CoraData to Realm
+
+#### CurrentWalkVC
+- [ ] creation of annotations for dog activity when button is pressed
+- [ ] creation of expandable Button menu
+
+#### CalendarView
+- [ ] Implementation of a Dog calendar for doctor appointments and overall dog mood
+
+#### StatisticView
 - [ ] Display statistics for your dog
