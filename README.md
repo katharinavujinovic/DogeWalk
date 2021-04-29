@@ -3,8 +3,12 @@
 DogeWalk is my gratuation Project for the [Udacity iOS Developer Nanodegree](https://www.udacity.com/course/ios-developer-nanodegree--nd003).
 Even after passing the program, i continue to tweek and improve this App as a passion project with the plan of eventually releasing it on the App Store in the future.
 
+### About this Project
+DogeWalk is **still under construction** and not finished yet. 
+Please keep this in mind when you take a look at the code. 
+
 ### What does DogeWalk do?
-With Dogewalk you can add create a profile for your dog and track your walks together. 
+With DogeWalk you can add create a profile for your dog and track your walks together. 
 You can add the Profile Image of your dog by taking a cute picture or selecting an existing image from your library. The Profile also covers your dogs age, breed, sex as well as its favourite toy and treat. 
 Inside the `dog tabView`, all your registered Dogs will be listed. By selecting a dog you can inspect all the walks you have done with that dog or even go a step further and edit its information.
 Inside the `paw tabview`, all your walk will be listed. Select a walk to get further information. Like, which dog was present during that walk, and which route you took. 
@@ -29,7 +33,7 @@ For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to
 #### General tasks
 - [ ] migration from API usage for dog breed to storing breedlist locally
 - [ ] migration from CoraData to Realm
-- [ ] refactor! 
+- [ ] **REFACTOR** 
 
 #### CurrentWalkVC
 - [ ] creation of annotations for dog activity when button is pressed
