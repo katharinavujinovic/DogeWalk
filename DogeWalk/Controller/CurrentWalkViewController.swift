@@ -28,9 +28,14 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    // Add annotations
+    // Floating Button to add annotations
+    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var poopButton: UIButton!
     @IBOutlet weak var peeButton: UIButton!
+    @IBOutlet weak var expandableStack: UIStackView!
+    @IBOutlet weak var containerStack: UIStackView!
+    
     
     
     let locationManager = CLLocationManager()
@@ -57,6 +62,7 @@ class CurrentWalkViewController: UIViewController {
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         print(dogs!)
         enableButton(play: true, pause: false, stop: false)
+        setFloatingButton()
     }
 
     // start the distance and time tracking
@@ -134,6 +140,13 @@ class CurrentWalkViewController: UIViewController {
         pauseButton.isEnabled = pause
         stopButton.isEnabled = stop
     }
+    
+    fileprivate func setFloatingButton() {
+        buttonView.layer.cornerRadius = addButton.frame.width / 2
+        addButton.layer.cornerRadius = addButton.frame.width / 2
+        poopButton.layer.cornerRadius = poopButton.frame.width / 2
+        peeButton.layer.cornerRadius = peeButton.frame.width / 2
+    }
 
 
 //MARK: - Archive
@@ -153,7 +166,37 @@ class CurrentWalkViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-
+    
+//MARK: - Floating Button
+    
+    
+    @IBAction func addButtonPressed(_ sender: Any) {
+        let willExpand = expandableStack.isHidden
+        let addButtonTitle = willExpand ? "x" : "+"
+        UIView.animate(
+            withDuration: 0.3, delay: 0, options: .curveEaseIn,
+            animations: {
+              self.expandableStack.subviews.forEach { $0.isHidden = !$0.isHidden }
+              self.expandableStack.isHidden = !self.expandableStack.isHidden
+                if willExpand {
+                          self.addButton.setTitle(addButtonTitle, for: .normal)
+                        }
+            }
+            , completion: { _ in
+                  if !willExpand {
+                    self.addButton.setTitle(addButtonTitle, for: .normal)
+                  }
+                }
+        )
+    }
+    
+    @IBAction func poopButtonPressed(_ sender: Any) {
+        // add annotation
+    }
+    
+    @IBAction func peeButtonPressed(_ sender: Any) {
+        // add annotation
+    }
     
 }
 //MARK: - MapKit Extension

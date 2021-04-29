@@ -275,24 +275,79 @@
                                 <color key="textColor" name="DogeWalk_Green"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaN-fz-eLC">
-                                <rect key="frame" x="319" y="592" width="75" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWZ-Mf-DTs">
+                                <rect key="frame" x="338" y="611" width="56" height="56"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="L3V-nF-FaD" userLabel="ContainerStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                        <subviews>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WWz-6R-eqg" userLabel="ExpandableStackView">
+                                                <rect key="frame" x="0.0" y="0.0" width="56" height="0.0"/>
+                                                <subviews>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAF-Oq-iCv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="56" id="B5t-1o-wWK"/>
+                                                            <constraint firstAttribute="height" constant="56" id="Uvs-m7-yPj"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="35"/>
+                                                        <state key="normal" title="+">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="peeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Shd-gj-As1"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT1-Wc-6YW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="56" id="BJQ-EN-GJZ"/>
+                                                            <constraint firstAttribute="height" constant="56" id="SLU-cK-PvX"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="35"/>
+                                                        <state key="normal" title="+">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="poopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zd3-Ys-4NT"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaN-fz-eLC" userLabel="AddButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="HEh-3h-NfS"/>
+                                                    <constraint firstAttribute="width" constant="56" id="Hkk-H6-aAK"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="35"/>
+                                                <state key="normal" title="+">
+                                                    <color key="titleColor" name="DogeWalk_Green"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sJW-sJ-heH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="WWz-6R-eqg" firstAttribute="top" secondItem="L3V-nF-FaD" secondAttribute="top" id="Hqi-w3-uDJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="WaN-fz-eLC" secondAttribute="bottom" id="Z0e-q3-Ne6"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="HEh-3h-NfS"/>
-                                    <constraint firstAttribute="width" constant="75" id="Hkk-H6-aAK"/>
+                                    <constraint firstAttribute="width" constant="56" id="3yL-kX-Jqg"/>
+                                    <constraint firstAttribute="trailing" secondItem="L3V-nF-FaD" secondAttribute="trailing" id="HDw-cp-lDQ"/>
+                                    <constraint firstItem="L3V-nF-FaD" firstAttribute="leading" secondItem="SWZ-Mf-DTs" secondAttribute="leading" id="QxU-qZ-Wus"/>
+                                    <constraint firstAttribute="bottom" secondItem="L3V-nF-FaD" secondAttribute="bottom" id="pHQ-cp-H0N"/>
+                                    <constraint firstItem="L3V-nF-FaD" firstAttribute="top" secondItem="SWZ-Mf-DTs" secondAttribute="top" id="u0c-L5-uc9"/>
                                 </constraints>
-                                <state key="normal" image="PlayDeselected"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OD1-4D-SpO">
-                                <rect key="frame" x="319" y="509" width="75" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="A8V-jA-mgC"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="GiR-cA-dyR"/>
-                                    <constraint firstAttribute="height" constant="75" id="qnE-Xv-bNs"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="yvy-Gk-yuZ"/>
-                                </constraints>
-                                <state key="normal" image="PlayDeselected"/>
-                            </button>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -309,29 +364,31 @@
                             <constraint firstItem="c8w-Ew-0q6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="LyA-RN-550"/>
                             <constraint firstItem="zKU-fu-f1M" firstAttribute="top" secondItem="97c-Nr-ZqC" secondAttribute="bottom" id="OQO-77-C6e"/>
                             <constraint firstItem="zKU-fu-f1M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qym-fa-wVW"/>
-                            <constraint firstItem="WaN-fz-eLC" firstAttribute="top" secondItem="OD1-4D-SpO" secondAttribute="bottom" constant="8" id="V3M-90-4mc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OD1-4D-SpO" secondAttribute="trailing" constant="20" id="W08-ax-deP"/>
-                            <constraint firstItem="WaN-fz-eLC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-20" id="YaO-Ov-Tcx"/>
                             <constraint firstItem="c8w-Ew-0q6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="baQ-8i-CNS"/>
-                            <constraint firstItem="zKU-fu-f1M" firstAttribute="top" secondItem="WaN-fz-eLC" secondAttribute="bottom" constant="20" id="cRs-Q9-jzI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SWZ-Mf-DTs" secondAttribute="trailing" constant="20" id="c9O-kx-KB6"/>
                             <constraint firstItem="97c-Nr-ZqC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eBU-qy-RQe"/>
                             <constraint firstItem="zKU-fu-f1M" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="eeK-kr-BfS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ctn-cG-6ev" secondAttribute="bottom" id="g7H-27-6cw"/>
                             <constraint firstItem="Ctn-cG-6ev" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hcA-sf-JHM"/>
                             <constraint firstItem="Ctn-cG-6ev" firstAttribute="top" secondItem="zKU-fu-f1M" secondAttribute="bottom" id="m9n-qA-IK8"/>
+                            <constraint firstItem="zKU-fu-f1M" firstAttribute="top" secondItem="SWZ-Mf-DTs" secondAttribute="bottom" constant="20" id="tOP-Eg-RIW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mb2-cN-5N8"/>
                     <connections>
+                        <outlet property="addButton" destination="WaN-fz-eLC" id="0FV-bU-2tq"/>
+                        <outlet property="buttonView" destination="SWZ-Mf-DTs" id="Gx4-O5-mk0"/>
+                        <outlet property="containerStack" destination="L3V-nF-FaD" id="KBX-aD-gM3"/>
                         <outlet property="currentWalkMapView" destination="97c-Nr-ZqC" id="tGF-vX-Zkk"/>
                         <outlet property="distanceLabel" destination="Ts1-aE-hoD" id="TZX-4O-20V"/>
+                        <outlet property="expandableStack" destination="WWz-6R-eqg" id="oPX-Qg-cVx"/>
                         <outlet property="miniCollectionView" destination="c8w-Ew-0q6" id="9Xg-lk-UbV"/>
                         <outlet property="pauseButton" destination="J6J-Qh-iL2" id="VOv-zJ-bQJ"/>
                         <outlet property="pauseImage" destination="MXP-7Z-EDF" id="hvv-ju-6jJ"/>
-                        <outlet property="peeButton" destination="OD1-4D-SpO" id="Cpw-4e-zUU"/>
+                        <outlet property="peeButton" destination="VAF-Oq-iCv" id="jd7-ga-aRx"/>
                         <outlet property="playButton" destination="tTJ-lR-TQ0" id="rGx-KO-z72"/>
                         <outlet property="playImage" destination="A66-dt-VVa" id="KAr-yO-RKD"/>
-                        <outlet property="poopButton" destination="WaN-fz-eLC" id="eXw-Az-4EJ"/>
+                        <outlet property="poopButton" destination="tT1-Wc-6YW" id="fhE-Hm-USp"/>
                         <outlet property="pressPlayLabel" destination="FtF-yH-Mxq" id="gnY-Q5-swE"/>
                         <outlet property="selectDogsButton" destination="mb2-cN-5N8" id="exB-Mz-Ypm"/>
                         <outlet property="stopButton" destination="zVD-7L-T1y" id="UBD-EU-V09"/>
@@ -781,7 +838,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lm-N4-yxK">
-                                        <rect key="frame" x="100" y="692" width="214" height="36"/>
+                                        <rect key="frame" x="50" y="692" width="314" height="36"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
                                         <state key="normal" title="ADD NEW DOG">
@@ -835,7 +892,7 @@
                                     <constraint firstItem="zIk-7I-eH6" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" symbolic="YES" id="0Ig-J1-LG9"/>
                                     <constraint firstItem="hf0-IW-SnF" firstAttribute="centerX" secondItem="I2A-eN-pHl" secondAttribute="centerX" id="3vb-72-Jod"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zNc-NB-11s" secondAttribute="trailing" constant="20" symbolic="YES" id="49y-79-WSe"/>
-                                    <constraint firstItem="0lm-N4-yxK" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="100" id="6Ou-T0-mSV"/>
+                                    <constraint firstItem="0lm-N4-yxK" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="50" id="6Ou-T0-mSV"/>
                                     <constraint firstItem="hf0-IW-SnF" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" id="6uS-vY-mvB"/>
                                     <constraint firstAttribute="trailing" secondItem="hf0-IW-SnF" secondAttribute="trailing" constant="20" id="79F-hf-vW1"/>
                                     <constraint firstItem="SWY-PP-UJm" firstAttribute="top" secondItem="Y13-dF-PWA" secondAttribute="bottom" constant="19" id="7Wb-gL-TCr"/>
@@ -885,7 +942,7 @@
                                     <constraint firstItem="8VE-A9-TTY" firstAttribute="trailing" secondItem="LnO-rb-VY1" secondAttribute="trailing" id="vwW-Dg-1Up"/>
                                     <constraint firstItem="c4F-mO-mEU" firstAttribute="leading" secondItem="duO-sL-3z7" secondAttribute="leading" id="w7s-c4-1Ex"/>
                                     <constraint firstItem="hf0-IW-SnF" firstAttribute="top" secondItem="zNc-NB-11s" secondAttribute="bottom" constant="3" id="wOu-Yu-YYc"/>
-                                    <constraint firstAttribute="trailing" secondItem="0lm-N4-yxK" secondAttribute="trailing" constant="100" id="wdG-Ag-HAY"/>
+                                    <constraint firstAttribute="trailing" secondItem="0lm-N4-yxK" secondAttribute="trailing" constant="50" id="wdG-Ag-HAY"/>
                                     <constraint firstItem="duO-sL-3z7" firstAttribute="top" secondItem="I2A-eN-pHl" secondAttribute="top" constant="50" id="xoe-y2-GO4"/>
                                     <constraint firstItem="c9s-qv-wdn" firstAttribute="leading" secondItem="I2A-eN-pHl" secondAttribute="leading" constant="20" id="z2Q-yH-vtf"/>
                                     <constraint firstItem="QP1-mS-vcv" firstAttribute="top" secondItem="Y13-dF-PWA" secondAttribute="bottom" constant="14" id="zc9-pA-0Mo"/>
@@ -995,8 +1052,9 @@
         <scene sceneID="Qkn-q7-O3y">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lVc-ZR-F9t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" selectedImage="DogHead_Icon" id="tg8-7t-SM7">
+                    <tabBarItem key="tabBarItem" title="" id="tg8-7t-SM7">
                         <imageReference key="image" image="DogHead_Icon" symbolScale="medium"/>
+                        <imageReference key="selectedImage" image="DogHead_Icon" symbolScale="medium"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R3W-b3-ull">
