@@ -29,6 +29,7 @@ For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to
 #### General tasks
 - [ ] migration from API usage for dog breed to storing breedlist locally
 - [ ] migration from CoraData to Realm
+- [ ] refactor! 
 
 #### CurrentWalkVC
 - [ ] creation of annotations for dog activity when button is pressed
