@@ -47,6 +47,7 @@ class CurrentWalkViewController: UIViewController {
     var dogs: [Dog]!
     var startTime = ""
     var now: Date?
+    private var selectedIcon: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,11 +192,27 @@ class CurrentWalkViewController: UIViewController {
     }
     
     @IBAction func poopButtonPressed(_ sender: Any) {
-        // add annotation
+        selectedIcon = "poopButton"
+        let annotation = MKPointAnnotation()
+        if userLocations != [] {
+            annotation.coordinate = userLocations.last!.coordinate
+            currentWalkMapView.addAnnotation(annotation)
+            //think about a way to save the pin
+        } else {
+            print("There are no locationpoints yet in userLocations!")
+        }
     }
     
     @IBAction func peeButtonPressed(_ sender: Any) {
-        // add annotation
+        selectedIcon = "peeButton"
+        let annotation = MKPointAnnotation()
+        if userLocations != [] {
+            annotation.coordinate = userLocations.last!.coordinate
+            currentWalkMapView.addAnnotation(annotation)
+            //think about a way to save the pin
+        } else {
+            print("There are no locationpoints yet in userLocations!")
+        }
     }
     
 }
@@ -228,6 +245,36 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
             return polyLineRenderer
         }
         return MKOverlayRenderer()
+    }
+    
+//MARK: - MapKit Annotations
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if selectedIcon == "poopButton" {
+            let reuseId = "poopPin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PoopAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else if selectedIcon == "peeButton" {
+            let reuseId = "peePin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PeeAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else {
+            let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+            pinView?.annotation = annotation
+            return pinView
+        }
+        
     }
 
 }

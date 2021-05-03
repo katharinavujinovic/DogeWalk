@@ -292,7 +292,7 @@
                                                             <constraint firstAttribute="height" constant="56" id="Uvs-m7-yPj"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="35"/>
-                                                        <state key="normal" title="+">
+                                                        <state key="normal" title="+" image="PeeIcon">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                         </state>
                                                         <connections>
@@ -307,7 +307,7 @@
                                                             <constraint firstAttribute="height" constant="56" id="SLU-cK-PvX"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="35"/>
-                                                        <state key="normal" title="+">
+                                                        <state key="normal" title="+" image="PoopIcon">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                         </state>
                                                         <connections>
@@ -1053,7 +1053,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lVc-ZR-F9t" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="tg8-7t-SM7">
-                        <imageReference key="image" image="DogHead_Icon" symbolScale="medium"/>
+                        <imageReference key="image" image="DogTabviewDeselected" symbolScale="medium"/>
                         <imageReference key="selectedImage" image="DogHead_Icon" symbolScale="medium"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1075,7 +1075,7 @@
         <scene sceneID="dCL-xO-3CB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LA8-e9-Eoi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Paws_Icon" selectedImage="Paws_Icon" id="6qb-Ri-7qL"/>
+                    <tabBarItem key="tabBarItem" title="" image="WalkTabviewDeselected" selectedImage="Paws_Icon" id="6qb-Ri-7qL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ujp-ts-Jue">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1102,6 +1102,7 @@
         <image name="AddDog" width="50" height="30"/>
         <image name="Arrow1" width="200" height="200"/>
         <image name="DogHead_Icon" width="30" height="30"/>
+        <image name="DogTabviewDeselected" width="30" height="30"/>
         <image name="FemaleDeselected" width="50" height="50"/>
         <image name="FemaleSelected" width="50" height="50"/>
         <image name="ImagePlaceholder" width="150" height="150"/>
@@ -1112,11 +1113,14 @@
         <image name="PauseSelected" width="100" height="50"/>
         <image name="Paws100" width="100" height="100"/>
         <image name="Paws_Icon" width="30" height="30"/>
+        <image name="PeeIcon" width="56" height="56"/>
         <image name="PencilColor30" width="30" height="30"/>
         <image name="PlayDeselected" width="75" height="75"/>
         <image name="PlaySelected" width="75" height="75"/>
+        <image name="PoopIcon" width="56" height="56"/>
         <image name="StopDeselect" width="100" height="50"/>
         <image name="StopSelected" width="100" height="50"/>
+        <image name="WalkTabviewDeselected" width="30" height="30"/>
         <image name="timer100" width="100" height="100"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <namedColor name="Button_Orange">
