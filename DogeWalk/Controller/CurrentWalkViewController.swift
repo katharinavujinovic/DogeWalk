@@ -28,9 +28,14 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    // Add annotations
+    // Floating Button to add annotations
+    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var poopButton: UIButton!
     @IBOutlet weak var peeButton: UIButton!
+    @IBOutlet weak var expandableStack: UIStackView!
+    @IBOutlet weak var containerStack: UIStackView!
+    
     
     
     let locationManager = CLLocationManager()
@@ -42,6 +47,7 @@ class CurrentWalkViewController: UIViewController {
     var dogs: [Dog]!
     var startTime = ""
     var now: Date?
+    private var selectedIcon: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +63,7 @@ class CurrentWalkViewController: UIViewController {
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         print(dogs!)
         enableButton(play: true, pause: false, stop: false)
+        setFloatingButton()
     }
 
     // start the distance and time tracking
@@ -134,6 +141,13 @@ class CurrentWalkViewController: UIViewController {
         pauseButton.isEnabled = pause
         stopButton.isEnabled = stop
     }
+    
+    fileprivate func setFloatingButton() {
+        buttonView.layer.cornerRadius = addButton.frame.width / 2
+        addButton.layer.cornerRadius = addButton.frame.width / 2
+        poopButton.layer.cornerRadius = poopButton.frame.width / 2
+        peeButton.layer.cornerRadius = peeButton.frame.width / 2
+    }
 
 
 //MARK: - Archive
@@ -153,7 +167,53 @@ class CurrentWalkViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-
+    
+//MARK: - Floating Button
+    
+    
+    @IBAction func addButtonPressed(_ sender: Any) {
+        let willExpand = expandableStack.isHidden
+        let addButtonTitle = willExpand ? "x" : "+"
+        UIView.animate(
+            withDuration: 0.3, delay: 0, options: .curveEaseIn,
+            animations: {
+              self.expandableStack.subviews.forEach { $0.isHidden = !$0.isHidden }
+              self.expandableStack.isHidden = !self.expandableStack.isHidden
+                if willExpand {
+                          self.addButton.setTitle(addButtonTitle, for: .normal)
+                        }
+            }
+            , completion: { _ in
+                  if !willExpand {
+                    self.addButton.setTitle(addButtonTitle, for: .normal)
+                  }
+                }
+        )
+    }
+    
+    @IBAction func poopButtonPressed(_ sender: Any) {
+        selectedIcon = "poopButton"
+        let annotation = MKPointAnnotation()
+        if userLocations != [] {
+            annotation.coordinate = userLocations.last!.coordinate
+            currentWalkMapView.addAnnotation(annotation)
+            //think about a way to save the pin
+        } else {
+            print("There are no locationpoints yet in userLocations!")
+        }
+    }
+    
+    @IBAction func peeButtonPressed(_ sender: Any) {
+        selectedIcon = "peeButton"
+        let annotation = MKPointAnnotation()
+        if userLocations != [] {
+            annotation.coordinate = userLocations.last!.coordinate
+            currentWalkMapView.addAnnotation(annotation)
+            //think about a way to save the pin
+        } else {
+            print("There are no locationpoints yet in userLocations!")
+        }
+    }
     
 }
 //MARK: - MapKit Extension
@@ -185,6 +245,36 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
             return polyLineRenderer
         }
         return MKOverlayRenderer()
+    }
+    
+//MARK: - MapKit Annotations
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if selectedIcon == "poopButton" {
+            let reuseId = "poopPin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PoopAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else if selectedIcon == "peeButton" {
+            let reuseId = "peePin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PeeAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else {
+            let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+            pinView?.annotation = annotation
+            return pinView
+        }
+        
     }
 
 }
