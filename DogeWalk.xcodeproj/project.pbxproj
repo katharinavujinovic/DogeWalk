@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DF531AB37893DD0ABD063A /* Pods_DogeWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */; };
 		43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B1225FB6C1A00799186 /* AppDelegate.swift */; };
 		43135B1525FB6C1A00799186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B1425FB6C1A00799186 /* SceneDelegate.swift */; };
 		43135B1725FB6C1A00799186 /* CurrentWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B1625FB6C1A00799186 /* CurrentWalkViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		324759D4B746D9230E75A148 /* Pods-DogeWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogeWalk.release.xcconfig"; path = "Target Support Files/Pods-DogeWalk/Pods-DogeWalk.release.xcconfig"; sourceTree = "<group>"; };
 		43135B0F25FB6C1A00799186 /* DogeWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogeWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43135B1225FB6C1A00799186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43135B1425FB6C1A00799186 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 		43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailMiniCollectionViewCell.swift; sourceTree = "<group>"; };
 		43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPI.swift; sourceTree = "<group>"; };
 		43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedResponse.swift; sourceTree = "<group>"; };
+		B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DogeWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6153E3DF9C4614F72EBD6B3 /* Pods-DogeWalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogeWalk.debug.xcconfig"; path = "Target Support Files/Pods-DogeWalk/Pods-DogeWalk.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DF531AB37893DD0ABD063A /* Pods_DogeWalk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +99,8 @@
 			children = (
 				43135B1125FB6C1A00799186 /* DogeWalk */,
 				43135B1025FB6C1A00799186 /* Products */,
+				E9C293F20E57D388B8148936 /* Pods */,
+				89845F15DC46508325DFD9AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +208,24 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		89845F15DC46508325DFD9AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9C293F20E57D388B8148936 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6153E3DF9C4614F72EBD6B3 /* Pods-DogeWalk.debug.xcconfig */,
+				324759D4B746D9230E75A148 /* Pods-DogeWalk.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,9 +233,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 43135B2625FB6C1A00799186 /* Build configuration list for PBXNativeTarget "DogeWalk" */;
 			buildPhases = (
+				D6C4575ECECC2E7CA599472B /* [CP] Check Pods Manifest.lock */,
 				43135B0B25FB6C1A00799186 /* Sources */,
 				43135B0C25FB6C1A00799186 /* Frameworks */,
 				43135B0D25FB6C1A00799186 /* Resources */,
+				0BBDC9E146D819F48C4DFF7A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,6 +295,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0BBDC9E146D819F48C4DFF7A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DogeWalk/Pods-DogeWalk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DogeWalk/Pods-DogeWalk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DogeWalk/Pods-DogeWalk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6C4575ECECC2E7CA599472B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DogeWalk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		43135B0B25FB6C1A00799186 /* Sources */ = {
@@ -443,6 +512,7 @@
 		};
 		43135B2725FB6C1A00799186 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6153E3DF9C4614F72EBD6B3 /* Pods-DogeWalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -461,6 +531,7 @@
 		};
 		43135B2825FB6C1A00799186 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 324759D4B746D9230E75A148 /* Pods-DogeWalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
