@@ -1,10 +1,12 @@
 # DogeWalk
 
+**UNDER CONSTRUCTION**
 DogeWalk is my gratuation Project for the [Udacity iOS Developer Nanodegree](https://www.udacity.com/course/ios-developer-nanodegree--nd003).
 Even after passing the program, i continue to tweek and improve this App as a passion project with the plan of eventually releasing it on the App Store in the future.
 
 ### About this Project
-DogeWalk is **still under construction** and not finished yet. 
+DogeWalk is **still under construction** and not finished yet.
+I constantly try to leave my main thread in a build-able state, but crashes can still occur.
 Please keep this in mind when you take a look at the code. 
 
 ### What does DogeWalk do?
@@ -36,8 +38,8 @@ For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to
 - [ ] **REFACTOR** 
 
 #### CurrentWalkVC
-- [ ] creation of annotations for dog activity when button is pressed
-- [ ] creation of expandable Button menu
+- [x] creation of annotations for dog activity when button is pressed
+- [x] creation of expandable Button menu
 
 #### CalendarView
 - [ ] Implementation of a Dog calendar for doctor appointments and overall dog mood
