@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MapKit
+import RealmSwift
 
 class DogDetailViewController: UIViewController {
     // displays the walks the dog finished
@@ -15,9 +16,15 @@ class DogDetailViewController: UIViewController {
     @IBOutlet weak var walksTableView: UITableView!
     // Dog stats
 
-    var dog: Dog!
-    var walks: [Walk] = []
+    let realm = try! Realm()
+    
+    var walks: Results<Walk>?
     var selectedWalk: Walk?
+    var dog: Dog! {
+        didSet {
+            loadWalks()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +57,13 @@ class DogDetailViewController: UIViewController {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
+    func loadWalks() {
+            walks = dog?.participatedWalks.sorted(byKeyPath: "date", ascending: true)
+        DispatchQueue.main.async {
+            self.walksTableView.reloadData()
+        }
+    }
+    
 }
 
 //MARK: - UITableView
@@ -57,18 +71,16 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.walksTableView {
-            return walks.count
-        }
-        else {
-            return 1
+            return walks?.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create an idicator when there are no walks yet
         if tableView == self.walksTableView {
-                let aWalk = walks[indexPath.row]
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+            if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = timeFormatter(date: aWalk.date!)
                 cell.distancelabel.text = aWalk.distance
                 cell.startTimeLabel.text = aWalk.startTime
@@ -77,11 +89,13 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mapView.addOverlay(createPolyLine(locations: locations))
                 let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                 cell.mapView.setRegion(viewRegion, animated: true)
+            }
+                
                 return cell
         }
         else if tableView == self.dogTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
-            cell.dogImage.image = UIImage(data: dog.profile!)
+            cell.dogImage.image = UIImage(data: dog.profile)
             cell.ageLabel.text = "\(dog.age)"
             cell.breedLabel.text = dog.breed
             cell.nameLabel.text = dog.name
@@ -104,8 +118,8 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.walksTableView {
-        selectedWalk = walks[indexPath.row]
-        performSegue(withIdentifier: Constants.Segue.dogDetailToWalkDetail, sender: self)
+            selectedWalk = walks?[indexPath.row]
+            performSegue(withIdentifier: Constants.Segue.dogDetailToWalkDetail, sender: self)
         }
         if tableView == self.dogTableView {
             performSegue(withIdentifier: Constants.Segue.dogDetailToEdit, sender: self)

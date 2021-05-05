@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-import CoreData
+import RealmSwift
 
 class CurrentWalkViewController: UIViewController {
     
@@ -36,7 +36,9 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var expandableStack: UIStackView!
     @IBOutlet weak var containerStack: UIStackView!
     
+    let realm = try! Realm()
     
+    // add variables for for Pee/PoopAnnotations
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
@@ -153,17 +155,22 @@ class CurrentWalkViewController: UIViewController {
 //MARK: - Archive
     
     func archiveWalk() {
-        let newWalk = Walk(context: DataController.shared.viewContext)
-        newWalk.date = Date()
-        let kmCount = meterCount/1000
-        newWalk.distance = String(format: "%.2f", kmCount)
-        newWalk.route = userLocations
-        newWalk.startTime = startTime
-        newWalk.time = passedTime
-        for dog in dogs {
-            newWalk.addToParticipatingDogs(dog)
+        do {
+            try realm.write {
+                let newWalk = Walk()
+                newWalk.startDate = startTime
+                newWalk.distance = meterCount
+                newWalk.time = secondCounter
+                newWalk.route = userLocations
+                newWalk.peeAnnotation = peeAnnotations
+                newWalk.poopAnnotation = poopAnnotations
+                for dog in dogs {
+                    newWalk.participatedDogs.append(dog)
+                }
+            }
+        } catch {
+            print("Walk could not be saved, \(error)")
         }
-        DataController.shared.saveViewContext()
         navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
@@ -288,8 +295,8 @@ extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! MiniCollectionViewCell
-        let cellImage = UIImage(data: dogs[indexPath.row].profile!)
-        cell.miniImage.image = cellImage
+            let cellImage = UIImage(data: dogs[indexPath.row].profile)
+            cell.miniImage.image = cellImage
         return cell
     }
     

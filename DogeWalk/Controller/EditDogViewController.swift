@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
-import CoreData
+import RealmSwift
 
-class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class EditDogViewController: UIViewController {
     // deletes the dog from a library after showing an alarm
     @IBOutlet weak var deleteDog: UIButton!
     @IBOutlet weak var saveButton: UIButton!
@@ -37,10 +37,10 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBOutlet weak var addNewDogButton: UIButton!
     
+    let realm = try! Realm()
     var allBreeds: [String] = []
     var sortedBreeds: [String] = []
     var selectedDogBreed = ""
-    var fetchedResultsController: NSFetchedResultsController<Dog>!
     var dog: Dog?
 
     var genderOfDog: Bool?
@@ -109,7 +109,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         if dog != nil {
             DispatchQueue.main.async { [self] in
                 addNewDogButton.isHidden = true
-                dogImage.image = UIImage(data: dog!.profile!)
+                dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
                 ageTextField.text = "\(dog!.age)"
                 toyTextField.text = dog?.favouriteToy
@@ -196,9 +196,16 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBAction func deleteDogPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { (action: UIAlertAction) in
-                DataController.shared.viewContext.delete(self.dog!)
-                DataController.shared.saveViewContext()
+        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { [self] (action: UIAlertAction) in
+            if self.dog != nil {
+                do {
+                    try realm.write {
+                        realm.delete(dog!)
+                    }
+                } catch {
+                    print("Error deleting item, \(error)")
+                }
+            }
             self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }
@@ -213,27 +220,40 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         setSaving(isSaving: true)
-        dog?.name = nameTextField.text
-        dog?.profile = dogImage.image?.pngData()
-        dog?.breed = selectedDogBreed
-        dog?.age = Int16(ageTextField.text!)!
-        dog?.favouriteToy = toyTextField.text
-        dog?.favouriteTreat = treatTextField.text
-        DataController.shared.saveViewContext()
+        if dog != nil {
+            do {
+                try realm.write {
+                    dog?.name = nameTextField.text!
+                    dog?.profile = (dogImage.image?.pngData())!
+                    dog?.breed = selectedDogBreed
+                    dog?.age = Int16(ageTextField.text!)!
+                    dog?.favouriteToy = toyTextField.text
+                    dog?.favouriteTreat = treatTextField.text
+                }
+            } catch {
+                print("Error saving modified dog, \(error)")
+            }
+        }
         self.navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, isFemale: Bool, favouritToy: String, favouriteTreat: String) {
-        let newDog = Dog(context: DataController.shared.viewContext)
-        newDog.name = name
-        newDog.profile = image.pngData()
-        newDog.age = age
-        newDog.breed = breed
-        newDog.isFemale = isFemale
-        newDog.favouriteToy = favouritToy
-        newDog.favouriteTreat = favouriteTreat
-        DataController.shared.saveViewContext()
+        
+        do {
+            try realm.write {
+                let newDog = Dog()
+                newDog.name = name
+                newDog.profile = image.pngData()
+                newDog.age = age
+                newDog.breed = breed
+                newDog.isFemale = isFemale
+                newDog.favouriteToy = favouritToy
+                newDog.favouriteTreat = favouriteTreat
+            }
+        } catch {
+            print("Error saving new Dog, \(error)")
+        }
     }
     
     func setSaving(isSaving: Bool) {
