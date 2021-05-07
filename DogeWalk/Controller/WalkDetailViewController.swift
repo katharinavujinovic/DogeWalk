@@ -20,7 +20,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var walkTimeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    
+    let converter = Converter()
     
     var dogs: Results<Dog>?
     var walk: Walk! {
@@ -44,8 +44,8 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     func displaySelectedWalk() {
         dateLabel.text = timeFormatter(date: walk.date!)
         startTimeLabel.text = walk.startTime
-        walkTimeLabel.text = walk.time
-        distanceLabel.text = walk.distance
+        walkTimeLabel.text = converter.displayTime(seconds: walk.time)
+        distanceLabel.text = converter.displayDistance(meter: walk.distance)
         do {
             if let unarchivedWalk = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: walk.route) as? [CLLocation] {
                 walkDetailMapView.addOverlay(createPolyLine(locations: unarchivedWalk))

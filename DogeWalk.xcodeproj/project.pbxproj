@@ -37,6 +37,7 @@
 		43CA010626273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */; };
 		43ED3D8A26418EC60074E809 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D8926418EC60074E809 /* Dog.swift */; };
 		43ED3D932641947A0074E809 /* Walk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D922641947A0074E809 /* Walk.swift */; };
+		43ED3D982645755E0074E809 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D972645755E0074E809 /* Converter.swift */; };
 		43F458C22604A36E00B3CD7B /* DogBreedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */; };
 		43F458C52604A91D00B3CD7B /* DogBreedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailMiniCollectionViewCell.swift; sourceTree = "<group>"; };
 		43ED3D8926418EC60074E809 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		43ED3D922641947A0074E809 /* Walk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walk.swift; sourceTree = "<group>"; };
+		43ED3D972645755E0074E809 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPI.swift; sourceTree = "<group>"; };
 		43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedResponse.swift; sourceTree = "<group>"; };
 		B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DogeWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				43CA00F62625879F003242FF /* PolyLineCreation.swift */,
 				43CA00FA26258A15003242FF /* LocationService.swift */,
 				43CA00FE2627090C003242FF /* TextFieldExtension.swift */,
+				43ED3D972645755E0074E809 /* Converter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,
 				43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */,
 				43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */,
+				43ED3D982645755E0074E809 /* Converter.swift in Sources */,
 				43CA0103262734B2003242FF /* MiniCollectionViewCell.swift in Sources */,
 				436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */,
 				43ED3D932641947A0074E809 /* Walk.swift in Sources */,

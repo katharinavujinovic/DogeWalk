@@ -22,10 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initialising new realm, \(error)")
         }
+        
+        checkIfFirstLaunch()
 //        DataController.shared.load()
         return true
     }
 
+    func checkIfFirstLaunch() {
+        if UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
+            print("App has launched before")
+        } else {
+            print("This is the first launch ever!")
+            UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+            UserDefaults.standard.set(true, forKey: "metricSelected")
+            // show a little tutorial on how dogeWalk works
+            UserDefaults.standard.synchronize()
+        }
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

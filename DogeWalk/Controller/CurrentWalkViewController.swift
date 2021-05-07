@@ -37,13 +37,12 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var containerStack: UIStackView!
     
     let realm = try! Realm()
-    
+    let converter = Converter()
     // add variables for for Pee/PoopAnnotations
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
     var secondCounter = 0
-    var passedTime = "0:0:0"
     var meterCount = 0.0
     var timer = Timer()
     var dogs: [Dog]!
@@ -68,6 +67,7 @@ class CurrentWalkViewController: UIViewController {
         print(dogs!)
         enableButton(play: true, pause: false, stop: false)
         setFloatingButton()
+        distanceLabel.text = converter.displayDistance(meter: meterCount)
     }
 
     // start the distance and time tracking
@@ -118,18 +118,9 @@ class CurrentWalkViewController: UIViewController {
     }
 
     //MARK: - Timer
-    func displayTime(seconds:Int) -> String {
-        let (h, m, s) = secondsToHoursMinutesSeconds (seconds: seconds)
-      return ("\(h):\(m):\(s)")
-    }
-    
-    func secondsToHoursMinutesSeconds(seconds : Int) -> (Int, Int, Int) {
-      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-    }
-    
     @objc func updateTimer() {
         secondCounter = secondCounter + 1
-        passedTime = displayTime(seconds: secondCounter)
+        let passedTime = converter.displayTime(seconds: secondCounter)
         timeLabel.text = passedTime
     }
     
@@ -246,8 +237,7 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
         if userLocations != [] {
             let distanceInMeters = currentUserLocation?.distance(from: userLocations.last!)
             meterCount = meterCount + distanceInMeters!
-            let kmCount = meterCount/1000
-            distanceLabel.text = String(format: "%.2f", kmCount)
+            distanceLabel.text = converter.displayDistance(meter: meterCount)
         }
         self.userLocations.append(currentUserLocation!)
         currentWalkMapView.addOverlay(createPolyLine(locations: userLocations))

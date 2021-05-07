@@ -17,6 +17,7 @@ class DogDetailViewController: UIViewController {
     // Dog stats
 
     let realm = try! Realm()
+    let converter = Converter()
     
     var walks: Results<Walk>?
     var selectedWalk: Walk?
@@ -82,9 +83,9 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = timeFormatter(date: aWalk.date!)
-                cell.distancelabel.text = aWalk.distance
+                cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
                 cell.startTimeLabel.text = aWalk.startTime
-                cell.timeLabel.text = aWalk.time
+                cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
                 do {
                     if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
                         cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
