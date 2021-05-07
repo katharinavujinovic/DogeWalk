@@ -244,7 +244,7 @@ class EditDogViewController: UIViewController {
             try realm.write {
                 let newDog = Dog()
                 newDog.name = name
-                newDog.profile = image.pngData()
+                newDog.profile = image.pngData()!
                 newDog.age = age
                 newDog.breed = breed
                 newDog.isFemale = isFemale

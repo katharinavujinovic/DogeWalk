@@ -50,6 +50,8 @@ class CurrentWalkViewController: UIViewController {
     var startTime = ""
     var now: Date?
     private var selectedIcon: String?
+    var peeAnnotations: [CLLocation] = []
+    var poopAnnotations: [CLLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,9 +163,18 @@ class CurrentWalkViewController: UIViewController {
                 newWalk.startDate = startTime
                 newWalk.distance = meterCount
                 newWalk.time = secondCounter
-                newWalk.route = userLocations
-                newWalk.peeAnnotation = peeAnnotations
-                newWalk.poopAnnotation = poopAnnotations
+                do {
+                    let locationData = try NSKeyedArchiver.archivedData(withRootObject: userLocations as Array, requiringSecureCoding: false)
+                    newWalk.route = locationData
+                } catch {
+                    print("Error with transforming userlocation to data, \(error)")
+                }
+                if peeAnnotations != [] {
+                    newWalk.peeAnnotation = try NSKeyedArchiver.archivedData(withRootObject: peeAnnotations, requiringSecureCoding: false)
+                }
+                if poopAnnotations != [] {
+                    newWalk.poopAnnotation = try NSKeyedArchiver.archivedData(withRootObject: poopAnnotations, requiringSecureCoding: false)
+                }
                 for dog in dogs {
                     newWalk.participatedDogs.append(dog)
                 }

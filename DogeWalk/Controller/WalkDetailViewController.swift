@@ -20,7 +20,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var walkTimeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-
+    
     
     var dogs: Results<Dog>?
     var walk: Walk! {
@@ -38,7 +38,6 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         walkDetailCollectionView.delegate = self
         walkDetailCollectionView.backgroundColor = .clear
         // UI
-        walkDetailMapView.addOverlay(createPolyLine(locations: walk.route!))
         displaySelectedWalk()
     }
     
@@ -47,10 +46,15 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         startTimeLabel.text = walk.startTime
         walkTimeLabel.text = walk.time
         distanceLabel.text = walk.distance
-        let setOfDogs = walk.participatingDogs!
-        dogs = setOfDogs.allObjects as! [Dog]
-        let viewRegion = MKCoordinateRegion(center: walk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        walkDetailMapView.setRegion(viewRegion, animated: true)
+        do {
+            if let unarchivedWalk = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: walk.route) as? [CLLocation] {
+                walkDetailMapView.addOverlay(createPolyLine(locations: unarchivedWalk))
+            let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+            walkDetailMapView.setRegion(viewRegion, animated: true)
+            }
+        } catch {
+            print("Rounte couldn't be unarchived, \(error)")
+        }
     }
     
     private func loadWalks() {

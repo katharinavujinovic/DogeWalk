@@ -85,10 +85,15 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.distancelabel.text = aWalk.distance
                 cell.startTimeLabel.text = aWalk.startTime
                 cell.timeLabel.text = aWalk.time
-                let locations = aWalk.route!
-                cell.mapView.addOverlay(createPolyLine(locations: locations))
-                let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-                cell.mapView.setRegion(viewRegion, animated: true)
+                do {
+                    if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
+                        cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
+                        let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+                        cell.mapView.setRegion(viewRegion, animated: true)
+                    }
+                } catch {
+                    print("Route could not be unarchived, \(error)")
+                }
             }
                 
                 return cell
