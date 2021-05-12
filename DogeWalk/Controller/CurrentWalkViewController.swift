@@ -46,7 +46,7 @@ class CurrentWalkViewController: UIViewController {
     var meterCount = 0.0
     var timer = Timer()
     var dogs: [Dog]!
-    var startTime = ""
+    var startTime: Date?
     var now: Date?
     private var selectedIcon: String?
     var peeAnnotations: [CLLocation] = []
@@ -77,9 +77,8 @@ class CurrentWalkViewController: UIViewController {
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
         // set the startTime
-        if startTime == "" {
-            now = Date()
-            startTime = startTime(date: now!)
+        if startTime == nil {
+            startTime = Date()
         }
         // start the Timer
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -151,7 +150,7 @@ class CurrentWalkViewController: UIViewController {
         do {
             try realm.write {
                 let newWalk = Walk()
-                newWalk.startDate = startTime
+                newWalk.startDate = startTime!
                 newWalk.distance = meterCount
                 newWalk.time = secondCounter
                 do {

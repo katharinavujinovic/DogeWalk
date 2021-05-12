@@ -42,7 +42,13 @@ class EditDogViewController: UIViewController {
     var sortedBreeds: [String] = []
     var selectedDogBreed = ""
     var dog: Dog?
-
+    private var dogBirthday: Date?
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd/MM/yyyy"
+    
+    private var datePicker: UIDatePicker?
+    
     var genderOfDog: Bool?
     
     
@@ -59,9 +65,13 @@ class EditDogViewController: UIViewController {
         breedPicker.dataSource = self
         
         nameTextField.delegate = self
-        ageTextField.delegate = self
         toyTextField.delegate = self
         treatTextField.delegate = self
+        
+        ageTextField.inputView = datePicker
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.addTarget(self, action: #selector(EditDogViewController.birthDayEntered(datePicker:)), for: .valueChanged)
 //        checkNetwork()
         setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -70,6 +80,14 @@ class EditDogViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    @objc func birthDayEntered(datePicker: UIDatePicker) {
+        
+        dogBirthday = datePicker.date
+        
+
+        ageTextField.text = dateFormatter.string(from: dogBirthday!)
+        view.endEditing(true)
+    }
     
     
     func loadBreedList() {
@@ -111,7 +129,11 @@ class EditDogViewController: UIViewController {
                 addNewDogButton.isHidden = true
                 dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
-                ageTextField.text = "\(dog!.age)"
+                
+                if dog?.age != nil {
+                    ageTextField.text = dateFormatter.string(from: dog!.age!)
+                }
+                
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
 
@@ -180,7 +202,7 @@ class EditDogViewController: UIViewController {
     }
     
 //MARK: - Saving
-    
+    /*
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" || genderOfDog == nil {
             nameTextField.placeholder = "Please give your Dog a name"
@@ -193,6 +215,7 @@ class EditDogViewController: UIViewController {
             }
         }
     }
+ */
     
     @IBAction func deleteDogPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
@@ -226,7 +249,7 @@ class EditDogViewController: UIViewController {
                     dog?.name = nameTextField.text!
                     dog?.profile = (dogImage.image?.pngData())!
                     dog?.breed = selectedDogBreed
-                    dog?.age = Int16(ageTextField.text!)!
+                    dog?.age = dogBirthday
                     dog?.favouriteToy = toyTextField.text
                     dog?.favouriteTreat = treatTextField.text
                 }
@@ -245,7 +268,7 @@ class EditDogViewController: UIViewController {
                 let newDog = Dog()
                 newDog.name = name
                 newDog.profile = image.pngData()!
-                newDog.age = age
+                newDog.age = dogBirthday
                 newDog.breed = breed
                 newDog.isFemale = isFemale
                 newDog.favouriteToy = favouritToy

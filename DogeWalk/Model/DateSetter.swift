@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    
+    /*
     func timeFormatter(date: Date) -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .short
@@ -25,4 +25,5 @@ extension UIViewController {
         let startingTime = timeFormatter.string(from: date)
         return startingTime
     }
+ */
 }

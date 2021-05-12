@@ -80,19 +80,16 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
         if let aWalk = walks?[indexPath.row] {
-            cell.dateLabel.text = timeFormatter(date: aWalk.date!)
+            cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
             cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
-            cell.startTimeLabel.text = aWalk.startTime
+            cell.startTimeLabel.text = converter.timeFormatter(date: aWalk.startDate)
             cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
-            do {
+
                 if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
                 }
-            } catch {
-                print("Route could not be unarchived, \(error)")
-            }
         }
         
         return cell

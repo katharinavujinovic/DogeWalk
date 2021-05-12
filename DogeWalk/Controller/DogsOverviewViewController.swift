@@ -18,6 +18,7 @@ class DogsOverviewViewController: UIViewController {
     @IBOutlet weak var arrowImage: UIImageView!
     
     let realm = try! Realm()
+    let converter = Converter()
     
     var selectedDog: Dog?
     var dogs: Results<Dog>?
@@ -93,7 +94,9 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
         if let aDog = dogs?[indexPath.row] {
             cell.dogImage.image = UIImage(data: aDog.profile)
-            cell.ageLabel.text = "\(String(describing: aDog.age))"
+            if aDog.age != nil {
+                cell.ageLabel.text = converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date())
+            }
             cell.breedLabel.text = aDog.breed
             cell.nameLabel.text = aDog.name
             cell.toyLabel.text = aDog.favouriteToy

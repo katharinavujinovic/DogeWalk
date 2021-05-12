@@ -37,4 +37,32 @@ class Converter {
         let mileCountString = String(format: "%.2f", mileCount)
         return "\(mileCountString) mi"
     }
+    
+    func timeFormatter(date: Date) -> String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .short
+        timeFormatter.timeStyle = .none
+        let dateString = timeFormatter.string(from: date)
+        return dateString
+    }
+    
+    func startTime(date: Date) -> String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+        let startingTime = timeFormatter.string(from: date)
+        return startingTime
+    }
+    
+    func yearsBetweenDate(startDate: Date, endDate: Date) -> String {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year], from: startDate, to: endDate)
+        if components.year == 0 {
+            let months = calendar.dateComponents([.month], from: startDate, to: endDate)
+            return String(describing: months.month)
+        } else {
+            return String(describing: components.year)
+        }
+    }
+    
 }
