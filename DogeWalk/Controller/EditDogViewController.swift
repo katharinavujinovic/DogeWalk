@@ -38,24 +38,22 @@ class EditDogViewController: UIViewController {
     @IBOutlet weak var addNewDogButton: UIButton!
     
     let realm = try! Realm()
-    var allBreeds: [String] = []
-    var sortedBreeds: [String] = []
-    var selectedDogBreed = ""
+    
+    var selectedDogBreed: String?
     var dog: Dog?
     private var dogBirthday: Date?
-    
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd/MM/yyyy"
-    
+
     private var datePicker: UIDatePicker?
-    
     var genderOfDog: Bool?
+    
+    var converter = Converter()
+    var dogBreeds = DogBreeds()
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
-        loadBreedList()
+//        loadBreedList()
     }
     
     override func viewDidLoad() {
@@ -83,13 +81,11 @@ class EditDogViewController: UIViewController {
     @objc func birthDayEntered(datePicker: UIDatePicker) {
         
         dogBirthday = datePicker.date
-        
-
-        ageTextField.text = dateFormatter.string(from: dogBirthday!)
+        ageTextField.text = converter.birthDateFormatter(date: dogBirthday!)
         view.endEditing(true)
     }
     
-    
+/*
     func loadBreedList() {
         DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (dogResponse, error) in
                 if let dogResponse = dogResponse {
@@ -103,9 +99,9 @@ class EditDogViewController: UIViewController {
                     print("your error is: \(error!.localizedDescription)")
                 }
         }
-        displayNetworkIssue()
+        // displayNetworkIssue()
     }
-    
+
     func displayNetworkIssue() {
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { timer in
             if self.allBreeds == [] {
@@ -120,7 +116,7 @@ class EditDogViewController: UIViewController {
         }
         
     }
-    
+    */
     
     func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
@@ -131,7 +127,7 @@ class EditDogViewController: UIViewController {
                 nameTextField.text = dog?.name
                 
                 if dog?.age != nil {
-                    ageTextField.text = dateFormatter.string(from: dog!.age!)
+                    ageTextField.text = converter.birthDateFormatter(date: dog!.age!)
                 }
                 
                 toyTextField.text = dog?.favouriteToy
@@ -305,15 +301,15 @@ extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return allBreeds.count
+        return dogBreeds.arrayOfAllBreeds.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return sortedBreeds[row]
+        return dogBreeds.arrayOfAllBreeds.sorted()[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedDogBreed = sortedBreeds[row]
+        selectedDogBreed! += dogBreeds.arrayOfAllBreeds.sorted()[row]
     }
 }
 

@@ -54,6 +54,12 @@ class Converter {
         return startingTime
     }
     
+    func birthDateFormatter(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
     func yearsBetweenDate(startDate: Date, endDate: Date) -> String {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year], from: startDate, to: endDate)
