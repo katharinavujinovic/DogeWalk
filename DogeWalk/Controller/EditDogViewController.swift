@@ -44,7 +44,7 @@ class EditDogViewController: UIViewController {
     private var dogBirthday: Date?
 
     private var datePicker: UIDatePicker?
-    var genderOfDog: Bool?
+    var genderIsFemale: Bool?
     
     var converter = Converter()
     var dogBreeds = DogBreeds()
@@ -59,8 +59,8 @@ class EditDogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         super.dismissKeyboard()
-        breedPicker.delegate = self
-        breedPicker.dataSource = self
+//        breedPicker.delegate = self
+//        breedPicker.dataSource = self
         
         nameTextField.delegate = self
         toyTextField.delegate = self
@@ -139,8 +139,6 @@ class EditDogViewController: UIViewController {
                     genderIconReaction(female: false, male: true)
                 }
             }
-            
-            
         } else {
             saveButton.isHidden = true
             deleteDog.isHidden = true
@@ -159,7 +157,6 @@ class EditDogViewController: UIViewController {
             self.scrollView.contentInset = contentsInsets
             self.scrollView.scrollIndicatorInsets = contentsInsets
         }
-        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -168,23 +165,20 @@ class EditDogViewController: UIViewController {
             self.scrollView.contentInset = contentsInsets
             self.scrollView.scrollIndicatorInsets = contentsInsets
         }
-        
     }
 
     
 //MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {
         genderIconReaction(female: true, male: false)
-        genderOfDog = true
-    
+        genderIsFemale = true
     }
     
     @IBAction func maleButtonPressed(_ sender: Any) {
         genderIconReaction(female: false, male: true)
-        genderOfDog = false
+        genderIsFemale = false
     }
     
-
     // setting the Response when one or the other icon is tapped
     fileprivate func genderIconReaction(female: Bool, male: Bool) {
         maleIcon.isHighlighted = male
@@ -294,6 +288,7 @@ class EditDogViewController: UIViewController {
     
 }
 
+/*
 //MARK: - UIPicker
 extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -312,6 +307,7 @@ extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         selectedDogBreed! += dogBreeds.arrayOfAllBreeds.sorted()[row]
     }
 }
+*/
 
 //MARK: - ImagePicker
 extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
