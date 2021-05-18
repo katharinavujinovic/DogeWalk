@@ -20,20 +20,22 @@ class EditDogViewController: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var weightTextField: UITextField!
+    @IBOutlet weak var heightTextField: UITextField!
+    @IBOutlet weak var chipIDTextField: UITextField!
+    @IBOutlet weak var neuteredSwitch: UISwitch!
     @IBOutlet weak var toyTextField: UITextField!
     @IBOutlet weak var treatTextField: UITextField!
     
-    @IBOutlet weak var breedPicker: UIPickerView!
-    @IBOutlet weak var breedPickerActivityIndicator: UIActivityIndicatorView!
+
     
     // femaleButton and maleButton
     @IBOutlet weak var femaleIcon: UIImageView!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var maleIcon: UIImageView!
     @IBOutlet weak var maleButton: UIButton!
-    
-    @IBOutlet weak var savingScreen: UIView!
-    @IBOutlet weak var savingIndicator: UIActivityIndicatorView!
+
     
     @IBOutlet weak var addNewDogButton: UIButton!
     
@@ -65,6 +67,9 @@ class EditDogViewController: UIViewController {
         nameTextField.delegate = self
         toyTextField.delegate = self
         treatTextField.delegate = self
+        weightTextField.delegate = self
+        heightTextField.delegate = self
+        chipIDTextField.delegate = self
         
         ageTextField.inputView = datePicker
         datePicker = UIDatePicker()
@@ -84,6 +89,9 @@ class EditDogViewController: UIViewController {
         ageTextField.text = converter.birthDateFormatter(date: dogBirthday!)
         view.endEditing(true)
     }
+    
+    
+    
     
 /*
     func loadBreedList() {
@@ -129,6 +137,18 @@ class EditDogViewController: UIViewController {
                 if dog?.age != nil {
                     ageTextField.text = converter.birthDateFormatter(date: dog!.age!)
                 }
+                if dog?.weight != 0.0 {
+                    weightTextField.text = "\(dog!.weight)"
+                }
+                if dog?.height != 0.0 {
+                    heightTextField.text = "\(dog!.height)"
+                }
+                if dog?.chipID != nil {
+                    chipIDTextField.text = dog!.chipID
+                }
+                if dog?.neutered == true {
+                    neuteredSwitch.isOn = true
+                }
                 
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
@@ -142,6 +162,19 @@ class EditDogViewController: UIViewController {
         } else {
             saveButton.isHidden = true
             deleteDog.isHidden = true
+        }
+    }
+    
+//MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "breedTableView" {
+            if let view = segue.destination as? DogBreedTableViewController {
+                view.popoverPresentationController?.delegate = self
+                view.delegate = self
+                if breedLabel.text != "" {
+                    view.selectedDogBreeds = breedLabel.text
+                }
+            }
         }
     }
     
@@ -232,7 +265,7 @@ class EditDogViewController: UIViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        setSaving(isSaving: true)
+ //       setSaving(isSaving: true)
         if dog != nil {
             do {
                 try realm.write {
@@ -242,6 +275,20 @@ class EditDogViewController: UIViewController {
                     dog?.age = dogBirthday
                     dog?.favouriteToy = toyTextField.text
                     dog?.favouriteTreat = treatTextField.text
+                    dog?.chipID = chipIDTextField.text
+                    dog?.neutered = neuteredSwitch.isOn
+                    if weightTextField.text != "" {
+                        guard let weightInDouble = Double(weightTextField.text!) else {
+                            fatalError("Cannot convert weight into a number")
+                        }
+                        dog?.weight = weightInDouble
+                    }
+                    if heightTextField.text != "" {
+                        guard let heightInDouble = Double(heightTextField.text!) else {
+                            fatalError("Cannot convert weight into a number")
+                        }
+                        dog?.height = heightInDouble
+                    }
                 }
             } catch {
                 print("Error saving modified dog, \(error)")
@@ -251,24 +298,41 @@ class EditDogViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, isFemale: Bool, favouritToy: String, favouriteTreat: String) {
+    func archiveNewDog(name: String, image: UIImage, age: Date, breed: String, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
         
         do {
             try realm.write {
                 let newDog = Dog()
                 newDog.name = name
                 newDog.profile = image.pngData()!
-                newDog.age = dogBirthday
+                newDog.age = age
                 newDog.breed = breed
                 newDog.isFemale = isFemale
                 newDog.favouriteToy = favouritToy
                 newDog.favouriteTreat = favouriteTreat
+                newDog.chipID = chipID
+                newDog.neutered = neuteredSwitch.isOn
+                if weightTextField.text != "" {
+                    guard let weightInDouble = Double(weightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    newDog.weight = weightInDouble
+                }
+                if heightTextField.text != "" {
+                    guard let heightInDouble = Double(heightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    newDog.height = heightInDouble
+                }
             }
         } catch {
             print("Error saving new Dog, \(error)")
         }
     }
+
+}
     
+    /*
     func setSaving(isSaving: Bool) {
         if isSaving {
             savingScreen.isHidden = false
@@ -286,26 +350,6 @@ class EditDogViewController: UIViewController {
         treatTextField.isEnabled = !isSaving
     }
     
-}
-
-/*
-//MARK: - UIPicker
-extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dogBreeds.arrayOfAllBreeds.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dogBreeds.arrayOfAllBreeds.sorted()[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedDogBreed! += dogBreeds.arrayOfAllBreeds.sorted()[row]
-    }
 }
 */
 
@@ -339,6 +383,20 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
         imagePickerController.sourceType = sourceType
         present(imagePickerController, animated: true, completion: nil)
     }
+}
+
+//MARK: - DogBreed Pop Over
+extension EditDogViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
+extension EditDogViewController: PassDataDelegate {
+    func passData(_ data: String) {
+        breedLabel.text = data
+    }
+    
 }
 
 

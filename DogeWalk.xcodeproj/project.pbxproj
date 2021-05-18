@@ -21,6 +21,7 @@
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
 		43303E332608A89100E69310 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43303E322608A89100E69310 /* DataController.swift */; };
 		433AC97B264EB0CE00ED1AD8 /* DogBreeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */; };
+		434736C82653B3CD009420D8 /* DogBreedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434736C72653B3CD009420D8 /* DogBreedTableViewController.swift */; };
 		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
 		435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */; };
 		435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */; };
@@ -60,6 +61,7 @@
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
 		43303E322608A89100E69310 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreeds.swift; sourceTree = "<group>"; };
+		434736C72653B3CD009420D8 /* DogBreedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedTableViewController.swift; sourceTree = "<group>"; };
 		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogSelectionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				43135B3925FB83F700799186 /* WalkDetailViewController.swift */,
 				43135B3C25FB853400799186 /* PreWalkViewController.swift */,
 				4368A07925FF873100BE15B9 /* EditDogViewController.swift */,
+				434736C72653B3CD009420D8 /* DogBreedTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				43CA0103262734B2003242FF /* MiniCollectionViewCell.swift in Sources */,
 				436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */,
 				43ED3D932641947A0074E809 /* Walk.swift in Sources */,
+				434736C82653B3CD009420D8 /* DogBreedTableViewController.swift in Sources */,
 				435B668B2603AB9400EF2160 /* DogOverviewTableViewCell.swift in Sources */,
 				435B666826037D5800EF2160 /* Constants.swift in Sources */,
 			);
