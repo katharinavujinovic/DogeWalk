@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-import CoreData
+import RealmSwift
 
 class CurrentWalkViewController: UIViewController {
     
@@ -36,18 +36,21 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var expandableStack: UIStackView!
     @IBOutlet weak var containerStack: UIStackView!
     
-    
+    let realm = try! Realm()
+    let converter = Converter()
+    // add variables for for Pee/PoopAnnotations
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
     var secondCounter = 0
-    var passedTime = "0:0:0"
     var meterCount = 0.0
     var timer = Timer()
     var dogs: [Dog]!
-    var startTime = ""
+    var startTime: Date?
     var now: Date?
     private var selectedIcon: String?
+    var peeAnnotations: [CLLocation] = []
+    var poopAnnotations: [CLLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +67,7 @@ class CurrentWalkViewController: UIViewController {
         print(dogs!)
         enableButton(play: true, pause: false, stop: false)
         setFloatingButton()
+        distanceLabel.text = converter.displayDistance(meter: meterCount)
     }
 
     // start the distance and time tracking
@@ -73,9 +77,8 @@ class CurrentWalkViewController: UIViewController {
         enableButton(play: false, pause: true, stop: true)
         buttonReaction(play: true, pause: false, stop: false)
         // set the startTime
-        if startTime == "" {
-            now = Date()
-            startTime = startTime(date: now!)
+        if startTime == nil {
+            startTime = Date()
         }
         // start the Timer
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -114,18 +117,9 @@ class CurrentWalkViewController: UIViewController {
     }
 
     //MARK: - Timer
-    func displayTime(seconds:Int) -> String {
-        let (h, m, s) = secondsToHoursMinutesSeconds (seconds: seconds)
-      return ("\(h):\(m):\(s)")
-    }
-    
-    func secondsToHoursMinutesSeconds(seconds : Int) -> (Int, Int, Int) {
-      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-    }
-    
     @objc func updateTimer() {
         secondCounter = secondCounter + 1
-        passedTime = displayTime(seconds: secondCounter)
+        let passedTime = converter.displayTime(seconds: secondCounter)
         timeLabel.text = passedTime
     }
     
@@ -153,17 +147,31 @@ class CurrentWalkViewController: UIViewController {
 //MARK: - Archive
     
     func archiveWalk() {
-        let newWalk = Walk(context: DataController.shared.viewContext)
-        newWalk.date = Date()
-        let kmCount = meterCount/1000
-        newWalk.distance = String(format: "%.2f", kmCount)
-        newWalk.route = userLocations
-        newWalk.startTime = startTime
-        newWalk.time = passedTime
-        for dog in dogs {
-            newWalk.addToParticipatingDogs(dog)
+        do {
+            try realm.write {
+                let newWalk = Walk()
+                newWalk.startDate = startTime!
+                newWalk.distance = meterCount
+                newWalk.time = secondCounter
+                do {
+                    let locationData = try NSKeyedArchiver.archivedData(withRootObject: userLocations as Array, requiringSecureCoding: false)
+                    newWalk.route = locationData
+                } catch {
+                    print("Error with transforming userlocation to data, \(error)")
+                }
+                if peeAnnotations != [] {
+                    newWalk.peeAnnotation = try NSKeyedArchiver.archivedData(withRootObject: peeAnnotations, requiringSecureCoding: false)
+                }
+                if poopAnnotations != [] {
+                    newWalk.poopAnnotation = try NSKeyedArchiver.archivedData(withRootObject: poopAnnotations, requiringSecureCoding: false)
+                }
+                for dog in dogs {
+                    newWalk.participatedDogs.append(dog)
+                }
+            }
+        } catch {
+            print("Walk could not be saved, \(error)")
         }
-        DataController.shared.saveViewContext()
         navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
@@ -228,8 +236,7 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
         if userLocations != [] {
             let distanceInMeters = currentUserLocation?.distance(from: userLocations.last!)
             meterCount = meterCount + distanceInMeters!
-            let kmCount = meterCount/1000
-            distanceLabel.text = String(format: "%.2f", kmCount)
+            distanceLabel.text = converter.displayDistance(meter: meterCount)
         }
         self.userLocations.append(currentUserLocation!)
         currentWalkMapView.addOverlay(createPolyLine(locations: userLocations))
@@ -288,8 +295,8 @@ extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! MiniCollectionViewCell
-        let cellImage = UIImage(data: dogs[indexPath.row].profile!)
-        cell.miniImage.image = cellImage
+            let cellImage = UIImage(data: dogs[indexPath.row].profile)
+            cell.miniImage.image = cellImage
         return cell
     }
     

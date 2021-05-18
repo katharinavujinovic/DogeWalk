@@ -7,20 +7,23 @@
 
 import Foundation
 import UIKit
-import CoreData
+import RealmSwift
 import MapKit
 
-class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class WalksOverviewViewController: UIViewController {
     
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
     
-    var fetchedResultsController: NSFetchedResultsController<Walk>!
+    let realm = try! Realm()
+    let converter = Converter()
+    
+    var walks: Results<Walk>?
     var selectedWalk: Walk?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupFetchedResultsController()
+        loadWalks()
     }
     
     override func viewDidLoad() {
@@ -37,7 +40,14 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
         self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
     }
     
-    // if there are no walks yet, there should be an image stating that
+    func loadWalks() {
+        walks = realm.objects(Walk.self)
+        DispatchQueue.main.async {
+            self.walkOverviewTableView.reloadData()
+        }
+    }
+    
+    /*
     func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
@@ -54,37 +64,40 @@ class WalksOverviewViewController: UIViewController, NSFetchedResultsControllerD
             self.walkOverviewTableView.reloadData()
         }
     }
+ */
     
 }
 
 //MARK: - TableView Controller
 extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        return walks?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let aWalk = fetchedResultsController.object(at: indexPath)
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
-        cell.dateLabel.text = timeFormatter(date: aWalk.date!)
-        cell.distancelabel.text = aWalk.distance
-        cell.startTimeLabel.text = aWalk.startTime
-        cell.timeLabel.text = aWalk.time
-        let locations = aWalk.route!
-        cell.mapView.addOverlay(createPolyLine(locations: locations))
-        let viewRegion = MKCoordinateRegion(center: aWalk.route![0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        cell.mapView.setRegion(viewRegion, animated: true)
+        if let aWalk = walks?[indexPath.row] {
+            cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
+            cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
+            cell.startTimeLabel.text = converter.timeFormatter(date: aWalk.startDate)
+            cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
+
+                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
+                    cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
+                    let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+                    cell.mapView.setRegion(viewRegion, animated: true)
+                }
+        }
+        
         return cell
     }
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedWalk = fetchedResultsController.object(at: indexPath)
+        selectedWalk = walks?[indexPath.row]
         performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
     }
     

@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
-import CoreData
+import RealmSwift
 
-class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class EditDogViewController: UIViewController {
     // deletes the dog from a library after showing an alarm
     @IBOutlet weak var deleteDog: UIButton!
     @IBOutlet weak var saveButton: UIButton!
@@ -20,48 +20,61 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var weightTextField: UITextField!
+    @IBOutlet weak var heightTextField: UITextField!
+    @IBOutlet weak var chipIDTextField: UITextField!
+    @IBOutlet weak var neuteredSwitch: UISwitch!
     @IBOutlet weak var toyTextField: UITextField!
     @IBOutlet weak var treatTextField: UITextField!
     
-    @IBOutlet weak var breedPicker: UIPickerView!
-    @IBOutlet weak var breedPickerActivityIndicator: UIActivityIndicatorView!
+
     
     // femaleButton and maleButton
     @IBOutlet weak var femaleIcon: UIImageView!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var maleIcon: UIImageView!
     @IBOutlet weak var maleButton: UIButton!
-    
-    @IBOutlet weak var savingScreen: UIView!
-    @IBOutlet weak var savingIndicator: UIActivityIndicatorView!
+
     
     @IBOutlet weak var addNewDogButton: UIButton!
     
-    var allBreeds: [String] = []
-    var sortedBreeds: [String] = []
-    var selectedDogBreed = ""
-    var fetchedResultsController: NSFetchedResultsController<Dog>!
+    let realm = try! Realm()
+    
+    var selectedDogBreed: String?
     var dog: Dog?
+    private var dogBirthday: Date?
 
-    var genderOfDog: Bool?
+    private var datePicker: UIDatePicker?
+    var genderIsFemale: Bool?
+    
+    var converter = Converter()
+    var dogBreeds = DogBreeds()
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
-        loadBreedList()
+//        loadBreedList()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.dismissKeyboard()
-        breedPicker.delegate = self
-        breedPicker.dataSource = self
+//        breedPicker.delegate = self
+//        breedPicker.dataSource = self
         
         nameTextField.delegate = self
-        ageTextField.delegate = self
         toyTextField.delegate = self
         treatTextField.delegate = self
+        weightTextField.delegate = self
+        heightTextField.delegate = self
+        chipIDTextField.delegate = self
+        
+        ageTextField.inputView = datePicker
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.addTarget(self, action: #selector(EditDogViewController.birthDayEntered(datePicker:)), for: .valueChanged)
 //        checkNetwork()
         setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -70,8 +83,17 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    @objc func birthDayEntered(datePicker: UIDatePicker) {
+        
+        dogBirthday = datePicker.date
+        ageTextField.text = converter.birthDateFormatter(date: dogBirthday!)
+        view.endEditing(true)
+    }
     
     
+    
+    
+/*
     func loadBreedList() {
         DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (dogResponse, error) in
                 if let dogResponse = dogResponse {
@@ -85,9 +107,9 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
                     print("your error is: \(error!.localizedDescription)")
                 }
         }
-        displayNetworkIssue()
+        // displayNetworkIssue()
     }
-    
+
     func displayNetworkIssue() {
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { timer in
             if self.allBreeds == [] {
@@ -102,16 +124,32 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
         
     }
-    
+    */
     
     func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             DispatchQueue.main.async { [self] in
                 addNewDogButton.isHidden = true
-                dogImage.image = UIImage(data: dog!.profile!)
+                dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
-                ageTextField.text = "\(dog!.age)"
+                
+                if dog?.age != nil {
+                    ageTextField.text = converter.birthDateFormatter(date: dog!.age!)
+                }
+                if dog?.weight != 0.0 {
+                    weightTextField.text = "\(dog!.weight)"
+                }
+                if dog?.height != 0.0 {
+                    heightTextField.text = "\(dog!.height)"
+                }
+                if dog?.chipID != nil {
+                    chipIDTextField.text = dog!.chipID
+                }
+                if dog?.neutered == true {
+                    neuteredSwitch.isOn = true
+                }
+                
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
 
@@ -121,11 +159,22 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
                     genderIconReaction(female: false, male: true)
                 }
             }
-            
-            
         } else {
             saveButton.isHidden = true
             deleteDog.isHidden = true
+        }
+    }
+    
+//MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "breedTableView" {
+            if let view = segue.destination as? DogBreedTableViewController {
+                view.popoverPresentationController?.delegate = self
+                view.delegate = self
+                if breedLabel.text != "" {
+                    view.selectedDogBreeds = breedLabel.text
+                }
+            }
         }
     }
     
@@ -141,7 +190,6 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             self.scrollView.contentInset = contentsInsets
             self.scrollView.scrollIndicatorInsets = contentsInsets
         }
-        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -150,23 +198,20 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             self.scrollView.contentInset = contentsInsets
             self.scrollView.scrollIndicatorInsets = contentsInsets
         }
-        
     }
 
     
 //MARK: - Gender Color Shift
     @IBAction func femaleButtonPressed(_ sender: Any) {
         genderIconReaction(female: true, male: false)
-        genderOfDog = true
-    
+        genderIsFemale = true
     }
     
     @IBAction func maleButtonPressed(_ sender: Any) {
         genderIconReaction(female: false, male: true)
-        genderOfDog = false
+        genderIsFemale = false
     }
     
-
     // setting the Response when one or the other icon is tapped
     fileprivate func genderIconReaction(female: Bool, male: Bool) {
         maleIcon.isHighlighted = male
@@ -180,7 +225,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     }
     
 //MARK: - Saving
-    
+    /*
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" || genderOfDog == nil {
             nameTextField.placeholder = "Please give your Dog a name"
@@ -193,12 +238,20 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
             }
         }
     }
+ */
     
     @IBAction func deleteDogPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { (action: UIAlertAction) in
-                DataController.shared.viewContext.delete(self.dog!)
-                DataController.shared.saveViewContext()
+        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { [self] (action: UIAlertAction) in
+            if self.dog != nil {
+                do {
+                    try realm.write {
+                        realm.delete(dog!)
+                    }
+                } catch {
+                    print("Error deleting item, \(error)")
+                }
+            }
             self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }
@@ -212,30 +265,74 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        setSaving(isSaving: true)
-        dog?.name = nameTextField.text
-        dog?.profile = dogImage.image?.pngData()
-        dog?.breed = selectedDogBreed
-        dog?.age = Int16(ageTextField.text!)!
-        dog?.favouriteToy = toyTextField.text
-        dog?.favouriteTreat = treatTextField.text
-        DataController.shared.saveViewContext()
+ //       setSaving(isSaving: true)
+        if dog != nil {
+            do {
+                try realm.write {
+                    dog?.name = nameTextField.text!
+                    dog?.profile = (dogImage.image?.pngData())!
+                    dog?.breed = selectedDogBreed
+                    dog?.age = dogBirthday
+                    dog?.favouriteToy = toyTextField.text
+                    dog?.favouriteTreat = treatTextField.text
+                    dog?.chipID = chipIDTextField.text
+                    dog?.neutered = neuteredSwitch.isOn
+                    if weightTextField.text != "" {
+                        guard let weightInDouble = Double(weightTextField.text!) else {
+                            fatalError("Cannot convert weight into a number")
+                        }
+                        dog?.weight = weightInDouble
+                    }
+                    if heightTextField.text != "" {
+                        guard let heightInDouble = Double(heightTextField.text!) else {
+                            fatalError("Cannot convert weight into a number")
+                        }
+                        dog?.height = heightInDouble
+                    }
+                }
+            } catch {
+                print("Error saving modified dog, \(error)")
+            }
+        }
         self.navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Int16, breed: String, isFemale: Bool, favouritToy: String, favouriteTreat: String) {
-        let newDog = Dog(context: DataController.shared.viewContext)
-        newDog.name = name
-        newDog.profile = image.pngData()
-        newDog.age = age
-        newDog.breed = breed
-        newDog.isFemale = isFemale
-        newDog.favouriteToy = favouritToy
-        newDog.favouriteTreat = favouriteTreat
-        DataController.shared.saveViewContext()
+    func archiveNewDog(name: String, image: UIImage, age: Date, breed: String, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
+        
+        do {
+            try realm.write {
+                let newDog = Dog()
+                newDog.name = name
+                newDog.profile = image.pngData()!
+                newDog.age = age
+                newDog.breed = breed
+                newDog.isFemale = isFemale
+                newDog.favouriteToy = favouritToy
+                newDog.favouriteTreat = favouriteTreat
+                newDog.chipID = chipID
+                newDog.neutered = neuteredSwitch.isOn
+                if weightTextField.text != "" {
+                    guard let weightInDouble = Double(weightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    newDog.weight = weightInDouble
+                }
+                if heightTextField.text != "" {
+                    guard let heightInDouble = Double(heightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    newDog.height = heightInDouble
+                }
+            }
+        } catch {
+            print("Error saving new Dog, \(error)")
+        }
     }
+
+}
     
+    /*
     func setSaving(isSaving: Bool) {
         if isSaving {
             savingScreen.isHidden = false
@@ -254,25 +351,7 @@ class EditDogViewController: UIViewController, NSFetchedResultsControllerDelegat
     }
     
 }
-
-//MARK: - UIPicker
-extension EditDogViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return allBreeds.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return sortedBreeds[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedDogBreed = sortedBreeds[row]
-    }
-}
+*/
 
 //MARK: - ImagePicker
 extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -304,6 +383,20 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
         imagePickerController.sourceType = sourceType
         present(imagePickerController, animated: true, completion: nil)
     }
+}
+
+//MARK: - DogBreed Pop Over
+extension EditDogViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
+extension EditDogViewController: PassDataDelegate {
+    func passData(_ data: String) {
+        breedLabel.text = data
+    }
+    
 }
 
 
