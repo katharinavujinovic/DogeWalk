@@ -13,6 +13,7 @@ class DogBreedTableViewController: UIViewController {
     @IBOutlet weak var dogBreedTableView: UITableView!
     @IBOutlet weak var breedSearchBar: UISearchBar!
     @IBOutlet weak var selectedDogBreedsLabel: UILabel!
+    @IBOutlet var dogBreedView: UIView!
     
     let dogBreeds = DogBreeds()
     var data: [String] = []
@@ -28,6 +29,7 @@ class DogBreedTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dogBreedView.setGradientViewBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
         dogBreedTableView.dataSource = self
         dogBreedTableView.delegate = self
         breedSearchBar.delegate = self

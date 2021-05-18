@@ -1092,11 +1092,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rR5-bI-BZv">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rR5-bI-BZv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <color key="backgroundColor" name="DogeWalk_Green"/>
                                 <items>
                                     <navigationItem id="3IJ-B9-Edt">
                                         <barButtonItem key="leftBarButtonItem" title="cancel" id="oIE-DS-1O4">
+                                            <color key="tintColor" name="DogeWalk_pink"/>
                                             <connections>
                                                 <action selector="cancelPressed:" destination="7tC-pe-4B1" id="EOV-mf-Hs1"/>
                                             </connections>
@@ -1105,7 +1107,7 @@
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ykR-LR-n7E">
                                                 <rect key="frame" x="326" y="17" width="68" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="tintColor" name="DogeWalk_Green"/>
+                                                <color key="tintColor" name="DogeWalk_pink"/>
                                                 <state key="normal" image="checkmark" catalog="system"/>
                                                 <connections>
                                                     <action selector="okButtonPressed:" destination="7tC-pe-4B1" eventType="touchUpInside" id="Q6g-UO-cEe"/>
@@ -1116,7 +1118,7 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" placeholder="Search Breeds" translatesAutoresizingMaskIntoConstraints="NO" id="eaw-wF-1ju">
-                                <rect key="frame" x="0.0" y="106" width="414" height="51"/>
+                                <rect key="frame" x="2" y="106" width="410" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hca-fW-b8N">
@@ -1129,14 +1131,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HUm-Xd-OTE">
-                                <rect key="frame" x="0.0" y="157" width="414" height="651"/>
+                                <rect key="frame" x="2" y="157" width="410" height="649"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="rIe-Mr-d1M">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="410" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rIe-Mr-d1M" id="Ydy-vl-7GF">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="410" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1147,6 +1149,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="b0E-Q8-yuY"/>
                                 </constraints>
+                                <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" image="x.circle.fill" catalog="system"/>
                                 <connections>
                                     <action selector="xPressed:" destination="7tC-pe-4B1" eventType="touchUpInside" id="TMO-yU-CUu"/>
@@ -1161,22 +1164,23 @@
                             <constraint firstItem="rR5-bI-BZv" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" id="GYk-eC-qne"/>
                             <constraint firstItem="eaw-wF-1ju" firstAttribute="top" secondItem="hca-fW-b8N" secondAttribute="bottom" id="IXD-f2-aXs"/>
                             <constraint firstItem="rR5-bI-BZv" firstAttribute="trailing" secondItem="yVW-RA-zGp" secondAttribute="trailing" id="KEa-GG-vx6"/>
-                            <constraint firstItem="yVW-RA-zGp" firstAttribute="bottom" secondItem="HUm-Xd-OTE" secondAttribute="bottom" id="RpM-wb-2r1"/>
-                            <constraint firstItem="yVW-RA-zGp" firstAttribute="trailing" secondItem="HUm-Xd-OTE" secondAttribute="trailing" id="TSt-km-Kws"/>
+                            <constraint firstItem="yVW-RA-zGp" firstAttribute="bottom" secondItem="HUm-Xd-OTE" secondAttribute="bottom" constant="2" id="RpM-wb-2r1"/>
+                            <constraint firstItem="yVW-RA-zGp" firstAttribute="trailing" secondItem="HUm-Xd-OTE" secondAttribute="trailing" constant="2" id="TSt-km-Kws"/>
                             <constraint firstItem="HUm-Xd-OTE" firstAttribute="top" secondItem="eaw-wF-1ju" secondAttribute="bottom" id="W1N-Ew-EPL"/>
                             <constraint firstItem="inT-FL-Y1E" firstAttribute="leading" secondItem="hca-fW-b8N" secondAttribute="trailing" id="XKC-0l-wOH"/>
                             <constraint firstItem="rR5-bI-BZv" firstAttribute="top" secondItem="yVW-RA-zGp" secondAttribute="top" id="aap-aI-H9g"/>
                             <constraint firstItem="inT-FL-Y1E" firstAttribute="top" secondItem="rR5-bI-BZv" secondAttribute="bottom" id="bB5-7P-eOs"/>
-                            <constraint firstItem="eaw-wF-1ju" firstAttribute="trailing" secondItem="yVW-RA-zGp" secondAttribute="trailing" id="gHs-es-axe"/>
-                            <constraint firstItem="eaw-wF-1ju" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" id="juR-le-LBr"/>
+                            <constraint firstItem="eaw-wF-1ju" firstAttribute="trailing" secondItem="yVW-RA-zGp" secondAttribute="trailing" constant="-2" id="gHs-es-axe"/>
+                            <constraint firstItem="eaw-wF-1ju" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" constant="2" id="juR-le-LBr"/>
                             <constraint firstItem="hca-fW-b8N" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" id="oiw-YN-kIJ"/>
                             <constraint firstItem="hca-fW-b8N" firstAttribute="top" secondItem="rR5-bI-BZv" secondAttribute="bottom" id="rRB-Rx-Zfv"/>
-                            <constraint firstItem="HUm-Xd-OTE" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" id="yEh-y1-se4"/>
+                            <constraint firstItem="HUm-Xd-OTE" firstAttribute="leading" secondItem="yVW-RA-zGp" secondAttribute="leading" constant="2" id="yEh-y1-se4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="breedSearchBar" destination="eaw-wF-1ju" id="Zmw-FA-lLY"/>
                         <outlet property="dogBreedTableView" destination="HUm-Xd-OTE" id="yji-N8-c8F"/>
+                        <outlet property="dogBreedView" destination="oPS-Jf-3MV" id="F5w-8b-EeZ"/>
                         <outlet property="selectedDogBreedsLabel" destination="hca-fW-b8N" id="jWy-0M-w59"/>
                     </connections>
                 </viewController>
@@ -1284,6 +1288,9 @@
         </namedColor>
         <namedColor name="DogeWalk_Green">
             <color red="0.81568627450980391" green="0.90196078431372551" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DogeWalk_pink">
+            <color red="0.98039215686274506" green="0.53725490196078429" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
