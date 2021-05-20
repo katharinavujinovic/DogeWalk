@@ -19,7 +19,6 @@ class EditDogViewController: UIViewController {
     @IBOutlet weak var dogImage: UIImageView!
     
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var breedLabel: UILabel!
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
@@ -28,7 +27,7 @@ class EditDogViewController: UIViewController {
     @IBOutlet weak var toyTextField: UITextField!
     @IBOutlet weak var treatTextField: UITextField!
     
-
+    @IBOutlet weak var birthdayPicker: UIDatePicker!
     
     // femaleButton and maleButton
     @IBOutlet weak var femaleIcon: UIImageView!
@@ -45,7 +44,7 @@ class EditDogViewController: UIViewController {
     var dog: Dog?
     private var dogBirthday: Date?
 
-    private var datePicker: UIDatePicker?
+    private var datePicker = UIDatePicker()
     var genderIsFemale: Bool?
     
     var converter = Converter()
@@ -55,15 +54,11 @@ class EditDogViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
-//        loadBreedList()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.dismissKeyboard()
-//        breedPicker.delegate = self
-//        breedPicker.dataSource = self
-        
         nameTextField.delegate = self
         toyTextField.delegate = self
         treatTextField.delegate = self
@@ -71,60 +66,13 @@ class EditDogViewController: UIViewController {
         heightTextField.delegate = self
         chipIDTextField.delegate = self
         
-        ageTextField.inputView = datePicker
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .date
-        datePicker?.addTarget(self, action: #selector(EditDogViewController.birthDayEntered(datePicker:)), for: .valueChanged)
-//        checkNetwork()
         setAddDogButton()
         NotificationCenter.default.addObserver(self, selector: #selector(EditDogViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         setInterface()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    @objc func birthDayEntered(datePicker: UIDatePicker) {
-        
-        dogBirthday = datePicker.date
-        ageTextField.text = converter.birthDateFormatter(date: dogBirthday!)
-        view.endEditing(true)
-    }
-    
-    
-    
-    
-/*
-    func loadBreedList() {
-        DogBreedAPI.fetchBreedList(url: DogBreedAPI.dogURL) { (dogResponse, error) in
-                if let dogResponse = dogResponse {
-                    self.allBreeds = Array(dogResponse.message.keys)
-                    self.sortedBreeds = self.allBreeds.sorted()
-                    DispatchQueue.main.async {
-                        self.breedPickerActivityIndicator.stopAnimating()
-                        self.breedPicker.reloadAllComponents()
-                    }
-                } else {
-                    print("your error is: \(error!.localizedDescription)")
-                }
-        }
-        // displayNetworkIssue()
-    }
 
-    func displayNetworkIssue() {
-        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { timer in
-            if self.allBreeds == [] {
-                DispatchQueue.main.async {
-                    self.breedPickerActivityIndicator.stopAnimating()
-                    let alert = UIAlertController(title: "Very Slow or No Internet Connection", message: "Don't Worry, you can come back to this profile another time to add the breed", preferredStyle: .alert)
-                    let okButton = UIAlertAction(title: "ok", style: .default, handler: nil)
-                    alert.addAction(okButton)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-        
-    }
-    */
     
     func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
@@ -135,7 +83,7 @@ class EditDogViewController: UIViewController {
                 nameTextField.text = dog?.name
                 
                 if dog?.age != nil {
-                    ageTextField.text = converter.birthDateFormatter(date: dog!.age!)
+ //                   birthdayLabel.text = converter.birthDateFormatter(date: dog!.age!)
                 }
                 if dog?.weight != 0.0 {
                     weightTextField.text = "\(dog!.weight)"
@@ -168,7 +116,7 @@ class EditDogViewController: UIViewController {
 //MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "breedTableView" {
-            if let view = segue.destination as? DogBreedTableViewController {
+            if let view = segue.destination as? DogBreedPopUp {
                 view.popoverPresentationController?.delegate = self
                 view.delegate = self
                 if breedLabel.text != "" {

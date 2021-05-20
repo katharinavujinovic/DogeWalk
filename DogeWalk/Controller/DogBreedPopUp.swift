@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DogBreedTableViewController: UIViewController {
+class DogBreedPopUp: UIViewController {
     
     @IBOutlet weak var dogBreedTableView: UITableView!
     @IBOutlet weak var breedSearchBar: UISearchBar!
@@ -57,7 +57,7 @@ class DogBreedTableViewController: UIViewController {
 }
 
 //MARK: - TableView
-extension DogBreedTableViewController: UITableViewDelegate, UITableViewDataSource {
+extension DogBreedPopUp: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -103,7 +103,7 @@ extension DogBreedTableViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 //MARK: - Searchbar
-extension DogBreedTableViewController: UISearchBarDelegate {
+extension DogBreedPopUp: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedData = data.filter({$0.lowercased().contains(searchText.lowercased())})
         searchActive = true
