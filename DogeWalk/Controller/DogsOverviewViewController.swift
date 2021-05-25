@@ -13,7 +13,6 @@ class DogsOverviewViewController: UIViewController {
     
     @IBOutlet weak var dogOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
-    
     @IBOutlet weak var addDogLabel: UILabel!
     @IBOutlet weak var arrowImage: UIImageView!
     
@@ -52,29 +51,6 @@ class DogsOverviewViewController: UIViewController {
             self.dogOverviewTableView.reloadData()
         }
     }
-    
-    /*
-    func setupFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatingDogs")
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-            let fetchedDogs = fetchedResultsController.fetchedObjects
-            for dog in fetchedDogs! {
-                dogs.append(dog)
-            }
-        } catch {
-            print("fetch could not been done")
-        }
-        DispatchQueue.main.async {
-            self.dogOverviewTableView.reloadData()
-        }
-    }
- */
     
     func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)

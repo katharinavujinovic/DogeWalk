@@ -173,20 +173,19 @@ class EditDogViewController: UIViewController {
     }
     
 //MARK: - Saving
-    /*
+
     @IBAction func addNewDogPressed(_ sender: Any) {
-        if nameTextField.text == "" || genderOfDog == nil {
+        if nameTextField.text == "" {
             nameTextField.placeholder = "Please give your Dog a name"
         } else {
-            setSaving(isSaving: true)
-            DispatchQueue.main.async {
-                self.archiveNewDog(name: self.nameTextField.text!, image: self.dogImage.image!, age: Int16(self.ageTextField.text!)!, breed: self.selectedDogBreed, isFemale: self.genderOfDog!, favouritToy: self.toyTextField.text ?? "", favouriteTreat: self.treatTextField.text ?? "")
+            DispatchQueue.main.async { [self] in
+                self.archiveNewDog(name: nameTextField.text!, image: dogImage.image!, age: dogBirthday, breed: breedLabel.text, isFemale: genderIsFemale ?? true, favouritToy: toyTextField.text, favouriteTreat: treatTextField.text, chipID: chipIDTextField.text)
                 self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
         }
     }
- */
+
     
     @IBAction func deleteDogPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
@@ -219,6 +218,7 @@ class EditDogViewController: UIViewController {
                 try realm.write {
                     dog?.name = nameTextField.text!
                     dog?.profile = (dogImage.image?.pngData())!
+                    dog?.isFemale = genderIsFemale ?? true
                     dog?.breed = selectedDogBreed
                     dog?.age = dogBirthday
                     dog?.favouriteToy = toyTextField.text
@@ -246,7 +246,7 @@ class EditDogViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Date, breed: String, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
+    func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
         
         do {
             try realm.write {
@@ -272,6 +272,7 @@ class EditDogViewController: UIViewController {
                     }
                     newDog.height = heightInDouble
                 }
+                realm.add(newDog)
             }
         } catch {
             print("Error saving new Dog, \(error)")

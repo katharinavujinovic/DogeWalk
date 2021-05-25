@@ -7,15 +7,12 @@
 
 import UIKit
 import RealmSwift
-// import CoreData
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    override init() {
-        super.init()
-    }
-
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
             let realm = try Realm()
