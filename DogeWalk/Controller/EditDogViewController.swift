@@ -71,6 +71,7 @@ class EditDogViewController: UIViewController {
         setInterface()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        birthdayPicker.maximumDate = Date()
     }
 
     
@@ -82,8 +83,8 @@ class EditDogViewController: UIViewController {
                 dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
                 
-                if dog?.age != nil {
- //                   birthdayLabel.text = converter.birthDateFormatter(date: dog!.age!)
+                if let dogBirthdayDate = dog?.age {
+                    datePicker.date = dogBirthdayDate
                 }
                 if dog?.weight != 0.0 {
                     weightTextField.text = "\(dog!.weight)"
@@ -91,8 +92,8 @@ class EditDogViewController: UIViewController {
                 if dog?.height != 0.0 {
                     heightTextField.text = "\(dog!.height)"
                 }
-                if dog?.chipID != nil {
-                    chipIDTextField.text = dog!.chipID
+                if let dogChipID = dog?.chipID {
+                    chipIDTextField.text = dogChipID
                 }
                 if dog?.neutered == true {
                     neuteredSwitch.isOn = true
@@ -117,7 +118,7 @@ class EditDogViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "breedTableView" {
             if let view = segue.destination as? DogBreedPopUp {
-                view.popoverPresentationController?.delegate = self
+//                view.popoverPresentationController?.delegate = self
                 view.delegate = self
                 if breedLabel.text != "" {
                     view.selectedDogBreeds = breedLabel.text
@@ -179,6 +180,10 @@ class EditDogViewController: UIViewController {
             nameTextField.placeholder = "Please give your Dog a name"
         } else {
             DispatchQueue.main.async { [self] in
+                // dogBirthday is nil!
+                if converter.dayFormatter(date: birthdayPicker.date) != converter.dayFormatter(date: Date()) {
+                    dogBirthday = birthdayPicker.date
+                }
                 self.archiveNewDog(name: nameTextField.text!, image: dogImage.image!, age: dogBirthday, breed: breedLabel.text, isFemale: genderIsFemale ?? true, favouritToy: toyTextField.text, favouriteTreat: treatTextField.text, chipID: chipIDTextField.text)
                 self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
@@ -220,7 +225,10 @@ class EditDogViewController: UIViewController {
                     dog?.profile = (dogImage.image?.pngData())!
                     dog?.isFemale = genderIsFemale ?? true
                     dog?.breed = selectedDogBreed
-                    dog?.age = dogBirthday
+                    if converter.dayFormatter(date: birthdayPicker.date) != converter.dayFormatter(date: Date()) {
+                        dog?.age = birthdayPicker.date
+                    }
+
                     dog?.favouriteToy = toyTextField.text
                     dog?.favouriteTreat = treatTextField.text
                     dog?.chipID = chipIDTextField.text
@@ -253,7 +261,11 @@ class EditDogViewController: UIViewController {
                 let newDog = Dog()
                 newDog.name = name
                 newDog.profile = image.pngData()!
-                newDog.age = age
+                if age != nil {
+                    if converter.dayFormatter(date: age!) != converter.dayFormatter(date: Date()) {
+                        newDog.age = age
+                    }
+                }
                 newDog.breed = breed
                 newDog.isFemale = isFemale
                 newDog.favouriteToy = favouritToy
@@ -280,27 +292,6 @@ class EditDogViewController: UIViewController {
     }
 
 }
-    
-    /*
-    func setSaving(isSaving: Bool) {
-        if isSaving {
-            savingScreen.isHidden = false
-            savingIndicator.startAnimating()
-        } else {
-            savingScreen.isHidden = true
-            savingIndicator.stopAnimating()
-        }
-        selectDogButton.isEnabled = !isSaving
-        ageTextField.isEnabled = !isSaving
-        femaleButton.isEnabled = !isSaving
-        maleButton.isEnabled = !isSaving
-        breedPicker.isUserInteractionEnabled = !isSaving
-        toyTextField.isEnabled = !isSaving
-        treatTextField.isEnabled = !isSaving
-    }
-    
-}
-*/
 
 //MARK: - ImagePicker
 extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -334,12 +325,13 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
 }
 
+/*
 //MARK: - DogBreed Pop Over
 extension EditDogViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-}
+}*/
 
 extension EditDogViewController: PassDataDelegate {
     func passData(_ data: String) {

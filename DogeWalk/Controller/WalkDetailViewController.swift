@@ -43,7 +43,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     
     func displaySelectedWalk() {
         dateLabel.text = converter.startTime(date: walk.startDate)
-        startTimeLabel.text = converter.timeFormatter(date: walk.startDate)
+        startTimeLabel.text = converter.dayFormatter(date: walk.startDate)
         walkTimeLabel.text = converter.displayTime(seconds: walk.time)
         distanceLabel.text = converter.displayDistance(meter: walk.distance)
         do {

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class Dog: Object {
-    @objc dynamic var name: String = ""
+    @objc dynamic var name: String = "Unknown Dog"
     @objc dynamic var profile = Data()
     @objc dynamic var age: Date?
     @objc dynamic var breed: String?

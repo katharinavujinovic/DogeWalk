@@ -59,7 +59,7 @@ class DogDetailViewController: UIViewController {
     }
     
     func loadWalks() {
-            walks = dog?.participatedWalks.sorted(byKeyPath: "date", ascending: true)
+            walks = dog?.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -82,18 +82,18 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         // create an idicator when there are no walks yet
         if tableView == self.walksTableView {
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
                 cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
-                cell.startTimeLabel.text = converter.timeFormatter(date: aWalk.startDate)
+                cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
                 cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
               
-                    if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
-                        cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
-                        let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-                        cell.mapView.setRegion(viewRegion, animated: true)
-                    }
+                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
+                    cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
+                    let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+                    cell.mapView.setRegion(viewRegion, animated: true)
+                }
                 
             }
                 
@@ -102,8 +102,8 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         else if tableView == self.dogTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
             cell.dogImage.image = UIImage(data: dog.profile)
-            if dog.age != nil {
-                cell.ageLabel.text = converter.yearsBetweenDate(startDate: dog.age!, endDate: Date())
+            if let dogAge = dog.age {
+                cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
             }
             cell.breedLabel.text = dog.breed
             cell.nameLabel.text = dog.name

@@ -38,7 +38,7 @@ class Converter {
         return "\(mileCountString) mi"
     }
     
-    func timeFormatter(date: Date) -> String {
+    func dayFormatter(date: Date) -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .short
         timeFormatter.timeStyle = .none
@@ -65,7 +65,7 @@ class Converter {
         let components = calendar.dateComponents([.year], from: startDate, to: endDate)
         if components.year == 0 {
             let months = calendar.dateComponents([.month], from: startDate, to: endDate)
-            return String(describing: months.month)
+            return String(describing: months.month) + "M"
         } else {
             return String(describing: components.year)
         }

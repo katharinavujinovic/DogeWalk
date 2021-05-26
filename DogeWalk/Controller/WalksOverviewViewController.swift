@@ -41,30 +41,11 @@ class WalksOverviewViewController: UIViewController {
     }
     
     func loadWalks() {
-        walks = realm.objects(Walk.self)
+        walks = realm.objects(Walk.self).sorted(byKeyPath: "startDate", ascending: true)
         DispatchQueue.main.async {
             self.walkOverviewTableView.reloadData()
         }
     }
-    
-    /*
-    func setupFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<Walk> = Walk.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatedWalks")
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("fetch could not been done")
-        }
-        DispatchQueue.main.async {
-            self.walkOverviewTableView.reloadData()
-        }
-    }
- */
     
 }
 
@@ -82,7 +63,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         if let aWalk = walks?[indexPath.row] {
             cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
             cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
-            cell.startTimeLabel.text = converter.timeFormatter(date: aWalk.startDate)
+            cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
             cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
 
                 if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {

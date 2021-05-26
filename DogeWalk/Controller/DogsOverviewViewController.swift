@@ -13,8 +13,7 @@ class DogsOverviewViewController: UIViewController {
     
     @IBOutlet weak var dogOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
-    @IBOutlet weak var addDogLabel: UILabel!
-    @IBOutlet weak var arrowImage: UIImageView!
+    @IBOutlet weak var addDogStack: UIStackView!
     
     let realm = try! Realm()
     let converter = Converter()
@@ -26,8 +25,7 @@ class DogsOverviewViewController: UIViewController {
         super.viewWillAppear(true)
         loadDogs()
         if dogs != nil {
-            arrowImage.isHidden = true
-            addDogLabel.isHidden = true
+            addDogStack.isHidden = true
         }
     }
     
@@ -72,6 +70,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
             cell.dogImage.image = UIImage(data: aDog.profile)
             if aDog.age != nil {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date())
+                print(converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date()))
             }
             cell.breedLabel.text = aDog.breed
             cell.nameLabel.text = aDog.name
