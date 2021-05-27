@@ -168,6 +168,7 @@ class CurrentWalkViewController: UIViewController {
                 for dog in dogs {
                     newWalk.participatedDogs.append(dog)
                 }
+                realm.add(newWalk)
             }
         } catch {
             print("Walk could not be saved, \(error)")

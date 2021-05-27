@@ -66,13 +66,12 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
             cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
             cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
 
-                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
+                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
                 }
         }
-        
         return cell
     }
 

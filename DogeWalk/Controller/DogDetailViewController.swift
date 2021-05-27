@@ -21,10 +21,11 @@ class DogDetailViewController: UIViewController {
     
     var walks: Results<Walk>?
     var selectedWalk: Walk?
-    var dog: Dog! {
-        didSet {
-            loadWalks()
-        }
+    var dog: Dog! 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadWalks()
     }
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class DogDetailViewController: UIViewController {
     }
     
     func loadWalks() {
-            walks = dog?.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
+            walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -89,7 +90,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
                 cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
               
-                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: aWalk.route) as? [CLLocation] {
+                if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
@@ -97,7 +98,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 
             }
                 
-                return cell
+        return cell
         }
         else if tableView == self.dogTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell

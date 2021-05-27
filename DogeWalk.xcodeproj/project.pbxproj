@@ -42,6 +42,7 @@
 		43ED3D982645755E0074E809 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D972645755E0074E809 /* Converter.swift */; };
 		43F458C22604A36E00B3CD7B /* DogBreedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */; };
 		43F458C52604A91D00B3CD7B /* DogBreedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */; };
+		43FDAD90265FE354000507B8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FDAD8F265FE354000507B8 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		43ED3D972645755E0074E809 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43F458C12604A36E00B3CD7B /* DogBreedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPI.swift; sourceTree = "<group>"; };
 		43F458C42604A91D00B3CD7B /* DogBreedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedResponse.swift; sourceTree = "<group>"; };
+		43FDAD8F265FE354000507B8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DogeWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6153E3DF9C4614F72EBD6B3 /* Pods-DogeWalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogeWalk.debug.xcconfig"; path = "Target Support Files/Pods-DogeWalk/Pods-DogeWalk.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43FDAD90265FE354000507B8 /* MapKit.framework in Frameworks */,
 				04DF531AB37893DD0ABD063A /* Pods_DogeWalk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +220,7 @@
 		89845F15DC46508325DFD9AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43FDAD8F265FE354000507B8 /* MapKit.framework */,
 				B76A232D69FCAFC9554CBA95 /* Pods_DogeWalk.framework */,
 			);
 			name = Frameworks;
