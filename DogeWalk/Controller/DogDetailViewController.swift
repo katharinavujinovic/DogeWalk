@@ -61,6 +61,7 @@ class DogDetailViewController: UIViewController {
     
     func loadWalks() {
             walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
+        print(walks?.count ?? 0)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -82,7 +83,6 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create an idicator when there are no walks yet
         if tableView == self.walksTableView {
-                
             let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
@@ -95,21 +95,23 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
                 }
-                
             }
-                
-        return cell
+            return cell
         }
         else if tableView == self.dogTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
             cell.dogImage.image = UIImage(data: dog.profile)
             if let dogAge = dog.age {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
+            } else if dog.weight != 0.0 {
+                cell.weightLabel.text = String(dog.weight)
+            } else if dog.height != 0.0 {
+                cell.heightLabel.text = String(dog.height)
             }
-            cell.breedLabel.text = dog.breed
             cell.nameLabel.text = dog.name
-            cell.toyLabel.text = dog.favouriteToy
-            cell.treatLabel.text = dog.favouriteTreat
+            cell.dogImage.image = UIImage(data: dog.profile)
+            cell.breedLabel.text = dog.breed
+            cell.chipIDLabel.text = dog.chipID
             
             if dog.isFemale == true {
                 setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))

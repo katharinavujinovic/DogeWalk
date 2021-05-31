@@ -19,7 +19,6 @@
 		43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3625FB836200799186 /* WalksOverviewViewController.swift */; };
 		43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3925FB83F700799186 /* WalkDetailViewController.swift */; };
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
-		43303E332608A89100E69310 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43303E322608A89100E69310 /* DataController.swift */; };
 		433AC97B264EB0CE00ED1AD8 /* DogBreeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */; };
 		434736C82653B3CD009420D8 /* DogBreedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434736C72653B3CD009420D8 /* DogBreedPopUp.swift */; };
 		435B666826037D5800EF2160 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B666726037D5800EF2160 /* Constants.swift */; };
@@ -60,7 +59,6 @@
 		43135B3625FB836200799186 /* WalksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewViewController.swift; sourceTree = "<group>"; };
 		43135B3925FB83F700799186 /* WalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailViewController.swift; sourceTree = "<group>"; };
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
-		43303E322608A89100E69310 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreeds.swift; sourceTree = "<group>"; };
 		434736C72653B3CD009420D8 /* DogBreedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedPopUp.swift; sourceTree = "<group>"; };
 		435B666726037D5800EF2160 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 		43B191A4260B43450070E372 /* DataController */ = {
 			isa = PBXGroup;
 			children = (
-				43303E322608A89100E69310 /* DataController.swift */,
 				43ED3D8926418EC60074E809 /* Dog.swift */,
 				43ED3D922641947A0074E809 /* Walk.swift */,
 			);
@@ -367,7 +364,6 @@
 				43CA00FB26258A15003242FF /* LocationService.swift in Sources */,
 				43CA00F72625879F003242FF /* PolyLineCreation.swift in Sources */,
 				433AC97B264EB0CE00ED1AD8 /* DogBreeds.swift in Sources */,
-				43303E332608A89100E69310 /* DataController.swift in Sources */,
 				43135B3025FB815600799186 /* DogDetailViewController.swift in Sources */,
 				43CA00F22625856B003242FF /* DateSetter.swift in Sources */,
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,

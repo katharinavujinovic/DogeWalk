@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         checkIfFirstLaunch()
-//        DataController.shared.load()
         return true
     }
 

@@ -67,16 +67,19 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
         if let aDog = dogs?[indexPath.row] {
-            cell.dogImage.image = UIImage(data: aDog.profile)
-            if aDog.age != nil {
-                cell.ageLabel.text = converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date())
-                print(converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date()))
-            }
-            cell.breedLabel.text = aDog.breed
-            cell.nameLabel.text = aDog.name
-            cell.toyLabel.text = aDog.favouriteToy
-            cell.treatLabel.text = aDog.favouriteTreat
             
+            if let dogAge = aDog.age {
+                cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
+            } else if aDog.weight != 0.0 {
+                cell.weightLabel.text = String(aDog.weight)
+            } else if aDog.height != 0.0 {
+                cell.heightLabel.text = String(aDog.height)
+            }
+            cell.nameLabel.text = aDog.name
+            cell.dogImage.image = UIImage(data: aDog.profile)
+            cell.breedLabel.text = aDog.breed
+            cell.chipIDLabel.text = aDog.chipID
+
             if aDog.isFemale == true {
                 setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
             } else {

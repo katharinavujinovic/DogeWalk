@@ -38,7 +38,6 @@ class CurrentWalkViewController: UIViewController {
     
     let realm = try! Realm()
     let converter = Converter()
-    // add variables for for Pee/PoopAnnotations
     
     let locationManager = CLLocationManager()
     var userLocations: [CLLocation] = []
@@ -64,7 +63,6 @@ class CurrentWalkViewController: UIViewController {
         miniCollectionView.backgroundColor = .clear
         currentWalkMapView.mapType = MKMapType(rawValue: 0)!
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
-        print(dogs!)
         enableButton(play: true, pause: false, stop: false)
         setFloatingButton()
         distanceLabel.text = converter.displayDistance(meter: meterCount)
@@ -153,6 +151,9 @@ class CurrentWalkViewController: UIViewController {
                 newWalk.startDate = startTime!
                 newWalk.distance = meterCount
                 newWalk.time = secondCounter
+                for dog in dogs {
+                    dog.participatedWalks.append(newWalk)
+                }
                 do {
                     let locationData = try NSKeyedArchiver.archivedData(withRootObject: userLocations as Array, requiringSecureCoding: false)
                     newWalk.route = locationData
@@ -164,9 +165,6 @@ class CurrentWalkViewController: UIViewController {
                 }
                 if poopAnnotations != [] {
                     newWalk.poopAnnotation = try NSKeyedArchiver.archivedData(withRootObject: poopAnnotations, requiringSecureCoding: false)
-                }
-                for dog in dogs {
-                    newWalk.participatedDogs.append(dog)
                 }
                 realm.add(newWalk)
             }
@@ -282,9 +280,7 @@ extension CurrentWalkViewController: MKMapViewDelegate, CLLocationManagerDelegat
             pinView?.annotation = annotation
             return pinView
         }
-        
     }
-
 }
 
 //MARK: - Mini CollectionView

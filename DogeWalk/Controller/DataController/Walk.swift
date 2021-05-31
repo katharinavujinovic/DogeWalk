@@ -15,7 +15,5 @@ class Walk: Object {
     @objc dynamic var time: Int = 0
     @objc dynamic var poopAnnotation = Data()
     @objc dynamic var peeAnnotation = Data()
-    var participatedDogs = List<Dog>()
-    
-    
+    var participatedDogs = LinkingObjects(fromType: Dog.self, property: "participatedWalks")
 }
