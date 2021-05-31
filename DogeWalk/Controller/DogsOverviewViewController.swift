@@ -13,9 +13,7 @@ class DogsOverviewViewController: UIViewController {
     
     @IBOutlet weak var dogOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
-    
-    @IBOutlet weak var addDogLabel: UILabel!
-    @IBOutlet weak var arrowImage: UIImageView!
+    @IBOutlet weak var addDogStack: UIStackView!
     
     let realm = try! Realm()
     let converter = Converter()
@@ -27,8 +25,7 @@ class DogsOverviewViewController: UIViewController {
         super.viewWillAppear(true)
         loadDogs()
         if dogs != nil {
-            arrowImage.isHidden = true
-            addDogLabel.isHidden = true
+            addDogStack.isHidden = true
         }
     }
     
@@ -53,29 +50,6 @@ class DogsOverviewViewController: UIViewController {
         }
     }
     
-    /*
-    func setupFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatingDogs")
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-            let fetchedDogs = fetchedResultsController.fetchedObjects
-            for dog in fetchedDogs! {
-                dogs.append(dog)
-            }
-        } catch {
-            print("fetch could not been done")
-        }
-        DispatchQueue.main.async {
-            self.dogOverviewTableView.reloadData()
-        }
-    }
- */
-    
     func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
@@ -93,15 +67,19 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
         if let aDog = dogs?[indexPath.row] {
-            cell.dogImage.image = UIImage(data: aDog.profile)
-            if aDog.age != nil {
-                cell.ageLabel.text = converter.yearsBetweenDate(startDate: aDog.age!, endDate: Date())
-            }
-            cell.breedLabel.text = aDog.breed
-            cell.nameLabel.text = aDog.name
-            cell.toyLabel.text = aDog.favouriteToy
-            cell.treatLabel.text = aDog.favouriteTreat
             
+            if let dogAge = aDog.age {
+                cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
+            } else if aDog.weight != 0.0 {
+                cell.weightLabel.text = String(aDog.weight)
+            } else if aDog.height != 0.0 {
+                cell.heightLabel.text = String(aDog.height)
+            }
+            cell.nameLabel.text = aDog.name
+            cell.dogImage.image = UIImage(data: aDog.profile)
+            cell.breedLabel.text = aDog.breed
+            cell.chipIDLabel.text = aDog.chipID
+
             if aDog.isFemale == true {
                 setbackgroundTint(cell, colorOne: #colorLiteral(red: 0.9803921569, green: 0.537254902, blue: 0.4823529412, alpha: 1), colorTwo: #colorLiteral(red: 1, green: 0.8666666667, blue: 0.5803921569, alpha: 1))
             } else {

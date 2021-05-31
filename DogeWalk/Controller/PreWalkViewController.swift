@@ -73,31 +73,6 @@ class PreWalkViewController: UIViewController {
         }
     }
     
-    /*
-    func setupFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: "participatingDogs")
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-            if let fetchedResults = fetchedResultsController.fetchedObjects {
-                for fetchedDogResult in fetchedResults {
-                    fetchedDogs.append(fetchedDogResult)
-                }
-            }
-        } catch {
-            print("fetch could not been done")
-        }
-    
-        DispatchQueue.main.async {
-            self.preWalkCollectionView.reloadData()
-        }
-    }
- */
-    
     func presentAlarm() {
         let alert = UIAlertController(title: "No Dog registered yet", message: "Make sure to create a profile for your dog before going for a walk", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: { (alert) in

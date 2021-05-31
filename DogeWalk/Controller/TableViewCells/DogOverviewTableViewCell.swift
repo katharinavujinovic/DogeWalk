@@ -13,9 +13,10 @@ class DogOverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var dogImage: UIImageView!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
-    @IBOutlet weak var toyLabel: UILabel!
+    @IBOutlet weak var chipIDLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var backgroundTint: UIView!
-    @IBOutlet weak var treatLabel: UILabel!
     
     
     override func awakeFromNib() {

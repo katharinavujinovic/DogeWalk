@@ -43,11 +43,11 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     
     func displaySelectedWalk() {
         dateLabel.text = converter.startTime(date: walk.startDate)
-        startTimeLabel.text = converter.timeFormatter(date: walk.startDate)
+        startTimeLabel.text = converter.dayFormatter(date: walk.startDate)
         walkTimeLabel.text = converter.displayTime(seconds: walk.time)
         distanceLabel.text = converter.displayDistance(meter: walk.distance)
         do {
-            if let unarchivedWalk = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [NSArray.self, CLLocation.self], from: walk.route) as? [CLLocation] {
+            if let unarchivedWalk = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: walk.route) as? [CLLocation] {
                 walkDetailMapView.addOverlay(createPolyLine(locations: unarchivedWalk))
             let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
             walkDetailMapView.setRegion(viewRegion, animated: true)
