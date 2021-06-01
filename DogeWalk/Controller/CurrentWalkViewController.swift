@@ -202,9 +202,10 @@ class CurrentWalkViewController: UIViewController {
         selectedIcon = "poopButton"
         let annotation = MKPointAnnotation()
         if userLocations != [] {
-            annotation.coordinate = userLocations.last!.coordinate
+            let lastLocation = userLocations.last!
+            annotation.coordinate = lastLocation.coordinate
+            poopAnnotations.append(lastLocation)
             currentWalkMapView.addAnnotation(annotation)
-            //think about a way to save the pin
         } else {
             print("There are no locationpoints yet in userLocations!")
         }
@@ -214,9 +215,10 @@ class CurrentWalkViewController: UIViewController {
         selectedIcon = "peeButton"
         let annotation = MKPointAnnotation()
         if userLocations != [] {
-            annotation.coordinate = userLocations.last!.coordinate
+            let lastLocation = userLocations.last!
+            annotation.coordinate = lastLocation.coordinate
+            peeAnnotations.append(lastLocation)
             currentWalkMapView.addAnnotation(annotation)
-            //think about a way to save the pin
         } else {
             print("There are no locationpoints yet in userLocations!")
         }

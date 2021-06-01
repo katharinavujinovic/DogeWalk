@@ -11,10 +11,9 @@ import MapKit
 import RealmSwift
 
 class DogDetailViewController: UIViewController {
-    // displays the walks the dog finished
+
     @IBOutlet weak var dogTableView: UITableView!
     @IBOutlet weak var walksTableView: UITableView!
-    // Dog stats
 
     let realm = try! Realm()
     let converter = Converter()
@@ -123,7 +122,6 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             return UITableViewCell()
         }
-        
     }
 
 
