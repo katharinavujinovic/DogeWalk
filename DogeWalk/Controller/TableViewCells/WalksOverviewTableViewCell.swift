@@ -83,6 +83,7 @@ extension WalksOverviewTableViewCell: MKMapViewDelegate {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = annotationToPopulate.coordinate
                 mapView.addAnnotation(annotation)
+                print("added peeAnnotation")
             }
         }
     }
