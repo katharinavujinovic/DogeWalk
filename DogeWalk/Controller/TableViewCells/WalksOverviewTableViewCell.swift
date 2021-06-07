@@ -76,14 +76,12 @@ extension WalksOverviewTableViewCell: MKMapViewDelegate {
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annotation)
                 }
-                print("added poopAnnotation")
             }
         } else if selectedAnnotation == "peeAnnotation" {
             for annotationToPopulate in peeAnnotation {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = annotationToPopulate.coordinate
                 mapView.addAnnotation(annotation)
-                print("added peeAnnotation")
             }
         }
     }
