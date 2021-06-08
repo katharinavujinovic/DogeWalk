@@ -309,7 +309,8 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.dogImage.image = chosenImage
+            let resizedImage = resizeImage(image: chosenImage, targetSize: CGSize(width: 300, height: 300))
+            self.dogImage.image = resizedImage
         } else {
             print("not able to use image")
             return
@@ -324,14 +325,6 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
         present(imagePickerController, animated: true, completion: nil)
     }
 }
-
-/*
-//MARK: - DogBreed Pop Over
-extension EditDogViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-}*/
 
 extension EditDogViewController: PassDataDelegate {
     func passData(_ data: String) {
