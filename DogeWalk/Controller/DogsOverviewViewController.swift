@@ -71,11 +71,17 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
             if let dogAge = aDog.age {
                 let calculatedAge = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
                 cell.ageLabel.text = calculatedAge
-            } else if aDog.weight != 0.0 {
+            }
+            
+            if aDog.weight != 0.0 {
                 cell.weightLabel.text = String(aDog.weight)
-            } else if aDog.height != 0.0 {
+                print("\(aDog.weight)")
+            }
+            
+            if aDog.height != 0.0 {
                 cell.heightLabel.text = String(aDog.height)
             }
+            
             cell.nameLabel.text = aDog.name
             cell.dogImage.image = UIImage(data: aDog.profile)
             cell.breedLabel.text = aDog.breed

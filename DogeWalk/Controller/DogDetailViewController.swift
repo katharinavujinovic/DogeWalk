@@ -114,11 +114,16 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
             cell.dogImage.image = UIImage(data: dog.profile)
             if let dogAge = dog.age {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
-            } else if dog.weight != 0.0 {
+            }
+            
+            if dog.weight != 0.0 {
                 cell.weightLabel.text = String(dog.weight)
-            } else if dog.height != 0.0 {
+            }
+            
+            if dog.height != 0.0 {
                 cell.heightLabel.text = String(dog.height)
             }
+            
             cell.nameLabel.text = dog.name
             cell.dogImage.image = UIImage(data: dog.profile)
             cell.breedLabel.text = dog.breed
