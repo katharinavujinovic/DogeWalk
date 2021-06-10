@@ -82,6 +82,7 @@ class EditDogViewController: UIViewController {
                 addNewDogButton.isHidden = true
                 dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
+                selectedDogBreed = dog?.breed
                 
                 if let dogBirthdayDate = dog?.age {
                     datePicker.date = dogBirthdayDate
@@ -102,6 +103,8 @@ class EditDogViewController: UIViewController {
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
 
+                genderIsFemale = dog?.isFemale
+                
                 if dog?.isFemale == true {
                     genderIconReaction(female: true, male: false)
                 } else {
