@@ -33,8 +33,8 @@ For this project i used this [DogAPI](https://dog.ceo/dog-api/documentation/) to
 
 ### What are the upcoming implementations for DogeWalk
 #### General tasks
-- [ ] migration from API usage for dog breed to storing breedlist locally
-- [ ] migration from CoraData to Realm
+- [x] migration from API usage for dog breed to storing breedlist locally
+- [x] migration from CoraData to Realm
 - [ ] **REFACTOR** 
 
 #### CurrentWalkVC
