@@ -124,7 +124,7 @@ class EditDogViewController: UIViewController {
 //                view.popoverPresentationController?.delegate = self
                 view.delegate = self
                 if breedLabel.text != "" {
-                    let arrayOfBreeds = breedLabel.text!.components(separatedBy: ",")
+                    let arrayOfBreeds = breedLabel.text!.components(separatedBy: ", ")
                     view.selectedDogBreeds = arrayOfBreeds
                 }
             }
