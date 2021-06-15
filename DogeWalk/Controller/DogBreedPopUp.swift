@@ -11,15 +11,15 @@ import UIKit
 class DogBreedPopUp: UIViewController {
     
     @IBOutlet weak var dogBreedTableView: UITableView!
+    @IBOutlet weak var selectedBreedTableView: UITableView!
     @IBOutlet weak var breedSearchBar: UISearchBar!
-    @IBOutlet weak var selectedDogBreedsLabel: UILabel!
     
     let dogBreeds = DogBreeds()
     var data: [String] = []
     var searchedData: [String] = []
     var delegate: PassDataDelegate?
-    var selectedDogBreeds: String?
     var searchActive = false
+    var selectedDogBreeds: [String] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -28,29 +28,22 @@ class DogBreedPopUp: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "BreedSelectorTableViewCell", bundle: nil)
+        selectedBreedTableView.register(nib, forCellReuseIdentifier: "BreedSelectorTableViewCell")
+        selectedBreedTableView.dataSource = self
+        selectedBreedTableView.delegate = self
         dogBreedTableView.dataSource = self
         dogBreedTableView.delegate = self
         breedSearchBar.delegate = self
-        if selectedDogBreeds != nil {
-            selectedDogBreedsLabel.text = selectedDogBreeds
-        } else {
-            selectedDogBreedsLabel.text = ""
-        }
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func xPressed(_ sender: Any) {
-        selectedDogBreeds = nil
-        selectedDogBreedsLabel.text = ""
-    }
-    
     @IBAction func okButtonPressed(_ sender: Any) {
-        delegate?.passData(selectedDogBreeds ?? "" )
+        delegate?.passData(selectedDogBreeds)
         self.dismiss(animated: true, completion: nil)
-
     }
 }
 
@@ -62,39 +55,66 @@ extension DogBreedPopUp: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return searchedData.count
-        } else {
-            return data.count
+        if tableView == self.selectedBreedTableView {
+            return selectedDogBreeds.count
+        }
+        else if tableView == self.dogBreedTableView {
+            if searchActive {
+                return searchedData.count
+            } else {
+                return data.count
+            }
+        }
+        else {
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if searchActive {
-            cell.textLabel?.text = searchedData[indexPath.row]
-        } else {
-            cell.textLabel?.text = data[indexPath.row]
+        if tableView == self.selectedBreedTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BreedSelectorTableViewCell") as! BreedSelectorTableViewCell
+            if selectedDogBreeds != [] {
+                cell.breedLabel.text = selectedDogBreeds[indexPath.row]
+            }
+            return cell
         }
-        return cell
+        else if tableView == self.dogBreedTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            if searchActive {
+                cell.textLabel?.text = searchedData[indexPath.row]
+            } else {
+                cell.textLabel?.text = data[indexPath.row]
+            }
+            return cell
+        }
+        else {
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.allowsMultipleSelection = true
-        if searchActive {
-            if selectedDogBreeds == nil {
-                selectedDogBreeds = "\(searchedData[indexPath.row])"
+        if tableView == self.selectedBreedTableView {
+            selectedDogBreeds.remove(at: indexPath.row)
+
+        }
+        else if tableView == self.dogBreedTableView {
+            if searchActive {
+                if selectedDogBreeds.contains(searchedData[indexPath.row]) {
+                    return
+                } else {
+                    selectedDogBreeds.append(searchedData[indexPath.row])
+                }
             } else {
-                selectedDogBreeds! += ", \(searchedData[indexPath.row])"
-            }
-        } else {
-            if selectedDogBreeds == nil {
-                selectedDogBreeds = "\(data[indexPath.row])"
-            } else {
-                selectedDogBreeds! += ", \(data[indexPath.row]), "
+                if selectedDogBreeds.contains(data[indexPath.row]) {
+                    return
+                } else {
+                    selectedDogBreeds.append(data[indexPath.row])
+                }
             }
         }
-        selectedDogBreedsLabel.text = "\(selectedDogBreeds!)"
+        DispatchQueue.main.async {
+            self.selectedBreedTableView.reloadData()
+        }
     }
 }
 
@@ -116,5 +136,5 @@ extension DogBreedPopUp: UISearchBarDelegate {
 
 //MARK: - PassDataDelegate
 protocol PassDataDelegate {
-    func passData(_ data: String)
+    func passData(_ data: [String]?)
 }

@@ -10,6 +10,7 @@ import UIKit
 class DogOverviewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dogImageBackground: UIView!
     @IBOutlet weak var dogImage: UIImageView!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
@@ -22,6 +23,7 @@ class DogOverviewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
+        dogImageBackground.layer.cornerRadius = dogImageBackground.frame.height / 2
         backgroundTint.layer.cornerRadius = 15
     }
     

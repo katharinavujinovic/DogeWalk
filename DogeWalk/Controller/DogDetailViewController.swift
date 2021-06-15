@@ -11,10 +11,9 @@ import MapKit
 import RealmSwift
 
 class DogDetailViewController: UIViewController {
-    // displays the walks the dog finished
+
     @IBOutlet weak var dogTableView: UITableView!
     @IBOutlet weak var walksTableView: UITableView!
-    // Dog stats
 
     let realm = try! Realm()
     let converter = Converter()
@@ -95,6 +94,18 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
                 }
+                
+                if let unarchivedPoopAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.poopAnnotation) as? [CLLocation] {
+                    DispatchQueue.main.async {
+                        cell.poopAnnotation = unarchivedPoopAnnotation
+                        cell.populateMapViewWithAnnotations(iconToPopulate: "poopAnnotation")
+                    }
+                }
+                if let unarchivedPeeAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.peeAnnotation) as? [CLLocation] {
+                        cell.peeAnnotation = unarchivedPeeAnnotation
+                        cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
+                }
+                
             }
             return cell
         }
@@ -103,11 +114,16 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
             cell.dogImage.image = UIImage(data: dog.profile)
             if let dogAge = dog.age {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())
-            } else if dog.weight != 0.0 {
+            }
+            
+            if dog.weight != 0.0 {
                 cell.weightLabel.text = String(dog.weight)
-            } else if dog.height != 0.0 {
+            }
+            
+            if dog.height != 0.0 {
                 cell.heightLabel.text = String(dog.height)
             }
+            
             cell.nameLabel.text = dog.name
             cell.dogImage.image = UIImage(data: dog.profile)
             cell.breedLabel.text = dog.breed
@@ -123,7 +139,6 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             return UITableViewCell()
         }
-        
     }
 
 

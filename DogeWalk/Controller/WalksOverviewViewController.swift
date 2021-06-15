@@ -71,6 +71,17 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
                     cell.mapView.setRegion(viewRegion, animated: true)
                 }
+            if let unarchivedPoopAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.poopAnnotation) as? [CLLocation] {
+                DispatchQueue.main.async {
+                    cell.poopAnnotation = unarchivedPoopAnnotation
+                    cell.populateMapViewWithAnnotations(iconToPopulate: "poopAnnotation")
+                }
+            }
+            if let unarchivedPeeAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.peeAnnotation) as? [CLLocation] {
+                    cell.peeAnnotation = unarchivedPeeAnnotation
+                    cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
+            }
+            
         }
         return cell
     }

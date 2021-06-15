@@ -21,6 +21,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var distanceLabel: UILabel!
     
     let converter = Converter()
+    var selectedAnnotation: String?
     
     var dogs: Results<Dog>?
     var walk: Walk! {
@@ -55,6 +56,17 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         } catch {
             print("Rounte couldn't be unarchived, \(error)")
         }
+        
+        if let unarchivedPoopAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: walk.poopAnnotation) as? [CLLocation] {
+            DispatchQueue.main.async {
+                self.selectedAnnotation = "poopAnnotation"
+                self.populateMapViewWithAnnotations(locationsToPopulate: unarchivedPoopAnnotation)
+            }
+        }
+        if let unarchivedPeeAnnotation = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: walk.peeAnnotation) as? [CLLocation] {
+            self.selectedAnnotation = "peeAnnotation"
+            self.populateMapViewWithAnnotations(locationsToPopulate: unarchivedPeeAnnotation)
+        }
     }
     
     private func loadWalks() {
@@ -73,7 +85,56 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         }
         return MKOverlayRenderer()
     }
-        
+    
+    //Annotation
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if selectedAnnotation == "poopAnnotation" {
+            let reuseId = "poopPin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PoopAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else if selectedAnnotation == "peeAnnotation" {
+            let reuseId = "peePin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView?.image = #imageLiteral(resourceName: "PeeAnnotation")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        } else {
+            let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+            pinView?.annotation = annotation
+            return pinView
+        }
+    }
+      
+    func populateMapViewWithAnnotations(locationsToPopulate: [CLLocation]) {
+        if selectedAnnotation == "poopAnnotation" {
+            for annotationToPopulate in locationsToPopulate {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = annotationToPopulate.coordinate
+                DispatchQueue.main.async {
+                    self.walkDetailMapView.addAnnotation(annotation)
+                }
+                print("added poopAnnotation")
+            }
+        } else if selectedAnnotation == "peeAnnotation" {
+            for annotationToPopulate in locationsToPopulate {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = annotationToPopulate.coordinate
+                walkDetailMapView.addAnnotation(annotation)
+                print("added peeAnnotation")
+            }
+        }
+    }
+    
 }
 
 //MARK: - Mini CollectionView

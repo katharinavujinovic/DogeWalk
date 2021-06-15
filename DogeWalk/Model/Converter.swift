@@ -65,9 +65,17 @@ class Converter {
         let components = calendar.dateComponents([.year], from: startDate, to: endDate)
         if components.year == 0 {
             let months = calendar.dateComponents([.month], from: startDate, to: endDate)
-            return String(describing: months.month) + "M"
+            if let numberOfMonths = months.month {
+                return "\(numberOfMonths)m"
+            } else {
+                return ""
+            }
         } else {
-            return String(describing: components.year)
+            if let numberOfYears = components.year {
+                return "\(numberOfYears)"
+            } else {
+                return ""
+            }
         }
     }
     

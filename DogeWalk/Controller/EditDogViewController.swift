@@ -82,6 +82,7 @@ class EditDogViewController: UIViewController {
                 addNewDogButton.isHidden = true
                 dogImage.image = UIImage(data: dog!.profile)
                 nameTextField.text = dog?.name
+                breedLabel.text = dog?.breed
                 
                 if let dogBirthdayDate = dog?.age {
                     datePicker.date = dogBirthdayDate
@@ -102,6 +103,8 @@ class EditDogViewController: UIViewController {
                 toyTextField.text = dog?.favouriteToy
                 treatTextField.text = dog?.favouriteTreat
 
+                genderIsFemale = dog?.isFemale
+                
                 if dog?.isFemale == true {
                     genderIconReaction(female: true, male: false)
                 } else {
@@ -121,7 +124,8 @@ class EditDogViewController: UIViewController {
 //                view.popoverPresentationController?.delegate = self
                 view.delegate = self
                 if breedLabel.text != "" {
-                    view.selectedDogBreeds = breedLabel.text
+                    let arrayOfBreeds = breedLabel.text!.components(separatedBy: ", ")
+                    view.selectedDogBreeds = arrayOfBreeds
                 }
             }
         }
@@ -224,7 +228,7 @@ class EditDogViewController: UIViewController {
                     dog?.name = nameTextField.text!
                     dog?.profile = (dogImage.image?.pngData())!
                     dog?.isFemale = genderIsFemale ?? true
-                    dog?.breed = selectedDogBreed
+                    dog?.breed = breedLabel.text
                     if converter.dayFormatter(date: birthdayPicker.date) != converter.dayFormatter(date: Date()) {
                         dog?.age = birthdayPicker.date
                     }
@@ -309,7 +313,8 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.dogImage.image = chosenImage
+            let resizedImage = resizeImage(image: chosenImage, targetSize: CGSize(width: 300, height: 300))
+            self.dogImage.image = resizedImage
         } else {
             print("not able to use image")
             return
@@ -325,17 +330,9 @@ extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
 }
 
-/*
-//MARK: - DogBreed Pop Over
-extension EditDogViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-}*/
-
 extension EditDogViewController: PassDataDelegate {
-    func passData(_ data: String) {
-        breedLabel.text = data
+    func passData(_ data: [String]?) {
+        breedLabel.text = data?.joined(separator: ", ")
     }
     
 }
