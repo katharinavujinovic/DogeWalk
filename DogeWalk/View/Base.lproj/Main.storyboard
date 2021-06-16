@@ -1211,6 +1211,7 @@
                     <connections>
                         <segue destination="lVc-ZR-F9t" kind="relationship" relationship="viewControllers" id="dYL-kh-Ojw"/>
                         <segue destination="LA8-e9-Eoi" kind="relationship" relationship="viewControllers" id="f6M-EN-x6W"/>
+                        <segue destination="8f7-5U-Whw" kind="relationship" relationship="viewControllers" id="sLl-77-EbZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o1E-df-IB1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1260,11 +1261,47 @@
             </objects>
             <point key="canvasLocation" x="1442" y="495"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="G1Q-Ls-SdK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8f7-5U-Whw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="WalkTabviewDeselected" selectedImage="Paws_Icon" id="wh8-KP-wxl"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hSZ-fO-eDO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="Button_Orange"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fNt-Ff-DCi" kind="relationship" relationship="rootViewController" id="xOh-fG-NMC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JYR-Nh-07c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1441" y="1257"/>
+        </scene>
+        <!--Stats Overview View Controller-->
+        <scene sceneID="Fis-aI-nlE">
+            <objects>
+                <viewController id="fNt-Ff-DCi" customClass="StatsOverviewViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B42-PR-5Cr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U4b-uh-eh4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YmT-WT-Lct"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pHI-7T-GjJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2290" y="1257"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="3ZU-n7-8rP"/>
-        <segue reference="fzh-Ot-Ef0"/>
-        <segue reference="ZiM-EW-o8w"/>
+        <segue reference="Paa-vT-wCx"/>
+        <segue reference="q11-x5-cyj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemGrayColor"/>
     <resources>
