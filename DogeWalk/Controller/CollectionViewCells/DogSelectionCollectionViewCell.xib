@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,32 +17,55 @@
                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9W-VY-aKw">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CsU-Aw-P4H">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lLa-Y8-YCS">
-                                <rect key="frame" x="5" y="5" width="140" height="140"/>
-                            </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9W-VY-aKw">
+                                <rect key="frame" x="20" y="5" width="110" height="110"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lLa-Y8-YCS">
+                                        <rect key="frame" x="5" y="5" width="100" height="100"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="lLa-Y8-YCS" firstAttribute="leading" secondItem="s9W-VY-aKw" secondAttribute="leading" constant="5" id="Ffj-V6-mMk"/>
+                                    <constraint firstAttribute="bottom" secondItem="lLa-Y8-YCS" secondAttribute="bottom" constant="5" id="HS9-jx-cEv"/>
+                                    <constraint firstItem="lLa-Y8-YCS" firstAttribute="top" secondItem="s9W-VY-aKw" secondAttribute="top" constant="5" id="NIK-b5-ymx"/>
+                                    <constraint firstAttribute="trailing" secondItem="lLa-Y8-YCS" secondAttribute="trailing" constant="5" id="hgn-kJ-z5Y"/>
+                                    <constraint firstAttribute="height" constant="110" id="paG-s1-4ZU"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00U-Nb-2D3">
+                                <rect key="frame" x="5" y="117" width="140" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lLa-Y8-YCS" secondAttribute="trailing" constant="5" id="3wx-kc-hUs"/>
-                            <constraint firstAttribute="bottom" secondItem="lLa-Y8-YCS" secondAttribute="bottom" constant="5" id="WwJ-le-QVS"/>
-                            <constraint firstItem="lLa-Y8-YCS" firstAttribute="leading" secondItem="s9W-VY-aKw" secondAttribute="leading" constant="5" id="iq0-yT-hCi"/>
-                            <constraint firstItem="lLa-Y8-YCS" firstAttribute="top" secondItem="s9W-VY-aKw" secondAttribute="top" constant="5" id="wmH-RZ-Xqb"/>
+                            <constraint firstItem="00U-Nb-2D3" firstAttribute="leading" secondItem="CsU-Aw-P4H" secondAttribute="leading" constant="5" id="3KZ-wj-Jiu"/>
+                            <constraint firstItem="s9W-VY-aKw" firstAttribute="leading" secondItem="CsU-Aw-P4H" secondAttribute="leading" constant="20" id="4p1-IU-xer"/>
+                            <constraint firstItem="s9W-VY-aKw" firstAttribute="top" secondItem="CsU-Aw-P4H" secondAttribute="top" constant="5" id="5NM-VQ-xcB"/>
+                            <constraint firstAttribute="bottom" secondItem="00U-Nb-2D3" secondAttribute="bottom" id="LzC-r7-CFG"/>
+                            <constraint firstItem="00U-Nb-2D3" firstAttribute="top" secondItem="s9W-VY-aKw" secondAttribute="bottom" constant="2" id="dUC-oj-b5P"/>
+                            <constraint firstAttribute="trailing" secondItem="s9W-VY-aKw" secondAttribute="trailing" constant="20" id="gC9-TZ-3zx"/>
+                            <constraint firstAttribute="trailing" secondItem="00U-Nb-2D3" secondAttribute="trailing" constant="5" id="yBQ-Vr-Mmv"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="s9W-VY-aKw" secondAttribute="trailing" id="80d-yv-oGH"/>
-                <constraint firstAttribute="bottom" secondItem="s9W-VY-aKw" secondAttribute="bottom" id="fYg-Ya-eOv"/>
-                <constraint firstItem="s9W-VY-aKw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="z9k-t2-T1v"/>
-                <constraint firstItem="s9W-VY-aKw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zuP-aQ-g6h"/>
+                <constraint firstAttribute="bottom" secondItem="CsU-Aw-P4H" secondAttribute="bottom" id="948-LF-pEX"/>
+                <constraint firstItem="CsU-Aw-P4H" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9dI-wY-dx5"/>
+                <constraint firstItem="CsU-Aw-P4H" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="JvL-Kx-j4r"/>
+                <constraint firstAttribute="trailing" secondItem="CsU-Aw-P4H" secondAttribute="trailing" id="xBz-Jw-sqL"/>
             </constraints>
             <connections>
+                <outlet property="cellView" destination="CsU-Aw-P4H" id="sD2-54-ysG"/>
                 <outlet property="dogImage" destination="lLa-Y8-YCS" id="Unw-H3-AhV"/>
+                <outlet property="dogName" destination="00U-Nb-2D3" id="qoj-C5-YeF"/>
                 <outlet property="selectionView" destination="s9W-VY-aKw" id="gUR-Az-hGf"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>

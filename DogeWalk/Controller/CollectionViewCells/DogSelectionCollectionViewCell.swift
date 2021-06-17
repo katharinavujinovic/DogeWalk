@@ -9,7 +9,9 @@ import UIKit
 
 class DogSelectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var selectionView: UIView!
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var dogImage: UIImageView!
+    @IBOutlet weak var dogName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,9 +24,9 @@ class DogSelectionCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                self.selectionView.alpha = 1
+                self.cellView.alpha = 1
             } else {
-                self.selectionView.alpha = 0.5
+                self.cellView.alpha = 0.5
             }
         }
     }

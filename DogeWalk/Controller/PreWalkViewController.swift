@@ -101,6 +101,7 @@ extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDel
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)
             cell.dogImage.image = cellImage
+            cell.dogName.text = dog.name
         }
         return cell
     }
