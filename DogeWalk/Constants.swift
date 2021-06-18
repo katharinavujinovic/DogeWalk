@@ -21,6 +21,7 @@ struct Constants {
         static let walkOverviewToPrewalk = "WalkOverviewToPreWalk"
         static let walkOverviewToDetail = "WalkOverviewToDetail"
         static let preWalkToCurrentWalk = "PreWalkToCurrentWalk"
+        static let statsToPrewalk = "StatsToPreWalk"
     }
     
 }

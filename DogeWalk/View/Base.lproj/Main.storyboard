@@ -1312,82 +1312,52 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-Zi-Oem">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f1V-mk-xf4">
+                                <rect key="frame" x="20" y="297" width="374" height="464"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-Zi-Oem">
                                 <rect key="frame" x="20" y="258" width="374" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Daily"/>
                                     <segment title="Weekly"/>
                                     <segment title="Monthly"/>
                                 </segments>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FSN-cp-fOR">
-                                <rect key="frame" x="20" y="396" width="374" height="301"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWp-i2-VE9">
                                 <rect key="frame" x="50" y="705" width="314" height="100"/>
                                 <state key="normal" image="LetsGoButton"/>
                                 <connections>
+                                    <action selector="walkButtonPressed:" destination="fNt-Ff-DCi" eventType="touchUpInside" id="4jD-cS-gIk"/>
                                     <action selector="walkButtonPressed:" destination="CyM-oS-0Qz" eventType="touchUpInside" id="u8c-le-G7k"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount of Walks:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-TI-ChX">
-                                <rect key="frame" x="20" y="297" width="126" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance walked:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngt-kn-MPN">
-                                <rect key="frame" x="20" y="355" width="121" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrQ-kn-WBX">
-                                <rect key="frame" x="162" y="297" width="40" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACL-3D-Kdh">
-                                <rect key="frame" x="157" y="355" width="40" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time walked:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvG-nC-gEp">
-                                <rect key="frame" x="20" y="325" width="95" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzR-3e-7fY">
-                                <rect key="frame" x="128" y="325" width="40" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="U4b-uh-eh4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="f1V-mk-xf4" firstAttribute="top" secondItem="Yu8-Zi-Oem" secondAttribute="bottom" constant="8" id="1iY-Pe-mCA"/>
                             <constraint firstItem="U4b-uh-eh4" firstAttribute="trailing" secondItem="LWp-i2-VE9" secondAttribute="trailing" constant="50" id="27p-Bo-iQv"/>
                             <constraint firstItem="LWp-i2-VE9" firstAttribute="leading" secondItem="U4b-uh-eh4" secondAttribute="leading" constant="50" id="BGt-8a-SlZ"/>
+                            <constraint firstItem="Yu8-Zi-Oem" firstAttribute="leading" secondItem="U4b-uh-eh4" secondAttribute="leading" constant="20" id="Fw3-pE-3Ua"/>
                             <constraint firstItem="U4b-uh-eh4" firstAttribute="bottom" secondItem="LWp-i2-VE9" secondAttribute="bottom" constant="8" id="JT6-7I-uRW"/>
+                            <constraint firstItem="U4b-uh-eh4" firstAttribute="trailing" secondItem="f1V-mk-xf4" secondAttribute="trailing" constant="20" id="Jc5-qc-vj6"/>
                             <constraint firstItem="jND-BL-YMm" firstAttribute="leading" secondItem="U4b-uh-eh4" secondAttribute="leading" constant="20" id="Lhs-Yz-HFA"/>
+                            <constraint firstItem="f1V-mk-xf4" firstAttribute="leading" secondItem="U4b-uh-eh4" secondAttribute="leading" constant="20" id="QOY-mb-0Tp"/>
+                            <constraint firstItem="U4b-uh-eh4" firstAttribute="trailing" secondItem="Yu8-Zi-Oem" secondAttribute="trailing" constant="20" id="WyN-Pn-obQ"/>
                             <constraint firstItem="U4b-uh-eh4" firstAttribute="trailing" secondItem="jND-BL-YMm" secondAttribute="trailing" constant="20" id="tlF-w8-xK7"/>
+                            <constraint firstItem="Yu8-Zi-Oem" firstAttribute="top" secondItem="jND-BL-YMm" secondAttribute="bottom" constant="8" id="vlT-ID-7pd"/>
+                            <constraint firstItem="U4b-uh-eh4" firstAttribute="bottom" secondItem="f1V-mk-xf4" secondAttribute="bottom" constant="52" id="xn9-0J-EwO"/>
                             <constraint firstItem="jND-BL-YMm" firstAttribute="top" secondItem="U4b-uh-eh4" secondAttribute="top" constant="12" id="zeH-3O-W3N"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YmT-WT-Lct"/>
+                    <connections>
+                        <outlet property="dogSelectionCollectionView" destination="jND-BL-YMm" id="gxV-Jy-dDf"/>
+                        <outlet property="segmentControl" destination="Yu8-Zi-Oem" id="cfP-3e-wJ4"/>
+                        <outlet property="statTableView" destination="f1V-mk-xf4" id="UBn-AO-tzD"/>
+                        <segue destination="Yha-1Z-OQm" kind="show" identifier="StatsToPreWalk" id="f53-SN-ECQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHI-7T-GjJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1395,9 +1365,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3ZU-n7-8rP"/>
+        <segue reference="DRD-el-8zJ"/>
         <segue reference="Paa-vT-wCx"/>
-        <segue reference="q11-x5-cyj"/>
+        <segue reference="f53-SN-ECQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemGrayColor"/>
     <resources>
@@ -1441,9 +1411,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
