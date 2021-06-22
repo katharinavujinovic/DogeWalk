@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import Charts
 
 class StatsOverviewViewController: UIViewController {
     
@@ -22,20 +23,41 @@ class StatsOverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDogs()
-        let nib = UINib(nibName: "DogSelectionCollectionViewCell", bundle: nil)
-        dogSelectionCollectionView.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionViewCell")
+        let dogNib = UINib(nibName: "DogSelectionCollectionViewCell", bundle: nil)
+        dogSelectionCollectionView.register(dogNib, forCellWithReuseIdentifier: "DogSelectionCollectionViewCell")
+        let statNib = UINib(nibName: "StatsTableViewCell", bundle: nil)
+        statTableView.register(statNib, forCellReuseIdentifier: "StatsTableViewCell")
         dogSelectionCollectionView.dataSource = self
         dogSelectionCollectionView.delegate = self
+        statTableView.dataSource = self
+        statTableView.delegate = self
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
-    
     }
     
     func loadDogs() {
         dogs = realm.objects(Dog.self)
     }
+    
+    @IBAction func segmentControlPressed(_ sender: Any) {
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            // show daily stats
+            print("daily selected")
+        case 1:
+            // show weekly stats
+            print("weekly selected")
+        case 2:
+            // show monthly stats
+            print("monthly selected")
+        default:
+            break
+        }
+    
+    }
+    
     
 }
 
@@ -55,7 +77,27 @@ extension StatsOverviewViewController: UICollectionViewDelegate, UICollectionVie
         }
         return cell
     }
+}
+
+
+//MARK: - StatTableView
+// Pass the correct number of y values as your xvalues!
+// Use: for _ in yValue.count..<xValue.count {
+//      yValue.append(0.0)
+
+// This way you will always have the same formatting!
+extension StatsOverviewViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // return 1 or return 3 depending on how much data you have and which segmentcontrollelement is selected
+        return 1
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell") as! StatsTableViewCell
+        // assign cell.axis!
+        
+        return cell
+    }
     
     
     

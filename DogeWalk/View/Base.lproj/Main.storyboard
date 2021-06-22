@@ -1323,6 +1323,9 @@
                                     <segment title="Weekly"/>
                                     <segment title="Monthly"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentControlPressed:" destination="fNt-Ff-DCi" eventType="valueChanged" id="st5-dN-Pkj"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWp-i2-VE9">
                                 <rect key="frame" x="50" y="705" width="314" height="100"/>

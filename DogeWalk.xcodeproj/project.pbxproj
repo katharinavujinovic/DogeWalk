@@ -31,6 +31,8 @@
 		436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436341B126010B58000FC1C9 /* ColorExtention.swift */; };
 		4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4368A07925FF873100BE15B9 /* EditDogViewController.swift */; };
 		436AF115267A41170031C4B9 /* StatsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF114267A41170031C4B9 /* StatsOverviewViewController.swift */; };
+		436AF1182682027E0031C4B9 /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF1162682027E0031C4B9 /* StatsTableViewCell.swift */; };
+		436AF1192682027E0031C4B9 /* StatsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436AF1172682027E0031C4B9 /* StatsTableViewCell.xib */; };
 		437F2C8C26725C39003EC640 /* BreedSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437F2C8A26725C39003EC640 /* BreedSelectorTableViewCell.swift */; };
 		437F2C8D26725C39003EC640 /* BreedSelectorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437F2C8B26725C39003EC640 /* BreedSelectorTableViewCell.xib */; };
 		43CA00F72625879F003242FF /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00F62625879F003242FF /* DataConverter.swift */; };
@@ -73,6 +75,8 @@
 		436341B126010B58000FC1C9 /* ColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtention.swift; sourceTree = "<group>"; };
 		4368A07925FF873100BE15B9 /* EditDogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDogViewController.swift; sourceTree = "<group>"; };
 		436AF114267A41170031C4B9 /* StatsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverviewViewController.swift; sourceTree = "<group>"; };
+		436AF1162682027E0031C4B9 /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
+		436AF1172682027E0031C4B9 /* StatsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsTableViewCell.xib; sourceTree = "<group>"; };
 		437F2C8A26725C39003EC640 /* BreedSelectorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedSelectorTableViewCell.swift; sourceTree = "<group>"; };
 		437F2C8B26725C39003EC640 /* BreedSelectorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BreedSelectorTableViewCell.xib; sourceTree = "<group>"; };
 		43CA00F62625879F003242FF /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 				435B668A2603AB9400EF2160 /* DogOverviewTableViewCell.xib */,
 				437F2C8A26725C39003EC640 /* BreedSelectorTableViewCell.swift */,
 				437F2C8B26725C39003EC640 /* BreedSelectorTableViewCell.xib */,
+				436AF1162682027E0031C4B9 /* StatsTableViewCell.swift */,
+				436AF1172682027E0031C4B9 /* StatsTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -298,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43135B2225FB6C1A00799186 /* LaunchScreen.storyboard in Resources */,
+				436AF1192682027E0031C4B9 /* StatsTableViewCell.xib in Resources */,
 				435B66872603A58000EF2160 /* WalksOverviewTableViewCell.xib in Resources */,
 				43135B1F25FB6C1A00799186 /* Assets.xcassets in Resources */,
 				435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */,
@@ -374,6 +381,7 @@
 				433AC97B264EB0CE00ED1AD8 /* DogBreeds.swift in Sources */,
 				43135B3025FB815600799186 /* DogDetailViewController.swift in Sources */,
 				43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */,
+				436AF1182682027E0031C4B9 /* StatsTableViewCell.swift in Sources */,
 				43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */,
 				43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */,
 				437F2C8C26725C39003EC640 /* BreedSelectorTableViewCell.swift in Sources */,
