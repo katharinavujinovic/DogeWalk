@@ -60,7 +60,6 @@ class DogDetailViewController: UIViewController {
     
     func loadWalks() {
             walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
-        print(walks?.count ?? 0)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }

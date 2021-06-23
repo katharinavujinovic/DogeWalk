@@ -17,8 +17,13 @@ class StatsOverviewViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     let realm = try! Realm()
+    let today = Date()
     
     var dogs: Results<Dog>?
+    var selectedDog: Dog?
+    var walksByDog: Results<Walk>?
+    var dateSpecificWalks: [Walk]?
+    var legendForStatCell: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +46,16 @@ class StatsOverviewViewController: UIViewController {
         dogs = realm.objects(Dog.self)
     }
     
+    func loadWalksByDog() {
+        walksByDog = selectedDog?.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
+    }
+    
     @IBAction func segmentControlPressed(_ sender: Any) {
         switch segmentControl.selectedSegmentIndex {
         case 0:
+            if walksByDog != nil {
+                currentDayWalks(walks: walksByDog!)
+            }
             // show daily stats
             print("daily selected")
         case 1:
@@ -58,6 +70,18 @@ class StatsOverviewViewController: UIViewController {
     
     }
     
+    func currentDayWalks(walks: Results<Walk>) {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .short
+        timeFormatter.timeStyle = .none
+        
+        for walk in walks {
+            if timeFormatter.string(from: walk.startDate) == timeFormatter.string(from: today) {
+                dateSpecificWalks?.append(walk)
+                legendForStatCell.append(timeFormatter.string(from: walk.startDate))
+            }
+        }
+    }
     
 }
 
@@ -88,13 +112,19 @@ extension StatsOverviewViewController: UICollectionViewDelegate, UICollectionVie
 // This way you will always have the same formatting!
 extension StatsOverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return 1 or return 3 depending on how much data you have and which segmentcontrollelement is selected
-        return 1
+        if dateSpecificWalks != nil {
+            return 1
+        }
+        //MARK: - still some fixing to be done!
+        else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell") as! StatsTableViewCell
         // assign cell.axis!
+        cell.xAxis = legendForStatCell
         
         return cell
     }
