@@ -18,12 +18,15 @@ class StatsOverviewViewController: UIViewController {
     
     let realm = try! Realm()
     let today = Date()
+    let converter = Converter()
     
     var dogs: Results<Dog>?
     var selectedDog: Dog?
     var walksByDog: Results<Walk>?
     var dateSpecificWalks: [Walk]?
     var legendForStatCell: [String] = []
+    var timeAxis: [Double] = []
+    var distanceAxis: [Double] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +39,11 @@ class StatsOverviewViewController: UIViewController {
         dogSelectionCollectionView.delegate = self
         statTableView.dataSource = self
         statTableView.delegate = self
+        dogSelectionCollectionView.allowsMultipleSelection = false
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
+        self.performSegue(withIdentifier: Constants.Segue.statsToPrewalk, sender: self)
     }
     
     func loadDogs() {
@@ -55,6 +59,9 @@ class StatsOverviewViewController: UIViewController {
         case 0:
             if walksByDog != nil {
                 currentDayWalks(walks: walksByDog!)
+                DispatchQueue.main.async {
+                    self.statTableView.reloadData()
+                }
             }
             // show daily stats
             print("daily selected")
@@ -71,14 +78,12 @@ class StatsOverviewViewController: UIViewController {
     }
     
     func currentDayWalks(walks: Results<Walk>) {
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .short
-        timeFormatter.timeStyle = .none
-        
         for walk in walks {
-            if timeFormatter.string(from: walk.startDate) == timeFormatter.string(from: today) {
+            if converter.dayFormatter(date: walk.startDate) == converter.dayFormatter(date: today) {
                 dateSpecificWalks?.append(walk)
-                legendForStatCell.append(timeFormatter.string(from: walk.startDate))
+                legendForStatCell.append(converter.startTime(date: walk.startDate))
+                timeAxis.append(Double(walk.time)/60)
+                distanceAxis.append(walk.distance/1000)
             }
         }
     }
@@ -101,6 +106,17 @@ extension StatsOverviewViewController: UICollectionViewDelegate, UICollectionVie
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
+        if let aDog = dogs?[indexPath.row] {
+            if cell.isSelected {
+                selectedDog = aDog
+                loadWalksByDog()
+            }
+        }
+    }
+    
 }
 
 
@@ -125,6 +141,8 @@ extension StatsOverviewViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell") as! StatsTableViewCell
         // assign cell.axis!
         cell.xAxis = legendForStatCell
+        cell.timeAxis = timeAxis
+        cell.distanceAxis = distanceAxis
         
         return cell
     }
