@@ -59,7 +59,7 @@ class DogDetailViewController: UIViewController {
     }
     
     func loadWalks() {
-            walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
+            walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: false)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -80,6 +80,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create an idicator when there are no walks yet
+        var dogPerWalk: [Dog] = []
         if tableView == self.walksTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
@@ -87,7 +88,12 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
                 cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
                 cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
-              
+                
+                for dog in aWalk.participatedDogs {
+                    dogPerWalk.append(dog)
+                }
+                cell.participatedDogsForWalk = dogPerWalk
+                
                 if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
@@ -104,7 +110,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                         cell.peeAnnotation = unarchivedPeeAnnotation
                         cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
                 }
-                
+                cell.updateCollectionWithParticipatingDogs()
             }
             return cell
         }

@@ -33,6 +33,8 @@
 		436AF115267A41170031C4B9 /* StatsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF114267A41170031C4B9 /* StatsOverviewViewController.swift */; };
 		436AF1182682027E0031C4B9 /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF1162682027E0031C4B9 /* StatsTableViewCell.swift */; };
 		436AF1192682027E0031C4B9 /* StatsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436AF1172682027E0031C4B9 /* StatsTableViewCell.xib */; };
+		436AF11C268B545B0031C4B9 /* DogMiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF11A268B545B0031C4B9 /* DogMiniCollectionViewCell.swift */; };
+		436AF11D268B545B0031C4B9 /* DogMiniCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436AF11B268B545B0031C4B9 /* DogMiniCollectionViewCell.xib */; };
 		437F2C8C26725C39003EC640 /* BreedSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437F2C8A26725C39003EC640 /* BreedSelectorTableViewCell.swift */; };
 		437F2C8D26725C39003EC640 /* BreedSelectorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437F2C8B26725C39003EC640 /* BreedSelectorTableViewCell.xib */; };
 		43CA00F72625879F003242FF /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00F62625879F003242FF /* DataConverter.swift */; };
@@ -77,6 +79,8 @@
 		436AF114267A41170031C4B9 /* StatsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverviewViewController.swift; sourceTree = "<group>"; };
 		436AF1162682027E0031C4B9 /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
 		436AF1172682027E0031C4B9 /* StatsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsTableViewCell.xib; sourceTree = "<group>"; };
+		436AF11A268B545B0031C4B9 /* DogMiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogMiniCollectionViewCell.swift; sourceTree = "<group>"; };
+		436AF11B268B545B0031C4B9 /* DogMiniCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DogMiniCollectionViewCell.xib; sourceTree = "<group>"; };
 		437F2C8A26725C39003EC640 /* BreedSelectorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedSelectorTableViewCell.swift; sourceTree = "<group>"; };
 		437F2C8B26725C39003EC640 /* BreedSelectorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BreedSelectorTableViewCell.xib; sourceTree = "<group>"; };
 		43CA00F62625879F003242FF /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */,
 				43CA0102262734B2003242FF /* MiniCollectionViewCell.swift */,
 				43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */,
+				436AF11A268B545B0031C4B9 /* DogMiniCollectionViewCell.swift */,
+				436AF11B268B545B0031C4B9 /* DogMiniCollectionViewCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -308,6 +314,7 @@
 				435B66872603A58000EF2160 /* WalksOverviewTableViewCell.xib in Resources */,
 				43135B1F25FB6C1A00799186 /* Assets.xcassets in Resources */,
 				435B668C2603AB9400EF2160 /* DogOverviewTableViewCell.xib in Resources */,
+				436AF11D268B545B0031C4B9 /* DogMiniCollectionViewCell.xib in Resources */,
 				43135B1A25FB6C1A00799186 /* Main.storyboard in Resources */,
 				435B6681260399F100EF2160 /* DogSelectionCollectionViewCell.xib in Resources */,
 				437F2C8D26725C39003EC640 /* BreedSelectorTableViewCell.xib in Resources */,
@@ -375,6 +382,7 @@
 				43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */,
 				435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */,
 				436AF115267A41170031C4B9 /* StatsOverviewViewController.swift in Sources */,
+				436AF11C268B545B0031C4B9 /* DogMiniCollectionViewCell.swift in Sources */,
 				43135B1525FB6C1A00799186 /* SceneDelegate.swift in Sources */,
 				43CA00FB26258A15003242FF /* LocationService.swift in Sources */,
 				43CA00F72625879F003242FF /* DataConverter.swift in Sources */,

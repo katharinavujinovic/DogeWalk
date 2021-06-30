@@ -86,11 +86,12 @@ class PreWalkViewController: UIViewController {
 
 //MARK: - Dog Selection CollectionView
 extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-
+    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (collectionView.frame.width - 8) / 3
         return CGSize(width: cellWidth, height: cellWidth)
     }
+ */
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dogs?.count ?? 0
