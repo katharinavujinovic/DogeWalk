@@ -48,13 +48,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BAG-3N-rRp">
-                                <rect key="frame" x="10" y="105" width="370" height="70"/>
+                                <rect key="frame" x="10" y="125" width="370" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="20S-J8-dg6"/>
+                                    <constraint firstAttribute="height" constant="50" id="20S-J8-dg6"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M6f-fS-8LN">
-                                    <size key="itemSize" width="65" height="65"/>
+                                    <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -100,7 +100,7 @@
                 <outlet property="startTimeLabel" destination="BRu-dy-O3a" id="JOE-WL-C0z"/>
                 <outlet property="timeLabel" destination="RmE-LC-QcR" id="52a-KQ-EQW"/>
             </connections>
-            <point key="canvasLocation" x="-211.59420289855075" y="167.07589285714286"/>
+            <point key="canvasLocation" x="-211.59420289855075" y="166.74107142857142"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -58,6 +58,8 @@ class CurrentWalkViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         currentWalkMapView.delegate = self
+        let nib = UINib(nibName: "DogMiniCollectionViewCell", bundle: nil)
+        miniCollectionView.register(nib, forCellWithReuseIdentifier: "DogMiniCollectionViewCell")
         miniCollectionView.delegate = self
         miniCollectionView.dataSource = self
         miniCollectionView.backgroundColor = .clear
@@ -293,9 +295,9 @@ extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! MiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogMiniCollectionViewCell", for: indexPath) as! DogMiniCollectionViewCell
             let cellImage = UIImage(data: dogs[indexPath.row].profile)
-            cell.miniImage.image = cellImage
+            cell.dogImage.image = cellImage
         return cell
     }
     

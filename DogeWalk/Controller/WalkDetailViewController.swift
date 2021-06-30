@@ -35,6 +35,8 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         // delegation assigning
         walkDetailMapView.delegate = self
+        let nib = UINib(nibName: "DogMiniCollectionViewCell", bundle: nil)
+        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: "DogMiniCollectionViewCell")
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
         walkDetailCollectionView.backgroundColor = .clear
@@ -144,10 +146,10 @@ extension WalkDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! WalkDetailMiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogMiniCollectionViewCell", for: indexPath) as! DogMiniCollectionViewCell
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)
-            cell.miniImage.image = cellImage
+            cell.dogImage.image = cellImage
         }
         return cell
     }

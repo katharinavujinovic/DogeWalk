@@ -40,8 +40,6 @@
 		43CA00F72625879F003242FF /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00F62625879F003242FF /* DataConverter.swift */; };
 		43CA00FB26258A15003242FF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00FA26258A15003242FF /* LocationService.swift */; };
 		43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA00FE2627090C003242FF /* TextFieldExtension.swift */; };
-		43CA0103262734B2003242FF /* MiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA0102262734B2003242FF /* MiniCollectionViewCell.swift */; };
-		43CA010626273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */; };
 		43ED3D8A26418EC60074E809 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D8926418EC60074E809 /* Dog.swift */; };
 		43ED3D932641947A0074E809 /* Walk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D922641947A0074E809 /* Walk.swift */; };
 		43ED3D982645755E0074E809 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ED3D972645755E0074E809 /* Converter.swift */; };
@@ -86,8 +84,6 @@
 		43CA00F62625879F003242FF /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
 		43CA00FA26258A15003242FF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		43CA00FE2627090C003242FF /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
-		43CA0102262734B2003242FF /* MiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCollectionViewCell.swift; sourceTree = "<group>"; };
-		43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailMiniCollectionViewCell.swift; sourceTree = "<group>"; };
 		43ED3D8926418EC60074E809 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		43ED3D922641947A0074E809 /* Walk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walk.swift; sourceTree = "<group>"; };
 		43ED3D972645755E0074E809 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
@@ -182,8 +178,6 @@
 			children = (
 				435B667E260399F100EF2160 /* DogSelectionCollectionViewCell.swift */,
 				435B667F260399F100EF2160 /* DogSelectionCollectionViewCell.xib */,
-				43CA0102262734B2003242FF /* MiniCollectionViewCell.swift */,
-				43CA010526273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift */,
 				436AF11A268B545B0031C4B9 /* DogMiniCollectionViewCell.swift */,
 				436AF11B268B545B0031C4B9 /* DogMiniCollectionViewCell.xib */,
 			);
@@ -376,7 +370,6 @@
 				435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */,
 				43F458C22604A36E00B3CD7B /* DogBreedAPI.swift in Sources */,
 				43ED3D8A26418EC60074E809 /* Dog.swift in Sources */,
-				43CA010626273E1C003242FF /* WalkDetailMiniCollectionViewCell.swift in Sources */,
 				43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */,
 				4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */,
 				43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */,
@@ -394,7 +387,6 @@
 				43CA00FF2627090C003242FF /* TextFieldExtension.swift in Sources */,
 				437F2C8C26725C39003EC640 /* BreedSelectorTableViewCell.swift in Sources */,
 				43ED3D982645755E0074E809 /* Converter.swift in Sources */,
-				43CA0103262734B2003242FF /* MiniCollectionViewCell.swift in Sources */,
 				436341B226010B58000FC1C9 /* ColorExtention.swift in Sources */,
 				43ED3D932641947A0074E809 /* Walk.swift in Sources */,
 				434736C82653B3CD009420D8 /* DogBreedPopUp.swift in Sources */,
