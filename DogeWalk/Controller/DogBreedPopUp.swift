@@ -29,8 +29,8 @@ class DogBreedPopUp: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "BreedSelectorTableViewCell", bundle: nil)
-        selectedBreedTableView.register(nib, forCellReuseIdentifier: "BreedSelectorTableViewCell")
+        let nib = UINib(nibName: Constants.Nibs.breedSelectorTableViewCell, bundle: nil)
+        selectedBreedTableView.register(nib, forCellReuseIdentifier: Constants.Nibs.breedSelectorTableViewCell)
         selectedBreedTableView.dataSource = self
         selectedBreedTableView.delegate = self
         dogBreedTableView.dataSource = self
@@ -73,7 +73,7 @@ extension DogBreedPopUp: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.selectedBreedTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "BreedSelectorTableViewCell") as! BreedSelectorTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.breedSelectorTableViewCell) as! BreedSelectorTableViewCell
             if selectedDogBreeds != [] {
                 cell.breedLabel.text = selectedDogBreeds[indexPath.row]
             }

@@ -30,11 +30,11 @@ class DogDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let dogNib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
-        dogTableView.register(dogNib, forCellReuseIdentifier: "DogOverviewTableViewCell")
+        let dogNib = UINib(nibName: Constants.Nibs.dogOverviewTableViewCell, bundle: nil)
+        dogTableView.register(dogNib, forCellReuseIdentifier: Constants.Nibs.dogOverviewTableViewCell)
         
-        let walkNib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        walksTableView.register(walkNib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        let walkNib = UINib(nibName: Constants.Nibs.walkOverviewTableViewCell, bundle: nil)
+        walksTableView.register(walkNib, forCellReuseIdentifier: Constants.Nibs.walkOverviewTableViewCell)
         // delegation assigning
         walksTableView.delegate = self
         walksTableView.dataSource = self
@@ -59,7 +59,7 @@ class DogDetailViewController: UIViewController {
     }
     
     fileprivate func loadWalks() {
-            walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: false)
+        walks = dog.participatedWalks.sorted(byKeyPath: Constants.SortedByKeyPath.start, ascending: false)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -82,7 +82,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
         // create an idicator when there are no walks yet
         var dogPerWalk: [Dog] = []
         if tableView == self.walksTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.walkOverviewTableViewCell) as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
                 cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
@@ -115,7 +115,7 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         else if tableView == self.dogTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogOverviewTableViewCell) as! DogOverviewTableViewCell
             cell.dogImage.image = UIImage(data: dog.profile)
             if let dogAge = dog.age {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())

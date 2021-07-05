@@ -117,7 +117,7 @@ class EditDogViewController: UIViewController {
     
 //MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "breedTableView" {
+        if segue.identifier == Constants.Segue.breedTableView {
             if let view = segue.destination as? DogBreedPopUp {
 //                view.popoverPresentationController?.delegate = self
                 view.delegate = self
@@ -179,7 +179,7 @@ class EditDogViewController: UIViewController {
 
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" {
-            nameTextField.placeholder = "Please give your Dog a name"
+            nameTextField.placeholder = Constants.AlertMessages.missingName
         } else {
             DispatchQueue.main.async { [self] in
                 // dogBirthday is nil!
@@ -195,8 +195,8 @@ class EditDogViewController: UIViewController {
 
     
     @IBAction func deleteDogPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { [self] (action: UIAlertAction) in
+        let alert = UIAlertController(title: Constants.AlertMessages.removeDogTitle, message: Constants.AlertMessages.removeDogMessage, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: Constants.AlertMessages.removeDog, style: .default) { [self] (action: UIAlertAction) in
             if self.dog != nil {
                 do {
                     try realm.write {
@@ -209,7 +209,7 @@ class EditDogViewController: UIViewController {
             self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Keep Dog", style: .default) { (action: UIAlertAction) in
+        let cancelAction = UIAlertAction(title: Constants.AlertMessages.keepDog, style: .default) { (action: UIAlertAction) in
             return
         }
         alert.addAction(deleteAction)
@@ -298,11 +298,11 @@ class EditDogViewController: UIViewController {
 extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func selectImageButton(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Image", message: "Select how you want to add an Image", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Choose from Photo Library", style: .default, handler: { (action) in
+        let alert = UIAlertController(title: Constants.AlertMessages.addImageTitle, message: Constants.AlertMessages.addImageMessage, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: Constants.AlertMessages.fromLibrary, style: .default, handler: { (action) in
             self.pickAnImage(sourceType: .photoLibrary)
         }))
-        alert.addAction(UIAlertAction(title: "Take Picture with Camera", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: Constants.AlertMessages.fromCamera, style: .default, handler: { (action) in
             self.pickAnImage(sourceType: .camera)
         }))
         self.present(alert, animated: true, completion: nil)

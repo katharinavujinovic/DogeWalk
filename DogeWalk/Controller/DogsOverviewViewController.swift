@@ -32,8 +32,8 @@ class DogsOverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let nib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
-        dogOverviewTableView.register(nib, forCellReuseIdentifier: "DogOverviewTableViewCell")
+        let nib = UINib(nibName: Constants.Nibs.dogOverviewTableViewCell, bundle: nil)
+        dogOverviewTableView.register(nib, forCellReuseIdentifier: Constants.Nibs.dogOverviewTableViewCell)
         // delegation assigning
         dogOverviewTableView.dataSource = self
         dogOverviewTableView.delegate = self
@@ -65,7 +65,7 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogOverviewTableViewCell) as! DogOverviewTableViewCell
         if let aDog = dogs?[indexPath.row] {
             
             if let dogAge = aDog.age {

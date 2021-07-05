@@ -26,8 +26,8 @@ class PreWalkViewController: UIViewController {
         super.viewDidLoad()
         loadDogs()
         // nib registration
-        let nib = UINib(nibName: "DogSelectionCollectionViewCell", bundle: nil)
-        preWalkCollectionView.register(nib, forCellWithReuseIdentifier: "DogSelectionCollectionViewCell")
+        let nib = UINib(nibName: Constants.Nibs.dogSelectionCollectionViewCell, bundle: nil)
+        preWalkCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell)
         // delegation assigning
         preWalkCollectionView.dataSource = self
         preWalkCollectionView.delegate = self
@@ -74,8 +74,8 @@ class PreWalkViewController: UIViewController {
     }
     
     func presentAlarm() {
-        let alert = UIAlertController(title: "No Dog registered yet", message: "Make sure to create a profile for your dog before going for a walk", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: { (alert) in
+        let alert = UIAlertController(title: Constants.AlertMessages.dogSelectionTitle, message: Constants.AlertMessages.dogSelectionMessage, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: Constants.AlertMessages.ok, style: .cancel, handler: { (alert) in
             self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }))
@@ -92,7 +92,7 @@ extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell, for: indexPath) as! DogSelectionCollectionViewCell
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)
             cell.dogImage.image = cellImage
@@ -102,7 +102,7 @@ extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell, for: indexPath) as! DogSelectionCollectionViewCell
         if let aDog = dogs?[indexPath.row] {
             if cell.isSelected == true {
                 selectedDogs.append(aDog)
@@ -111,7 +111,7 @@ extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogSelectionCollectionViewCell", for: indexPath) as! DogSelectionCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell, for: indexPath) as! DogSelectionCollectionViewCell
         if let aDog = dogs?[indexPath.row] {
             if cell.isSelected == false {
                 if let index = selectedDogs.firstIndex(of: aDog) {

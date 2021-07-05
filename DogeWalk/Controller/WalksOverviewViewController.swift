@@ -29,8 +29,8 @@ class WalksOverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        let nib = UINib(nibName: Constants.Nibs.walkOverviewTableViewCell, bundle: nil)
+        walkOverviewTableView.register(nib, forCellReuseIdentifier: Constants.Nibs.walkOverviewTableViewCell)
         // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
@@ -41,7 +41,7 @@ class WalksOverviewViewController: UIViewController {
     }
     
     fileprivate func loadWalks() {
-        walks = realm.objects(Walk.self).sorted(byKeyPath: "startDate", ascending: false)
+        walks = realm.objects(Walk.self).sorted(byKeyPath: Constants.SortedByKeyPath.start, ascending: false)
         DispatchQueue.main.async {
             self.walkOverviewTableView.reloadData()
         }
@@ -59,7 +59,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var dogPerWalk: [Dog] = []
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.walkOverviewTableViewCell) as! WalksOverviewTableViewCell
         if let aWalk = walks?[indexPath.row] {
             cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
             cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)

@@ -34,8 +34,8 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         // delegation assigning
         walkDetailMapView.delegate = self
-        let nib = UINib(nibName: "DogMiniCollectionViewCell", bundle: nil)
-        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: "DogMiniCollectionViewCell")
+        let nib = UINib(nibName: Constants.Nibs.dogMiniCollectionViewCell, bundle: nil)
+        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell)
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
         walkDetailCollectionView.backgroundColor = .clear
@@ -71,7 +71,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func loadWalks() {
-        dogs = walk?.participatedDogs.sorted(byKeyPath: "name", ascending: true)
+        dogs = walk?.participatedDogs.sorted(byKeyPath: Constants.SortedByKeyPath.name, ascending: true)
         DispatchQueue.main.async {
             self.walkDetailCollectionView.reloadData()
         }
@@ -145,7 +145,7 @@ extension WalkDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogMiniCollectionViewCell", for: indexPath) as! DogMiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell, for: indexPath) as! DogMiniCollectionViewCell
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)
             cell.dogImage.image = cellImage
