@@ -20,9 +20,9 @@ class StatsOverviewViewController: UIViewController {
     let today = Date()
     let converter = Converter()
     
-    var dogs: Results<Dog>?
+    fileprivate var dogs: Results<Dog>?
     var selectedDog: Dog?
-    var walksByDog: Results<Walk>?
+    fileprivate var walksByDog: Results<Walk>?
     var dateSpecificWalks: [Walk]?
     var legendForStatCell: [String] = []
     var timeAxis: [Double] = []

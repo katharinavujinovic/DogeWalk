@@ -21,15 +21,14 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var distanceLabel: UILabel!
     
     let converter = Converter()
-    var selectedAnnotation: String?
     
-    var dogs: Results<Dog>?
+    fileprivate var selectedAnnotation: String?
+    fileprivate var dogs: Results<Dog>?
     var walk: Walk! {
         didSet {
             loadWalks()
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +43,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         displaySelectedWalk()
     }
     
-    func displaySelectedWalk() {
+    fileprivate func displaySelectedWalk() {
         dateLabel.text = converter.startTime(date: walk.startDate)
         startTimeLabel.text = converter.dayFormatter(date: walk.startDate)
         walkTimeLabel.text = converter.displayTime(seconds: walk.time)

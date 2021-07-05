@@ -18,7 +18,7 @@ class DogDetailViewController: UIViewController {
     let realm = try! Realm()
     let converter = Converter()
     
-    var walks: Results<Walk>?
+    fileprivate var walks: Results<Walk>?
     var selectedWalk: Walk?
     var dog: Dog! 
     
@@ -54,11 +54,11 @@ class DogDetailViewController: UIViewController {
         }
     }
     
-    func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+    fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-    func loadWalks() {
+    fileprivate func loadWalks() {
             walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: false)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()

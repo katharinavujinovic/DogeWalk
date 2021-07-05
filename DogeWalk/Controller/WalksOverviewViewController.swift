@@ -18,7 +18,7 @@ class WalksOverviewViewController: UIViewController {
     let realm = try! Realm()
     let converter = Converter()
     
-    var walks: Results<Walk>?
+    fileprivate var walks: Results<Walk>?
     var selectedWalk: Walk?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +40,7 @@ class WalksOverviewViewController: UIViewController {
         self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
     }
     
-    func loadWalks() {
+    fileprivate func loadWalks() {
         walks = realm.objects(Walk.self).sorted(byKeyPath: "startDate", ascending: false)
         DispatchQueue.main.async {
             self.walkOverviewTableView.reloadData()

@@ -15,10 +15,11 @@ class DogBreedPopUp: UIViewController {
     @IBOutlet weak var breedSearchBar: UISearchBar!
     
     let dogBreeds = DogBreeds()
-    var data: [String] = []
-    var searchedData: [String] = []
     var delegate: PassDataDelegate?
-    var searchActive = false
+    
+    var data: [String] = []
+    fileprivate var searchedData: [String] = []
+    fileprivate var searchActive = false
     var selectedDogBreeds: [String] = []
     
     override func viewWillAppear(_ animated: Bool) {

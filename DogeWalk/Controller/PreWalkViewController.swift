@@ -57,18 +57,18 @@ class PreWalkViewController: UIViewController {
         }
     }
     
-    func setContinueButton() {
+    fileprivate func setContinueButton() {
         continueButton.layer.cornerRadius = 15
         continueButton.clipsToBounds = true
         continueButton.setGradientBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-    func loadDogs() {
+    fileprivate func loadDogs() {
         dogs = realm.objects(Dog.self)
         DispatchQueue.main.async {
             self.preWalkCollectionView.reloadData()
         }
-        if dogs == nil {
+        if dogs?.count == 0 {
             presentAlarm()
         }
     }
@@ -86,12 +86,6 @@ class PreWalkViewController: UIViewController {
 
 //MARK: - Dog Selection CollectionView
 extension PreWalkViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    /*
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.width - 8) / 3
-        return CGSize(width: cellWidth, height: cellWidth)
-    }
- */
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dogs?.count ?? 0

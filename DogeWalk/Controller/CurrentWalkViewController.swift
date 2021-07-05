@@ -38,18 +38,17 @@ class CurrentWalkViewController: UIViewController {
     
     let realm = try! Realm()
     let converter = Converter()
-    
     let locationManager = CLLocationManager()
-    var userLocations: [CLLocation] = []
-    var secondCounter = 0
-    var meterCount = 0.0
-    var timer = Timer()
+    fileprivate var timer = Timer()
+    
+    fileprivate var userLocations: [CLLocation] = []
+    fileprivate var secondCounter = 0
+    fileprivate var meterCount = 0.0
     var dogs: [Dog]!
-    var startTime: Date?
-    var now: Date?
-    private var selectedIcon: String?
-    var peeAnnotations: [CLLocation] = []
-    var poopAnnotations: [CLLocation] = []
+    fileprivate var startTime: Date?
+    fileprivate var selectedIcon: String?
+    fileprivate var peeAnnotations: [CLLocation] = []
+    fileprivate var poopAnnotations: [CLLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +66,7 @@ class CurrentWalkViewController: UIViewController {
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         enableButton(play: true, pause: false, stop: false)
         setFloatingButton()
-        distanceLabel.text = converter.displayDistance(meter: meterCount)
+//        distanceLabel.text = converter.displayDistance(meter: meterCount)
     }
 
     // start the distance and time tracking
@@ -146,7 +145,7 @@ class CurrentWalkViewController: UIViewController {
 
 //MARK: - Archive
     
-    func archiveWalk() {
+    fileprivate func archiveWalk() {
         do {
             try realm.write {
                 let newWalk = Walk()

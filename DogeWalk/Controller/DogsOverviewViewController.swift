@@ -24,7 +24,7 @@ class DogsOverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadDogs()
-        if dogs != nil {
+        if dogs?.count != 0 {
             addDogStack.isHidden = true
         }
     }
@@ -43,14 +43,14 @@ class DogsOverviewViewController: UIViewController {
         self.performSegue(withIdentifier: Constants.Segue.dogOverviewToPreWalk, sender: self)
     }
 
-    func loadDogs() {
+    fileprivate func loadDogs() {
         dogs = realm.objects(Dog.self)
         DispatchQueue.main.async {
             self.dogOverviewTableView.reloadData()
         }
     }
     
-    func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+    fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     

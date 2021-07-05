@@ -35,22 +35,20 @@ class EditDogViewController: UIViewController {
     @IBOutlet weak var maleIcon: UIImageView!
     @IBOutlet weak var maleButton: UIButton!
 
-    
     @IBOutlet weak var addNewDogButton: UIButton!
     
     let realm = try! Realm()
-    
-    var selectedDogBreed: String?
-    var dog: Dog?
-    private var dogBirthday: Date?
-
-    private var datePicker = UIDatePicker()
-    var genderIsFemale: Bool?
-    
     var converter = Converter()
     var dogBreeds = DogBreeds()
     
+    var selectedDogBreed: String?
+    var dog: Dog?
+    fileprivate var dogBirthday: Date?
+
+    fileprivate var datePicker = UIDatePicker()
+    fileprivate var genderIsFemale: Bool?
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
@@ -75,7 +73,7 @@ class EditDogViewController: UIViewController {
     }
 
     
-    func setInterface() {
+    fileprivate func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             DispatchQueue.main.async { [self] in
@@ -171,13 +169,13 @@ class EditDogViewController: UIViewController {
         femaleIcon.isHighlighted = female
     }
  
-    func setAddDogButton() {
+    fileprivate func setAddDogButton() {
         addNewDogButton.layer.cornerRadius = 15
         addNewDogButton.clipsToBounds = true
         addNewDogButton.setGradientBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-//MARK: - Saving
+//MARK: - Archiving
 
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" {
@@ -258,8 +256,7 @@ class EditDogViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
-        
+    fileprivate func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
         do {
             try realm.write {
                 let newDog = Dog()
