@@ -14,23 +14,27 @@ class WalksOverviewViewController: UIViewController {
     
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
+    @IBOutlet weak var addWalkStack: UIStackView!
     
     let realm = try! Realm()
     let converter = Converter()
     
-    var walks: Results<Walk>?
+    fileprivate var walks: Results<Walk>?
     var selectedWalk: Walk?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadWalks()
+        if walks?.count != 0 {
+            addWalkStack.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let nib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        walkOverviewTableView.register(nib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        let nib = UINib(nibName: Constants.Nibs.walkOverviewTableViewCell, bundle: nil)
+        walkOverviewTableView.register(nib, forCellReuseIdentifier: Constants.Nibs.walkOverviewTableViewCell)
         // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
@@ -40,8 +44,8 @@ class WalksOverviewViewController: UIViewController {
         self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
     }
     
-    func loadWalks() {
-        walks = realm.objects(Walk.self).sorted(byKeyPath: "startDate", ascending: true)
+    fileprivate func loadWalks() {
+        walks = realm.objects(Walk.self).sorted(byKeyPath: Constants.SortedByKeyPath.start, ascending: false)
         DispatchQueue.main.async {
             self.walkOverviewTableView.reloadData()
         }
@@ -58,13 +62,19 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+        var dogPerWalk: [Dog] = []
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.walkOverviewTableViewCell) as! WalksOverviewTableViewCell
         if let aWalk = walks?[indexPath.row] {
             cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
             cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
             cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
             cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
+
+            for dog in aWalk.participatedDogs {
+                dogPerWalk.append(dog)
+            }
+            cell.participatedDogsForWalk = dogPerWalk
+            
 
                 if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
@@ -81,7 +91,7 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
                     cell.peeAnnotation = unarchivedPeeAnnotation
                     cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
             }
-            
+            cell.updateCollectionWithParticipatingDogs()
         }
         return cell
     }

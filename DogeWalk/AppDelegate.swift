@@ -26,9 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func checkIfFirstLaunch() {
         if UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
-            print("App has launched before")
+            // skip tutorial
         } else {
-            print("This is the first launch ever!")
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
             UserDefaults.standard.set(true, forKey: "metricSelected")
             // show a little tutorial on how dogeWalk works

@@ -35,22 +35,20 @@ class EditDogViewController: UIViewController {
     @IBOutlet weak var maleIcon: UIImageView!
     @IBOutlet weak var maleButton: UIButton!
 
-    
     @IBOutlet weak var addNewDogButton: UIButton!
     
     let realm = try! Realm()
-    
-    var selectedDogBreed: String?
-    var dog: Dog?
-    private var dogBirthday: Date?
-
-    private var datePicker = UIDatePicker()
-    var genderIsFemale: Bool?
-    
     var converter = Converter()
     var dogBreeds = DogBreeds()
     
+    var selectedDogBreed: String?
+    var dog: Dog?
+    fileprivate var dogBirthday: Date?
+
+    fileprivate var datePicker = UIDatePicker()
+    fileprivate var genderIsFemale: Bool?
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         dogImage.layer.cornerRadius = dogImage.frame.height / 2
@@ -75,7 +73,7 @@ class EditDogViewController: UIViewController {
     }
 
     
-    func setInterface() {
+    fileprivate func setInterface() {
         // to have slightly difference UI fow newDogPressed and editing an existing dog
         if dog != nil {
             DispatchQueue.main.async { [self] in
@@ -119,7 +117,7 @@ class EditDogViewController: UIViewController {
     
 //MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "breedTableView" {
+        if segue.identifier == Constants.Segue.breedTableView {
             if let view = segue.destination as? DogBreedPopUp {
 //                view.popoverPresentationController?.delegate = self
                 view.delegate = self
@@ -171,17 +169,17 @@ class EditDogViewController: UIViewController {
         femaleIcon.isHighlighted = female
     }
  
-    func setAddDogButton() {
+    fileprivate func setAddDogButton() {
         addNewDogButton.layer.cornerRadius = 15
         addNewDogButton.clipsToBounds = true
         addNewDogButton.setGradientBackground(colorOne: #colorLiteral(red: 0.5254901961, green: 0.8901960784, blue: 0.8078431373, alpha: 1), colorTwo: #colorLiteral(red: 0.9803921569, green: 0.7568627451, blue: 0.4470588235, alpha: 1), gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-//MARK: - Saving
+//MARK: - Archiving
 
     @IBAction func addNewDogPressed(_ sender: Any) {
         if nameTextField.text == "" {
-            nameTextField.placeholder = "Please give your Dog a name"
+            nameTextField.placeholder = Constants.AlertMessages.missingName
         } else {
             DispatchQueue.main.async { [self] in
                 // dogBirthday is nil!
@@ -197,11 +195,14 @@ class EditDogViewController: UIViewController {
 
     
     @IBAction func deleteDogPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Do you want to remove this dog?", message: "By confirming, this dog will be deleted", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete Dog", style: .default) { [self] (action: UIAlertAction) in
+        let alert = UIAlertController(title: Constants.AlertMessages.removeDogTitle, message: Constants.AlertMessages.removeDogMessage, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: Constants.AlertMessages.removeDog, style: .default) { [self] (action: UIAlertAction) in
             if self.dog != nil {
                 do {
                     try realm.write {
+                        if let walks = dog?.participatedWalks {
+                            realm.delete(walks)
+                        }
                         realm.delete(dog!)
                     }
                 } catch {
@@ -211,7 +212,7 @@ class EditDogViewController: UIViewController {
             self.navigationController?.popToRootViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Keep Dog", style: .default) { (action: UIAlertAction) in
+        let cancelAction = UIAlertAction(title: Constants.AlertMessages.keepDog, style: .default) { (action: UIAlertAction) in
             return
         }
         alert.addAction(deleteAction)
@@ -258,8 +259,7 @@ class EditDogViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
-        
+    fileprivate func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
         do {
             try realm.write {
                 let newDog = Dog()
@@ -301,11 +301,11 @@ class EditDogViewController: UIViewController {
 extension EditDogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func selectImageButton(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Image", message: "Select how you want to add an Image", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Choose from Photo Library", style: .default, handler: { (action) in
+        let alert = UIAlertController(title: Constants.AlertMessages.addImageTitle, message: Constants.AlertMessages.addImageMessage, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: Constants.AlertMessages.fromLibrary, style: .default, handler: { (action) in
             self.pickAnImage(sourceType: .photoLibrary)
         }))
-        alert.addAction(UIAlertAction(title: "Take Picture with Camera", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: Constants.AlertMessages.fromCamera, style: .default, handler: { (action) in
             self.pickAnImage(sourceType: .camera)
         }))
         self.present(alert, animated: true, completion: nil)

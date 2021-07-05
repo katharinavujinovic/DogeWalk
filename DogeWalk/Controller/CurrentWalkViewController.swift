@@ -38,18 +38,17 @@ class CurrentWalkViewController: UIViewController {
     
     let realm = try! Realm()
     let converter = Converter()
-    
     let locationManager = CLLocationManager()
-    var userLocations: [CLLocation] = []
-    var secondCounter = 0
-    var meterCount = 0.0
-    var timer = Timer()
+    fileprivate var timer = Timer()
+    
+    fileprivate var userLocations: [CLLocation] = []
+    fileprivate var secondCounter = 0
+    fileprivate var meterCount = 0.0
     var dogs: [Dog]!
-    var startTime: Date?
-    var now: Date?
-    private var selectedIcon: String?
-    var peeAnnotations: [CLLocation] = []
-    var poopAnnotations: [CLLocation] = []
+    fileprivate var startTime: Date?
+    fileprivate var selectedIcon: String?
+    fileprivate var peeAnnotations: [CLLocation] = []
+    fileprivate var poopAnnotations: [CLLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +57,8 @@ class CurrentWalkViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         currentWalkMapView.delegate = self
+        let nib = UINib(nibName: Constants.Nibs.dogMiniCollectionViewCell, bundle: nil)
+        miniCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell)
         miniCollectionView.delegate = self
         miniCollectionView.dataSource = self
         miniCollectionView.backgroundColor = .clear
@@ -65,7 +66,6 @@ class CurrentWalkViewController: UIViewController {
         currentWalkMapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
         enableButton(play: true, pause: false, stop: false)
         setFloatingButton()
-        distanceLabel.text = converter.displayDistance(meter: meterCount)
     }
 
     // start the distance and time tracking
@@ -97,11 +97,11 @@ class CurrentWalkViewController: UIViewController {
         enableButton(play: false, pause: false, stop: false)
         stopLocationUpdate()
         timer.invalidate()
-        let alert = UIAlertController(title: "Do you want to end the walk?", message: "By confirming, you walk will be ended and saved", preferredStyle: .alert)
-        let savingAction = UIAlertAction(title: "Stop and Save", style: .default) { (action: UIAlertAction) in
+        let alert = UIAlertController(title: Constants.AlertMessages.endOfWalkTitle, message: Constants.AlertMessages.endOfWalkMessage, preferredStyle: .alert)
+        let savingAction = UIAlertAction(title: Constants.AlertMessages.stopWalk, style: .default) { (action: UIAlertAction) in
             self.archiveWalk()
         }
-        let continueAction = UIAlertAction(title: "Continue Walk", style: .default) { (action: UIAlertAction) in
+        let continueAction = UIAlertAction(title: Constants.AlertMessages.continueWalk, style: .default) { (action: UIAlertAction) in
             self.enableButton(play: false, pause: true, stop: true)
             self.buttonReaction(play: true, pause: false, stop: false)
             self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
@@ -144,7 +144,7 @@ class CurrentWalkViewController: UIViewController {
 
 //MARK: - Archive
     
-    func archiveWalk() {
+    fileprivate func archiveWalk() {
         do {
             try realm.write {
                 let newWalk = Walk()
@@ -293,9 +293,9 @@ extension CurrentWalkViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! MiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell, for: indexPath) as! DogMiniCollectionViewCell
             let cellImage = UIImage(data: dogs[indexPath.row].profile)
-            cell.miniImage.image = cellImage
+            cell.dogImage.image = cellImage
         return cell
     }
     

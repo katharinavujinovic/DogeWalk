@@ -6,5 +6,7 @@ target 'DogeWalk' do
 
   # Pods for DogeWalk
 pod 'RealmSwift'
+pod 'Charts'
+pod 'ChartsRealm' 
 
 end

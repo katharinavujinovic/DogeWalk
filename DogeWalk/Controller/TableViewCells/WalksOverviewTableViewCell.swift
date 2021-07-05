@@ -7,11 +7,13 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 class WalksOverviewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var miniCollectionView: UICollectionView!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var distancelabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -19,9 +21,14 @@ class WalksOverviewTableViewCell: UITableViewCell {
     var poopAnnotation = [CLLocation]()
     var peeAnnotation = [CLLocation]()
     private var selectedAnnotation: String?
+    var participatedDogsForWalk: [Dog]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let nib = UINib(nibName: "DogMiniCollectionViewCell", bundle: nil)
+        miniCollectionView.register(nib, forCellWithReuseIdentifier: "DogMiniCollectionViewCell")
+        miniCollectionView.dataSource = self
+        miniCollectionView.delegate = self
         mapView.delegate = self
     }
     
@@ -85,5 +92,28 @@ extension WalksOverviewTableViewCell: MKMapViewDelegate {
             }
         }
     }
+}
+
+//MARK: - Dog Mini Collection View
+extension WalksOverviewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func updateCollectionWithParticipatingDogs() {
+        miniCollectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return participatedDogsForWalk?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DogMiniCollectionViewCell", for: indexPath) as! DogMiniCollectionViewCell
+        if let dog = participatedDogsForWalk?[indexPath.row] {
+            let cellImage = UIImage(data: dog.profile)
+            cell.dogImage.image = cellImage
+        }
+        return cell
+    }
+    
+    
 }
 

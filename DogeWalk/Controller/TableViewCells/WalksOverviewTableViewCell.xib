@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,18 +10,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalksOverviewTableViewCell" rowHeight="171" id="KGk-i7-Jjw" customClass="WalksOverviewTableViewCell" customModule="DogeWalk" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="389" height="171"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalksOverviewTableViewCell" rowHeight="190" id="KGk-i7-Jjw" customClass="WalksOverviewTableViewCell" customModule="DogeWalk" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="190"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="389" height="171"/>
+                <rect key="frame" x="0.0" y="0.0" width="390" height="190"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpu-CW-7zg">
-                        <rect key="frame" x="0.0" y="0.0" width="389" height="161"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="185"/>
                         <subviews>
                             <mapView clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAC-t9-hoo">
-                                <rect key="frame" x="10" y="10" width="369" height="141"/>
+                                <rect key="frame" x="10" y="10" width="370" height="165"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-O6-leo">
                                 <rect key="frame" x="20" y="18" width="38.5" height="23.5"/>
@@ -30,23 +30,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRu-dy-O3a">
-                                <rect key="frame" x="325.5" y="18" width="43.5" height="23.5"/>
+                                <rect key="frame" x="326.5" y="18" width="43.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b10-z3-BdE">
-                                <rect key="frame" x="307" y="56.5" width="62" height="22"/>
+                                <rect key="frame" x="308" y="56.5" width="62" height="22"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmE-LC-QcR">
-                                <rect key="frame" x="333" y="78.5" width="36" height="22"/>
+                                <rect key="frame" x="334" y="78.5" width="36" height="22"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BAG-3N-rRp">
+                                <rect key="frame" x="10" y="125" width="370" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="20S-J8-dg6"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M6f-fS-8LN">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -56,14 +69,17 @@
                             <constraint firstItem="c3t-O6-leo" firstAttribute="leading" secondItem="fpu-CW-7zg" secondAttribute="leading" constant="20" id="9u9-MQ-vls"/>
                             <constraint firstItem="AAC-t9-hoo" firstAttribute="leading" secondItem="fpu-CW-7zg" secondAttribute="leading" constant="10" id="D52-9d-30c"/>
                             <constraint firstItem="BRu-dy-O3a" firstAttribute="top" secondItem="fpu-CW-7zg" secondAttribute="top" constant="18" id="ED7-7r-M6B"/>
+                            <constraint firstItem="BAG-3N-rRp" firstAttribute="leading" secondItem="fpu-CW-7zg" secondAttribute="leading" constant="10" id="F8o-oe-SER"/>
+                            <constraint firstAttribute="trailing" secondItem="BAG-3N-rRp" secondAttribute="trailing" constant="10" id="Fff-ty-i1d"/>
                             <constraint firstAttribute="trailing" secondItem="AAC-t9-hoo" secondAttribute="trailing" constant="10" id="Fha-kZ-xCZ"/>
                             <constraint firstAttribute="trailing" secondItem="BRu-dy-O3a" secondAttribute="trailing" constant="20" id="HMN-p4-eY9"/>
+                            <constraint firstAttribute="bottom" secondItem="BAG-3N-rRp" secondAttribute="bottom" constant="10" id="Mx6-rZ-UUB"/>
                             <constraint firstItem="b10-z3-BdE" firstAttribute="top" secondItem="BRu-dy-O3a" secondAttribute="bottom" constant="15" id="OpH-AF-sL8"/>
                             <constraint firstItem="AAC-t9-hoo" firstAttribute="centerX" secondItem="fpu-CW-7zg" secondAttribute="centerX" id="SLR-6e-uWf"/>
                             <constraint firstAttribute="trailing" secondItem="b10-z3-BdE" secondAttribute="trailing" constant="20" id="T4V-J0-HB2"/>
                             <constraint firstAttribute="bottom" secondItem="AAC-t9-hoo" secondAttribute="bottom" constant="10" id="WFG-Zy-h4W"/>
+                            <constraint firstAttribute="height" constant="185" id="X52-HV-Weo"/>
                             <constraint firstItem="AAC-t9-hoo" firstAttribute="top" secondItem="fpu-CW-7zg" secondAttribute="top" constant="10" id="a6q-e0-h6d"/>
-                            <constraint firstAttribute="height" constant="161" id="fc7-p0-9cQ"/>
                             <constraint firstItem="RmE-LC-QcR" firstAttribute="top" secondItem="b10-z3-BdE" secondAttribute="bottom" id="qb6-7Z-Zgs"/>
                         </constraints>
                     </view>
@@ -80,10 +96,11 @@
                 <outlet property="dateLabel" destination="c3t-O6-leo" id="uoH-jf-h0Z"/>
                 <outlet property="distancelabel" destination="b10-z3-BdE" id="Ltl-le-D8f"/>
                 <outlet property="mapView" destination="AAC-t9-hoo" id="jWA-Dm-1lG"/>
+                <outlet property="miniCollectionView" destination="BAG-3N-rRp" id="hcE-nh-PJK"/>
                 <outlet property="startTimeLabel" destination="BRu-dy-O3a" id="JOE-WL-C0z"/>
                 <outlet property="timeLabel" destination="RmE-LC-QcR" id="52a-KQ-EQW"/>
             </connections>
-            <point key="canvasLocation" x="-212.31884057971016" y="155.02232142857142"/>
+            <point key="canvasLocation" x="-211.59420289855075" y="166.74107142857142"/>
         </tableViewCell>
     </objects>
     <resources>

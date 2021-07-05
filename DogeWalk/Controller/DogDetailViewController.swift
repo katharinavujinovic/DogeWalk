@@ -18,7 +18,7 @@ class DogDetailViewController: UIViewController {
     let realm = try! Realm()
     let converter = Converter()
     
-    var walks: Results<Walk>?
+    fileprivate var walks: Results<Walk>?
     var selectedWalk: Walk?
     var dog: Dog! 
     
@@ -30,11 +30,11 @@ class DogDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // nib registration
-        let dogNib = UINib(nibName: "DogOverviewTableViewCell", bundle: nil)
-        dogTableView.register(dogNib, forCellReuseIdentifier: "DogOverviewTableViewCell")
+        let dogNib = UINib(nibName: Constants.Nibs.dogOverviewTableViewCell, bundle: nil)
+        dogTableView.register(dogNib, forCellReuseIdentifier: Constants.Nibs.dogOverviewTableViewCell)
         
-        let walkNib = UINib(nibName: "WalksOverviewTableViewCell", bundle: nil)
-        walksTableView.register(walkNib, forCellReuseIdentifier: "WalksOverviewTableViewCell")
+        let walkNib = UINib(nibName: Constants.Nibs.walkOverviewTableViewCell, bundle: nil)
+        walksTableView.register(walkNib, forCellReuseIdentifier: Constants.Nibs.walkOverviewTableViewCell)
         // delegation assigning
         walksTableView.delegate = self
         walksTableView.dataSource = self
@@ -54,13 +54,12 @@ class DogDetailViewController: UIViewController {
         }
     }
     
-    func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
+    fileprivate func setbackgroundTint(_ cell: DogOverviewTableViewCell, colorOne: UIColor, colorTwo: UIColor) {
         cell.backgroundTint.setGradientViewBackground(colorOne: colorOne, colorTwo: colorTwo, gradientbrake: [0.0, 1.0], startX: 0.0, startY: 1.0, endX: 1.0, endY: 0.0)
     }
     
-    func loadWalks() {
-            walks = dog.participatedWalks.sorted(byKeyPath: "startDate", ascending: true)
-        print(walks?.count ?? 0)
+    fileprivate func loadWalks() {
+        walks = dog.participatedWalks.sorted(byKeyPath: Constants.SortedByKeyPath.start, ascending: false)
         DispatchQueue.main.async {
             self.walksTableView.reloadData()
         }
@@ -81,14 +80,20 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create an idicator when there are no walks yet
+        var dogPerWalk: [Dog] = []
         if tableView == self.walksTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WalksOverviewTableViewCell") as! WalksOverviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.walkOverviewTableViewCell) as! WalksOverviewTableViewCell
             if let aWalk = walks?[indexPath.row] {
                 cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
                 cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
                 cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
                 cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
-              
+                
+                for dog in aWalk.participatedDogs {
+                    dogPerWalk.append(dog)
+                }
+                cell.participatedDogsForWalk = dogPerWalk
+                
                 if let unarchivedWalk = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClasses: [CLLocation.self], from: aWalk.route) as? [CLLocation] {
                     cell.mapView.addOverlay(createPolyLine(locations: unarchivedWalk))
                     let viewRegion = MKCoordinateRegion(center: unarchivedWalk[0].coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
@@ -105,12 +110,12 @@ extension DogDetailViewController: UITableViewDataSource, UITableViewDelegate {
                         cell.peeAnnotation = unarchivedPeeAnnotation
                         cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
                 }
-                
+                cell.updateCollectionWithParticipatingDogs()
             }
             return cell
         }
         else if tableView == self.dogTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DogOverviewTableViewCell") as! DogOverviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogOverviewTableViewCell) as! DogOverviewTableViewCell
             cell.dogImage.image = UIImage(data: dog.profile)
             if let dogAge = dog.age {
                 cell.ageLabel.text = converter.yearsBetweenDate(startDate: dogAge, endDate: Date())

@@ -21,20 +21,21 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var distanceLabel: UILabel!
     
     let converter = Converter()
-    var selectedAnnotation: String?
     
-    var dogs: Results<Dog>?
+    fileprivate var selectedAnnotation: String?
+    fileprivate var dogs: Results<Dog>?
     var walk: Walk! {
         didSet {
             loadWalks()
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // delegation assigning
         walkDetailMapView.delegate = self
+        let nib = UINib(nibName: Constants.Nibs.dogMiniCollectionViewCell, bundle: nil)
+        walkDetailCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell)
         walkDetailCollectionView.dataSource = self
         walkDetailCollectionView.delegate = self
         walkDetailCollectionView.backgroundColor = .clear
@@ -42,7 +43,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
         displaySelectedWalk()
     }
     
-    func displaySelectedWalk() {
+    fileprivate func displaySelectedWalk() {
         dateLabel.text = converter.startTime(date: walk.startDate)
         startTimeLabel.text = converter.dayFormatter(date: walk.startDate)
         walkTimeLabel.text = converter.displayTime(seconds: walk.time)
@@ -70,7 +71,7 @@ class WalkDetailViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func loadWalks() {
-        dogs = walk?.participatedDogs.sorted(byKeyPath: "name", ascending: true)
+        dogs = walk?.participatedDogs.sorted(byKeyPath: Constants.SortedByKeyPath.name, ascending: true)
         DispatchQueue.main.async {
             self.walkDetailCollectionView.reloadData()
         }
@@ -144,10 +145,10 @@ extension WalkDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! WalkDetailMiniCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogMiniCollectionViewCell, for: indexPath) as! DogMiniCollectionViewCell
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)
-            cell.miniImage.image = cellImage
+            cell.dogImage.image = cellImage
         }
         return cell
     }
