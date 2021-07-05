@@ -14,6 +14,7 @@ class WalksOverviewViewController: UIViewController {
     
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
+    @IBOutlet weak var addWalkStack: UIStackView!
     
     let realm = try! Realm()
     let converter = Converter()
@@ -24,6 +25,9 @@ class WalksOverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadWalks()
+        if walks?.count != 0 {
+            addWalkStack.isHidden = true
+        }
     }
     
     override func viewDidLoad() {

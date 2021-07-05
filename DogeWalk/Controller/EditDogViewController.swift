@@ -200,6 +200,9 @@ class EditDogViewController: UIViewController {
             if self.dog != nil {
                 do {
                     try realm.write {
+                        if let walks = dog?.participatedWalks {
+                            realm.delete(walks)
+                        }
                         realm.delete(dog!)
                     }
                 } catch {
