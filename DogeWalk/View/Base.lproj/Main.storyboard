@@ -90,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ViU-eB-vox" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3892.753623188406" y="116.51785714285714"/>
+            <point key="canvasLocation" x="4868" y="117"/>
         </scene>
         <!--Current Walk View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -366,14 +366,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4726.0869565217399" y="116.51785714285714"/>
+            <point key="canvasLocation" x="5742" y="117"/>
         </scene>
         <!--DogeWalk-->
         <scene sceneID="srW-d2-feQ">
             <objects>
                 <viewController id="CyM-oS-0Qz" customClass="WalksOverviewViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y0J-zz-0uT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0MY-nN-ZJP">
@@ -428,6 +428,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="DogeWalk" id="Zst-jQ-UUr">
                         <barButtonItem key="backBarButtonItem" title="Walks" id="Rbb-hN-Qfd"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="Paws_Icon" id="Bnl-t2-DiG">
+                            <connections>
+                                <segue destination="MgC-im-M5I" kind="presentation" id="s11-Uu-rqY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addWalkStack" destination="nhk-K4-hTL" id="QH2-pF-5E4"/>
@@ -441,12 +446,64 @@
             </objects>
             <point key="canvasLocation" x="2289.8550724637685" y="494.86607142857139"/>
         </scene>
+        <!--Walk Sorting View Controller-->
+        <scene sceneID="anF-2h-U58">
+            <objects>
+                <viewController id="MgC-im-M5I" customClass="WalkSortingViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Tf-zI-JIZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kF9-am-zgk">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Sort/Filter" id="Io6-lr-NX5">
+                                        <barButtonItem key="leftBarButtonItem" title="Reset" id="afL-Ud-Ghm">
+                                            <color key="tintColor" name="DogeWalk_pink"/>
+                                            <connections>
+                                                <action selector="resetPressed:" destination="MgC-im-M5I" id="ekr-TR-Bxp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="kNE-aO-Tqu">
+                                            <color key="tintColor" name="DogeWalk_pink"/>
+                                            <connections>
+                                                <action selector="donePressed:" destination="MgC-im-M5I" id="Z54-J1-Q38"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5tq-rG-N4O">
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uX6-v0-gUn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kF9-am-zgk" firstAttribute="leading" secondItem="uX6-v0-gUn" secondAttribute="leading" id="DDK-vK-CYU"/>
+                            <constraint firstItem="5tq-rG-N4O" firstAttribute="leading" secondItem="uX6-v0-gUn" secondAttribute="leading" id="HqJ-p1-A4D"/>
+                            <constraint firstItem="uX6-v0-gUn" firstAttribute="bottom" secondItem="5tq-rG-N4O" secondAttribute="bottom" id="Ivq-Ed-QoE"/>
+                            <constraint firstItem="kF9-am-zgk" firstAttribute="top" secondItem="uX6-v0-gUn" secondAttribute="top" id="XYx-g3-iXh"/>
+                            <constraint firstItem="kF9-am-zgk" firstAttribute="trailing" secondItem="uX6-v0-gUn" secondAttribute="trailing" id="cp8-iC-Vrb"/>
+                            <constraint firstItem="uX6-v0-gUn" firstAttribute="trailing" secondItem="5tq-rG-N4O" secondAttribute="trailing" id="hAA-1I-gGU"/>
+                            <constraint firstItem="5tq-rG-N4O" firstAttribute="top" secondItem="kF9-am-zgk" secondAttribute="bottom" id="ozX-ef-mNp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sortAndFilterTableView" destination="5tq-rG-N4O" id="ij6-Ho-pk2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CxZ-Se-QT0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3125" y="495"/>
+        </scene>
         <!--Walk Detail View Controller-->
         <scene sceneID="XX8-EA-mbe">
             <objects>
                 <viewController id="4q6-DN-xp8" customClass="WalkDetailViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pyy-nR-B7k">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JEo-k1-vue">
@@ -575,14 +632,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FcX-bh-Uag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3173.913043478261" y="849.77678571428567"/>
+            <point key="canvasLocation" x="3972" y="-202"/>
         </scene>
         <!--DogeWalk-->
         <scene sceneID="BMM-wh-JVa">
             <objects>
                 <viewController id="3Uy-Pe-hbY" customClass="DogsOverviewViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4k6-Gd-CK2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rff-yg-nC1">
@@ -671,7 +728,7 @@
             <objects>
                 <viewController storyboardIdentifier="DogDetailViewController" id="d6w-gL-Hz2" customClass="DogDetailViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nxg-F7-GZ9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s6X-af-bIZ">
@@ -715,7 +772,7 @@
             <objects>
                 <viewController id="vy4-df-odi" customClass="EditDogViewController" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7fY-bq-Twy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-eN-pHl">
@@ -1090,7 +1147,7 @@
             <objects>
                 <viewController id="7tC-pe-4B1" customClass="DogBreedPopUp" customModule="DogeWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oPS-Jf-3MV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rR5-bI-BZv">
@@ -1332,8 +1389,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DRD-el-8zJ"/>
-        <segue reference="Paa-vT-wCx"/>
+        <segue reference="3ZU-n7-8rP"/>
+        <segue reference="fzh-Ot-Ef0"/>
         <segue reference="q11-x5-cyj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemGrayColor"/>

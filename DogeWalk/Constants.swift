@@ -31,6 +31,8 @@ struct Constants {
         static let walkOverviewTableViewCell = "WalksOverviewTableViewCell"
         static let dogSelectionCollectionViewCell = "DogSelectionCollectionViewCell"
         static let breedSelectorTableViewCell = "BreedSelectorTableViewCell"
+        static let walkSortingTableViewCell = "WalkSortingTableViewCell"
+        static let dogFilterTableViewCell = "DogFilterTableViewCell"
     }
     
     struct AlertMessages {
