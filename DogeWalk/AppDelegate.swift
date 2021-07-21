@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
             let realm = try Realm()
+            UserDefaults.standard.set("startDate", forKey: "sortBy")
+            UserDefaults.standard.set(false, forKey: "ascend")
         } catch {
             print("Error initialising new realm, \(error)")
         }

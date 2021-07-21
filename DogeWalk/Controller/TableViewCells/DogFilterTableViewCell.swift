@@ -24,6 +24,7 @@ class DogFilterTableViewCell: UITableViewCell {
         dogFilterCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell)
         dogFilterCollectionView.delegate = self
         dogFilterCollectionView.dataSource = self
+        dogFilterCollectionView.allowsMultipleSelection = true
     }
     
 }

@@ -31,8 +31,9 @@ struct Constants {
         static let walkOverviewTableViewCell = "WalksOverviewTableViewCell"
         static let dogSelectionCollectionViewCell = "DogSelectionCollectionViewCell"
         static let breedSelectorTableViewCell = "BreedSelectorTableViewCell"
-        static let walkSortingTableViewCell = "WalkSortingTableViewCell"
+        static let sortingTableViewCell = "SortingTableViewCell"
         static let dogFilterTableViewCell = "DogFilterTableViewCell"
+        static let walkSortingTableViewCell = "WalkSortingTableViewCell"
     }
     
     struct AlertMessages {
@@ -56,6 +57,8 @@ struct Constants {
     
     struct SortedByKeyPath {
         static let start = "startDate"
+        static let duration = "time"
+        static let distance = "distance"
         static let name = "name"
     }
     

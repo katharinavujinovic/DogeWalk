@@ -14,6 +14,7 @@ class WalkSortingViewController: UIViewController {
     @IBOutlet weak var sortAndFilterTableView: UITableView!
     
     let realm = try! Realm()
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,8 @@ class WalkSortingViewController: UIViewController {
     @IBAction func resetPressed(_ sender: Any) {
     // reset to default -> sort by date & all dogs
     // dismiss view
+        defaults.set("startDate", forKey: "sortBy")
+        defaults.set(false, forKey: "ascend")
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -48,8 +51,7 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            // availableSortingOptions.count -> in case ther might be more than just distance, date or duration
-            return 3
+            return 1
         } else {
             return 1
         }

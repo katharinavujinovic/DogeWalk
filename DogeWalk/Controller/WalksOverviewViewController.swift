@@ -18,12 +18,15 @@ class WalksOverviewViewController: UIViewController {
     
     let realm = try! Realm()
     let converter = Converter()
+    let defaults = UserDefaults.standard
     
     fileprivate var walks: Results<Walk>?
     var selectedWalk: Walk?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        print(defaults.string(forKey: "sortBy"))
+        print(defaults.bool(forKey: "ascend"))
         loadWalks()
         if walks?.count != 0 {
             addWalkStack.isHidden = true
@@ -38,6 +41,7 @@ class WalksOverviewViewController: UIViewController {
         // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
+
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
@@ -45,7 +49,7 @@ class WalksOverviewViewController: UIViewController {
     }
     
     fileprivate func loadWalks() {
-        walks = realm.objects(Walk.self).sorted(byKeyPath: Constants.SortedByKeyPath.start, ascending: false)
+        walks = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
         DispatchQueue.main.async {
             self.walkOverviewTableView.reloadData()
         }
