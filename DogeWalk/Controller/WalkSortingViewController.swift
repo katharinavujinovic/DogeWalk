@@ -13,9 +13,14 @@ class WalkSortingViewController: UIViewController {
     
     @IBOutlet weak var sortAndFilterTableView: UITableView!
     
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let sortingNib = UINib(nibName: Constants.Nibs.walkSortingTableViewCell, bundle: nil)
+        let filteringNib = UINib(nibName: Constants.Nibs.dogFilterTableViewCell, bundle: nil)
+        sortAndFilterTableView.register(sortingNib, forCellReuseIdentifier: Constants.Nibs.walkSortingTableViewCell)
+        sortAndFilterTableView.register(filteringNib, forCellReuseIdentifier: Constants.Nibs.dogFilterTableViewCell)
         sortAndFilterTableView.delegate = self
         sortAndFilterTableView.dataSource = self
     }
@@ -61,6 +66,7 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
             // shor filter option
             // collectionView with your dogs
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogFilterTableViewCell, for: indexPath) as! DogFilterTableViewCell
+            cell.dogs = realm.objects(Dog.self)
             return cell
         }
     }

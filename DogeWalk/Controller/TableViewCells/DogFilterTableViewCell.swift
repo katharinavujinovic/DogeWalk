@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DogFilterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dogFilterCollectionView: UICollectionView!
     
+    let realm = try! Realm()
     //make a new request for all dogs
-    var dogs: [Dog]?
+    var dogs: Results<Dog>?
     // make the WalkSortingVC listen to this value!
     var selectedDogs: [Dog] = []
     
@@ -20,6 +22,8 @@ class DogFilterTableViewCell: UITableViewCell {
         super.awakeFromNib()
         let nib = UINib(nibName: Constants.Nibs.dogSelectionCollectionViewCell, bundle: nil)
         dogFilterCollectionView.register(nib, forCellWithReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell)
+        dogFilterCollectionView.delegate = self
+        dogFilterCollectionView.dataSource = self
     }
     
 }
