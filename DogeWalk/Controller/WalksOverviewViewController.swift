@@ -20,15 +20,14 @@ class WalksOverviewViewController: UIViewController {
     let converter = Converter()
     let defaults = UserDefaults.standard
     
-    fileprivate var walks: Results<Walk>?
+    fileprivate var walks = [Walk]()
     var selectedWalk: Walk?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print(defaults.string(forKey: "sortBy"))
-        print(defaults.bool(forKey: "ascend"))
+        print("ViewWillAppear triggered")
         loadWalks()
-        if walks?.count != 0 {
+        if walks.count != 0 {
             addWalkStack.isHidden = true
         }
     }
@@ -41,18 +40,34 @@ class WalksOverviewViewController: UIViewController {
         // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("view did appear")
+        self.walkOverviewTableView.reloadData()
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
     }
     
-    fileprivate func loadWalks() {
-        walks = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
-        DispatchQueue.main.async {
-            self.walkOverviewTableView.reloadData()
+    func loadWalks() {
+        
+        let allDogsResult = realm.objects(Dog.self)
+        let allDogs = realmDogResultToArray(realmResult: allDogsResult)
+        
+        let stringNamesOfFilteredDogs = defaults.string(forKey: "dogFilter")
+        let arrayNamesOfFilteredDogs = stringNamesOfFilteredDogs?.components(separatedBy: ", ")
+
+        if allDogs.count == arrayNamesOfFilteredDogs?.count {
+            let walksResult = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
+            walks = realmWalkResultToArray(realmResult: walksResult)
+        } else {
+            let filteredDogs = fetchFilteredDogs(arrayOfDogNames: arrayNamesOfFilteredDogs!, allDogs: allDogs)
+            walks = walksForFetchedDogs(filteredDogs: filteredDogs)
         }
+        walkOverviewTableView.reloadData()
     }
     
 }
@@ -62,18 +77,20 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return walks?.count ?? 0
+        return walks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var dogPerWalk: [Dog] = []
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.walkOverviewTableViewCell) as! WalksOverviewTableViewCell
-        if let aWalk = walks?[indexPath.row] {
+        let aWalk = walks[indexPath.row]
             cell.dateLabel.text = converter.startTime(date: aWalk.startDate)
             cell.distancelabel.text = converter.displayDistance(meter: aWalk.distance)
             cell.startTimeLabel.text = converter.dayFormatter(date: aWalk.startDate)
             cell.timeLabel.text = converter.displayTime(seconds: aWalk.time)
 
+            cell.mapView.removeAnnotations(cell.mapView.annotations)
+            
             for dog in aWalk.participatedDogs {
                 dogPerWalk.append(dog)
             }
@@ -96,13 +113,12 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
                     cell.populateMapViewWithAnnotations(iconToPopulate: "peeAnnotation")
             }
             cell.updateCollectionWithParticipatingDogs()
-        }
         return cell
     }
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedWalk = walks?[indexPath.row]
+        selectedWalk = walks[indexPath.row]
         performSegue(withIdentifier: Constants.Segue.walkOverviewToDetail, sender: self)
     }
     
@@ -112,6 +128,9 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
             let walkDetailVC = segue.destination as! WalkDetailViewController
             walkDetailVC.walk = selectedWalk
         }
+        if segue.identifier == Constants.Segue.walkToFilter {
+            let filterVC = segue.destination as! WalkSortingViewController
+            filterVC.walksOverViewController = self
+        }
     }
 }
-

@@ -16,13 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
             let realm = try Realm()
-            UserDefaults.standard.set("startDate", forKey: "sortBy")
-            UserDefaults.standard.set(false, forKey: "ascend")
         } catch {
             print("Error initialising new realm, \(error)")
         }
-        
         checkIfFirstLaunch()
+        checkUserDefaults()
         return true
     }
 
@@ -36,6 +34,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    func checkUserDefaults() {
+        if (UserDefaults.standard.string(forKey: "sortBy") != nil) {
+            // there is already a Userdefault
+        } else {
+            // initial set of UserDefaults
+            UserDefaults.standard.set("startDate", forKey: "sortBy")
+        }
+        
+        if UserDefaults.standard.bool(forKey: "ascend") {
+            //there is already a Userdefault
+        } else {
+            UserDefaults.standard.set(false, forKey: "ascend")
+        }
+        
+        if (UserDefaults.standard.string(forKey: "dogFilter") != nil) {
+            // there is already a Userdefault
+        } else {
+            let realm = try! Realm()
+            let dogFilterResultObject = realm.objects(Dog.self)
+            var dogFilter = [String]()
+            
+            for dog in dogFilterResultObject {
+                dogFilter.append(dog.name)
+            }
+            let stringOfNames = dogFilter.joined(separator: ", ")
+            
+            UserDefaults.standard.set(stringOfNames , forKey: "dogFilter")
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

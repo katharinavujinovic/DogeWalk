@@ -430,7 +430,7 @@
                         <barButtonItem key="backBarButtonItem" title="Walks" id="Rbb-hN-Qfd"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="Paws_Icon" id="Bnl-t2-DiG">
                             <connections>
-                                <segue destination="MgC-im-M5I" kind="presentation" id="s11-Uu-rqY"/>
+                                <segue destination="MgC-im-M5I" kind="presentation" identifier="WalkToFilter" id="s11-Uu-rqY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -473,9 +473,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5tq-rG-N4O">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5tq-rG-N4O">
                                 <rect key="frame" x="0.0" y="56" width="414" height="752"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uX6-v0-gUn"/>
@@ -1391,7 +1390,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="3ZU-n7-8rP"/>
         <segue reference="fzh-Ot-Ef0"/>
-        <segue reference="q11-x5-cyj"/>
+        <segue reference="f53-SN-ECQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemGrayColor"/>
     <resources>

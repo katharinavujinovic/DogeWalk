@@ -23,6 +23,7 @@ struct Constants {
         static let preWalkToCurrentWalk = "PreWalkToCurrentWalk"
         static let statsToPrewalk = "StatsToPreWalk"
         static let breedTableView = "breedTableView"
+        static let walkToFilter = "WalkToFilter"
     }
     
     struct Nibs {

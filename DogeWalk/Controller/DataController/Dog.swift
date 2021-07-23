@@ -22,3 +22,4 @@ class Dog: Object {
     @objc dynamic var chipID: String?
     var participatedWalks = List<Walk>()
 }
+

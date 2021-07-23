@@ -11,27 +11,40 @@ class SortingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var arrowIndicator: UIImageView!
     @IBOutlet weak var sortingLabel: UILabel!
+    @IBOutlet weak var cellBackground: UIView!
     
-    var isAscending = false
+    var isAscending = true
+    var delegate: PassAscendingValueDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override var isSelected: Bool {
-        didSet {
-            if self.isSelected {
-                self.sortingLabel.font = UIFont.boldSystemFont(ofSize: 17)
-                if isAscending {
-                    arrowIndicator.image = UIImage(systemName: "arrow.up")
-                } else {
-                    arrowIndicator.image = UIImage(systemName: "arrow.down")
-                }
-            } else {
-                arrowIndicator.image = nil
-            }
-        }
+        self.isSelected = false
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if selected {
+            isAscending = !isAscending
+            self.accessoryType = .checkmark
+            sortingLabel.font = UIFont.boldSystemFont(ofSize: 17)
+            if isAscending {
+                self.arrowIndicator.image = UIImage(named: "ArrowUp")
+            } else {
+                self.arrowIndicator.image = UIImage(named: "ArrowDown")
+            }
+            print("When selected, ascending is: \(isAscending)")
+            delegate?.passAscendingValue(isAscending)
+        } else {
+            self.accessoryType = .none
+            self.arrowIndicator.image = nil
+            isAscending = true
+        }
+        
+    }
+}
+
+//MARK: - PassDataDelegate
+protocol PassAscendingValueDelegate {
+    func passAscendingValue(_ data: Bool?)
 }

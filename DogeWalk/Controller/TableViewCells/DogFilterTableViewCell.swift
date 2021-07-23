@@ -17,6 +17,7 @@ class DogFilterTableViewCell: UITableViewCell {
     var dogs: Results<Dog>?
     // make the WalkSortingVC listen to this value!
     var selectedDogs: [Dog] = []
+    var delegate: PassSelectedDogsDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +52,7 @@ extension DogFilterTableViewCell: UICollectionViewDelegate, UICollectionViewData
             if cell.isSelected == true {
                 selectedDogs.append(selectedDog)
             }
+            delegate?.passSelectedDogsData(selectedDogs)
         }
     }
     
@@ -62,8 +64,14 @@ extension DogFilterTableViewCell: UICollectionViewDelegate, UICollectionViewData
                     selectedDogs.remove(at: index)
                 }
             }
+            delegate?.passSelectedDogsData(selectedDogs)
         }
     }
     
     
+}
+
+//MARK: - PassDataDelegate
+protocol PassSelectedDogsDelegate {
+    func passSelectedDogsData(_ data: [Dog]?)
 }
