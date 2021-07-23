@@ -21,6 +21,7 @@ class WalkSortingViewController: UIViewController {
     var selectedItem: String?
     var isAscending: Bool?
     var filteredDogs: [Dog]?
+    
 
     
     override func viewDidLoad() {
@@ -31,19 +32,16 @@ class WalkSortingViewController: UIViewController {
         sortAndFilterTableView.register(filteringNib, forCellReuseIdentifier: Constants.Nibs.dogFilterTableViewCell)
         sortAndFilterTableView.delegate = self
         sortAndFilterTableView.dataSource = self
+        
     }
     
     @IBAction func resetPressed(_ sender: Any) {
-    // reset to default -> sort by date & all dogs
-    // dismiss view
         defaults.set("startDate", forKey: "sortBy")
         defaults.set(false, forKey: "ascend")
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func donePressed(_ sender: Any) {
-    // save the sort/filter preference
-    // dismiss view
         if let newSortingDefault = selectedItem {
             defaults.set(newSortingDefault, forKey: "sortBy")
         }
@@ -63,7 +61,6 @@ class WalkSortingViewController: UIViewController {
                 defaults.set(stringOfDogNames, forKey: "dogFilter")
             }
         }
-        
         walksOverViewController.loadWalks()
         self.dismiss(animated: true, completion: nil)
     }
@@ -86,15 +83,13 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            // show the sorting option
-            // sorting cell
+            let cellIsSelected = sortingCellIsSelected(labelOfCell: sortingOptions[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.sortingTableViewCell, for: indexPath) as! SortingTableViewCell
+            cell.isSelected = cellIsSelected
             cell.sortingLabel.text = sortingOptions[indexPath.row]
             cell.delegate = self
             return cell
         } else {
-            // shor filter option
-            // collectionView with your dogs
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogFilterTableViewCell, for: indexPath) as! DogFilterTableViewCell
             cell.dogs = realm.objects(Dog.self)
             cell.delegate = self
@@ -124,7 +119,6 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
                 break
             }
     }
-    
 }
 
 extension WalkSortingViewController: PassAscendingValueDelegate {

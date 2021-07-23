@@ -16,6 +16,7 @@ class DogFilterTableViewCell: UITableViewCell {
     //make a new request for all dogs
     var dogs: Results<Dog>?
     // make the WalkSortingVC listen to this value!
+    var filteredDogs: [String]?
     var selectedDogs: [Dog] = []
     var delegate: PassSelectedDogsDelegate?
     

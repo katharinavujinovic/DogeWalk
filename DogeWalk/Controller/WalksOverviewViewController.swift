@@ -53,7 +53,6 @@ class WalksOverviewViewController: UIViewController {
     }
     
     func loadWalks() {
-        
         let allDogsResult = realm.objects(Dog.self)
         let allDogs = realmDogResultToArray(realmResult: allDogsResult)
         

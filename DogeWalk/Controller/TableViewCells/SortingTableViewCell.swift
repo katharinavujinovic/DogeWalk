@@ -18,24 +18,27 @@ class SortingTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.isSelected = false
+        if self.isSelected {
+            isAscending = UserDefaults.standard.bool(forKey: "ascending")
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         if selected {
+            self.cellBackground.alpha = 1
             isAscending = !isAscending
             self.accessoryType = .checkmark
-            sortingLabel.font = UIFont.boldSystemFont(ofSize: 17)
             if isAscending {
-                self.arrowIndicator.image = UIImage(named: "ArrowUp")
+                self.arrowIndicator.image = UIImage(systemName: "arrow.up")
             } else {
-                self.arrowIndicator.image = UIImage(named: "ArrowDown")
+                self.arrowIndicator.image = UIImage(systemName: "arrow.down")
             }
             print("When selected, ascending is: \(isAscending)")
             delegate?.passAscendingValue(isAscending)
         } else {
+            self.cellBackground.alpha = 0.5
             self.accessoryType = .none
             self.arrowIndicator.image = nil
             isAscending = true

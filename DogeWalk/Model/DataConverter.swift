@@ -73,15 +73,27 @@ extension UIViewController {
     }
     
     func walksForFetchedDogs(filteredDogs: [Dog]) -> [Walk] {
+        var walkOfFilteredDog = [Walk]()
         var allWalks = [Walk]()
         for filterDog in filteredDogs {
-            let walkPerDog = filterDog.participatedWalks
-            for walk in walkPerDog {
-                if !allWalks.contains(walk) {
+            let walkPerDogResult = filterDog.participatedWalks
+            for walk in walkPerDogResult {
+                walkOfFilteredDog.append(walk)
+            }
+        }
+        walkOfFilteredDog.sort {
+            $0.startDate < $1.startDate
+        }
+        for walk in walkOfFilteredDog {
+            if allWalks.count == 0 {
+                allWalks.append(walk)
+            } else {
+                if walk.time != allWalks.last?.time {
                     allWalks.append(walk)
                 }
             }
         }
+        
         let sortedWalks = returnSortedWalks(allWalksFromSelectedDogs: allWalks)
         return sortedWalks
     }
@@ -131,6 +143,38 @@ extension UIViewController {
             }
         }
         return unsortedWalks
+    }
+    
+//MARK: - isSelected
+    func dogCellIsSelected(nameOfDog: String, allDogs: [Dog]) -> Bool {
+        var cellIsSelected = false
+        for dog in allDogs {
+            if dog.name == nameOfDog {
+                cellIsSelected = true
+            }
+        }
+        return cellIsSelected
+    }
+    
+    func sortingCellIsSelected(labelOfCell: String) -> Bool {
+        var userDefaultString = ""
+        
+        switch UserDefaults.standard.string(forKey: "sortBy") {
+        case "distance":
+            userDefaultString = "Distance"
+        case "startDate":
+            userDefaultString = "Date"
+        case "time":
+            userDefaultString = "Duration"
+        default:
+            userDefaultString = "Date"
+        }
+        
+        if labelOfCell == userDefaultString {
+            return true
+        } else {
+            return false
+        }
     }
     
 }
