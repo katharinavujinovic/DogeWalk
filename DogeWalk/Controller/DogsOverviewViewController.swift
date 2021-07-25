@@ -75,7 +75,6 @@ extension DogsOverviewViewController: UITableViewDelegate, UITableViewDataSource
             
             if aDog.weight != 0.0 {
                 cell.weightLabel.text = String(aDog.weight)
-                print("\(aDog.weight)")
             }
             
             if aDog.height != 0.0 {

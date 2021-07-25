@@ -15,20 +15,25 @@ class WalksOverviewViewController: UIViewController {
     @IBOutlet weak var walkOverviewTableView: UITableView!
     @IBOutlet weak var walkButton: UIButton!
     @IBOutlet weak var addWalkStack: UIStackView!
+    @IBOutlet weak var filterButton: UIBarButtonItem!
     
     let realm = try! Realm()
     let converter = Converter()
     let defaults = UserDefaults.standard
+    var walkSorting = WalkSorting()
     
     fileprivate var walks = [Walk]()
     var selectedWalk: Walk?
+    var allDogs: Results<Dog>?
+    var allWalks: Results<Walk>?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("ViewWillAppear triggered")
+        allDogs = realm.objects(Dog.self)
+        allWalks = realm.objects(Walk.self)
         loadWalks()
-        if walks.count != 0 {
-            addWalkStack.isHidden = true
+        if allWalks == nil {
+            addWalkStack.isHidden = false
         }
     }
     
@@ -40,34 +45,37 @@ class WalksOverviewViewController: UIViewController {
         // delegation assigning
         walkOverviewTableView.dataSource = self
         walkOverviewTableView.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("view did appear")
-        self.walkOverviewTableView.reloadData()
+
     }
     
     @IBAction func walkButtonPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
+        if allWalks != nil {
+            self.performSegue(withIdentifier: Constants.Segue.walkOverviewToPrewalk, sender: self)
+        }
+    }
+    
+    @IBAction func filterButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: Constants.Segue.walkToFilter, sender: self)
     }
     
     func loadWalks() {
-        let allDogsResult = realm.objects(Dog.self)
-        let allDogs = realmDogResultToArray(realmResult: allDogsResult)
-        
-        let stringNamesOfFilteredDogs = defaults.string(forKey: "dogFilter")
-        let arrayNamesOfFilteredDogs = stringNamesOfFilteredDogs?.components(separatedBy: ", ")
-
-        if allDogs.count == arrayNamesOfFilteredDogs?.count {
-            let walksResult = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
-            walks = realmWalkResultToArray(realmResult: walksResult)
+        if defaults.object(forKey: "numberOfFilteredDogs") != nil {
+            var selectedFilterDogs: [Dog] = []
+            if let nonOptionalAllDogs = allDogs {
+                for dog in nonOptionalAllDogs {
+                    if dog.isSelectedForWalkFilter == true {
+                        selectedFilterDogs.append(dog)
+                    }
+                }
+            }
+            walks = walkSorting.walksForFetchedDogs(filteredDogs: selectedFilterDogs)
         } else {
-            let filteredDogs = fetchFilteredDogs(arrayOfDogNames: arrayNamesOfFilteredDogs!, allDogs: allDogs)
-            walks = walksForFetchedDogs(filteredDogs: filteredDogs)
+            let walksResult = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
+            walks = walkSorting.realmResultToArray(realmResult: walksResult)
         }
         walkOverviewTableView.reloadData()
     }
+
     
 }
 
@@ -126,10 +134,10 @@ extension WalksOverviewViewController: UITableViewDataSource, UITableViewDelegat
         if segue.identifier == Constants.Segue.walkOverviewToDetail {
             let walkDetailVC = segue.destination as! WalkDetailViewController
             walkDetailVC.walk = selectedWalk
-        }
-        if segue.identifier == Constants.Segue.walkToFilter {
+        } else if segue.identifier == Constants.Segue.walkToFilter {
             let filterVC = segue.destination as! WalkSortingViewController
             filterVC.walksOverViewController = self
+            filterVC.allDogs = allDogs
         }
     }
 }

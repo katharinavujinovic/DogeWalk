@@ -66,13 +66,13 @@ class Converter {
         if components.year == 0 {
             let months = calendar.dateComponents([.month], from: startDate, to: endDate)
             if let numberOfMonths = months.month {
-                return "\(numberOfMonths)m"
+                return "\(numberOfMonths)M"
             } else {
                 return ""
             }
         } else {
             if let numberOfYears = components.year {
-                return "\(numberOfYears)"
+                return "\(numberOfYears)J"
             } else {
                 return ""
             }

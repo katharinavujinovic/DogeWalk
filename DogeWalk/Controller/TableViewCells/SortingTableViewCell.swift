@@ -35,13 +35,13 @@ class SortingTableViewCell: UITableViewCell {
             } else {
                 self.arrowIndicator.image = UIImage(systemName: "arrow.down")
             }
-            print("When selected, ascending is: \(isAscending)")
             delegate?.passAscendingValue(isAscending)
         } else {
             self.cellBackground.alpha = 0.5
             self.accessoryType = .none
             self.arrowIndicator.image = nil
             isAscending = true
+
         }
         
     }

@@ -20,6 +20,7 @@ class Dog: Object {
     @objc dynamic var favouriteToy: String?
     @objc dynamic var favouriteTreat: String?
     @objc dynamic var chipID: String?
+    @objc dynamic var isSelectedForWalkFilter: Bool = true
     var participatedWalks = List<Walk>()
 }
 

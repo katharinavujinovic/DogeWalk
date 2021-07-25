@@ -17,7 +17,10 @@ class DogFilterTableViewCell: UITableViewCell {
     var dogs: Results<Dog>?
     // make the WalkSortingVC listen to this value!
     var filteredDogs: [String]?
-    var selectedDogs: [Dog] = []
+    // persisted from WalkSorting
+    var selectedDogs = [Dog]()
+    
+    var dogNames = [String]()
     var delegate: PassSelectedDogsDelegate?
     
     override func awakeFromNib() {
@@ -37,7 +40,7 @@ extension DogFilterTableViewCell: UICollectionViewDelegate, UICollectionViewData
         return dogs?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Nibs.dogSelectionCollectionViewCell, for: indexPath) as! DogSelectionCollectionViewCell
         if let dog = dogs?[indexPath.row] {
             let cellImage = UIImage(data: dog.profile)

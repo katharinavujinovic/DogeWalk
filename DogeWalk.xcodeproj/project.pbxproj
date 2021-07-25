@@ -19,6 +19,7 @@
 		43135B3725FB836200799186 /* WalksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3625FB836200799186 /* WalksOverviewViewController.swift */; };
 		43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3925FB83F700799186 /* WalkDetailViewController.swift */; };
 		43135B3D25FB853400799186 /* PreWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43135B3C25FB853400799186 /* PreWalkViewController.swift */; };
+		432BABFB26AE038600D5BB59 /* WalkSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432BABFA26AE038600D5BB59 /* WalkSorting.swift */; };
 		433AC97B264EB0CE00ED1AD8 /* DogBreeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */; };
 		433E594B26A6F78800108E3E /* WalkSortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433E594A26A6F78800108E3E /* WalkSortingViewController.swift */; };
 		433E595226A72AF800108E3E /* SortingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433E595026A72AF800108E3E /* SortingTableViewCell.swift */; };
@@ -66,6 +67,7 @@
 		43135B3625FB836200799186 /* WalksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalksOverviewViewController.swift; sourceTree = "<group>"; };
 		43135B3925FB83F700799186 /* WalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkDetailViewController.swift; sourceTree = "<group>"; };
 		43135B3C25FB853400799186 /* PreWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreWalkViewController.swift; sourceTree = "<group>"; };
+		432BABFA26AE038600D5BB59 /* WalkSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkSorting.swift; sourceTree = "<group>"; };
 		433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreeds.swift; sourceTree = "<group>"; };
 		433E594A26A6F78800108E3E /* WalkSortingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkSortingViewController.swift; sourceTree = "<group>"; };
 		433E595026A72AF800108E3E /* SortingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				43CA00FE2627090C003242FF /* TextFieldExtension.swift */,
 				43ED3D972645755E0074E809 /* Converter.swift */,
 				433AC97A264EB0CE00ED1AD8 /* DogBreeds.swift */,
+				432BABFA26AE038600D5BB59 /* WalkSorting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				435B6680260399F100EF2160 /* DogSelectionCollectionViewCell.swift in Sources */,
 				43ED3D8A26418EC60074E809 /* Dog.swift in Sources */,
 				43135B3A25FB83F700799186 /* WalkDetailViewController.swift in Sources */,
+				432BABFB26AE038600D5BB59 /* WalkSorting.swift in Sources */,
 				4368A07A25FF873100BE15B9 /* EditDogViewController.swift in Sources */,
 				43135B1325FB6C1A00799186 /* AppDelegate.swift in Sources */,
 				435B66862603A58000EF2160 /* WalksOverviewTableViewCell.swift in Sources */,

@@ -16,16 +16,17 @@ class WalkSortingViewController: UIViewController {
     let realm = try! Realm()
     let defaults = UserDefaults.standard
     var walksOverViewController: WalksOverviewViewController!
+    let walkSorting = WalkSorting()
     
     var sortingOptions = ["Distance", "Date", "Duration"]
     var selectedItem: String?
     var isAscending: Bool?
     var filteredDogs: [Dog]?
-    
-
+    var allDogs: Results<Dog>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        allDogs = realm.objects(Dog.self)
         let sortingNib = UINib(nibName: Constants.Nibs.sortingTableViewCell, bundle: nil)
         let filteringNib = UINib(nibName: Constants.Nibs.dogFilterTableViewCell, bundle: nil)
         sortAndFilterTableView.register(sortingNib, forCellReuseIdentifier: Constants.Nibs.sortingTableViewCell)
@@ -33,11 +34,18 @@ class WalkSortingViewController: UIViewController {
         sortAndFilterTableView.delegate = self
         sortAndFilterTableView.dataSource = self
         
+        let filteringRowToSelect = IndexPath(row: walkSorting.sortingCellIsSelected(), section: 0)
+        self.sortAndFilterTableView.selectRow(at: filteringRowToSelect, animated: true, scrollPosition: .none)
     }
     
     @IBAction func resetPressed(_ sender: Any) {
         defaults.set("startDate", forKey: "sortBy")
         defaults.set(false, forKey: "ascend")
+        
+        if let nonOptionalAllDogs = allDogs {
+            walkSorting.changeAllDogsValue(select: true, allDogs: nonOptionalAllDogs)
+        }
+        walksOverViewController.loadWalks()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -48,17 +56,17 @@ class WalkSortingViewController: UIViewController {
         if let newAscendDefault = isAscending {
             defaults.set(newAscendDefault, forKey: "ascend")
         }
-        if let unwrapfilteredDogs = filteredDogs {
-            let numberOfAllDogs = realm.objects(Dog.self).count
-            if unwrapfilteredDogs.count == 0 || unwrapfilteredDogs.count == numberOfAllDogs {
-                return
-            } else {
-                var dogNames = [String]()
-                for dog in unwrapfilteredDogs {
-                    dogNames.append(dog.name)
-                }
-                let stringOfDogNames = dogNames.joined(separator: ", ")
-                defaults.set(stringOfDogNames, forKey: "dogFilter")
+        
+        if filteredDogs != nil {
+            defaults.setValue(filteredDogs!.count, forKey: "numberOfFilteredDogs")
+            if let unwrappedAllDogs = allDogs {
+                walkSorting.changeAllDogsValue(select: false, allDogs: unwrappedAllDogs)
+            }
+            walkSorting.changeDogSelectionValue(select: true, changeDogs: filteredDogs!)
+        } else {
+            if let unwrappedAllDogs = allDogs {
+                defaults.setValue(nil, forKey: "numberOfFilteredDogs")
+                walkSorting.changeAllDogsValue(select: true, allDogs: unwrappedAllDogs)
             }
         }
         walksOverViewController.loadWalks()
@@ -67,6 +75,7 @@ class WalkSortingViewController: UIViewController {
     
 }
 
+//MARK: - UITableView
 extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,15 +92,14 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cellIsSelected = sortingCellIsSelected(labelOfCell: sortingOptions[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.sortingTableViewCell, for: indexPath) as! SortingTableViewCell
-            cell.isSelected = cellIsSelected
             cell.sortingLabel.text = sortingOptions[indexPath.row]
             cell.delegate = self
+            cell.isAscending = !defaults.bool(forKey: "ascend")
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Nibs.dogFilterTableViewCell, for: indexPath) as! DogFilterTableViewCell
-            cell.dogs = realm.objects(Dog.self)
+            cell.dogs = allDogs
             cell.delegate = self
             return cell
         }
@@ -107,7 +115,6 @@ extension WalkSortingViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItemFromTableView = sortingOptions[indexPath.row]
-        
         switch selectedItemFromTableView {
             case "Distance":
                 selectedItem = "distance"

@@ -48,21 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             UserDefaults.standard.set(false, forKey: "ascend")
         }
-        
-        if (UserDefaults.standard.string(forKey: "dogFilter") != nil) {
-            // there is already a Userdefault
-        } else {
-            let realm = try! Realm()
-            let dogFilterResultObject = realm.objects(Dog.self)
-            var dogFilter = [String]()
-            
-            for dog in dogFilterResultObject {
-                dogFilter.append(dog.name)
-            }
-            let stringOfNames = dogFilter.joined(separator: ", ")
-            
-            UserDefaults.standard.set(stringOfNames , forKey: "dogFilter")
-        }
     }
     
     // MARK: UISceneSession Lifecycle
