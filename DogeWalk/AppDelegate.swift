@@ -48,6 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             UserDefaults.standard.set(false, forKey: "ascend")
         }
+        
+        if (UserDefaults.standard.integer(forKey: "numberOfFilteredDogs") != 0) {
+            //there is already a filter in place
+        } else {
+            UserDefaults.standard.set(0, forKey: "numberOfFilteredDogs")
+        }
     }
     
     // MARK: UISceneSession Lifecycle

@@ -39,6 +39,7 @@ class WalkSortingViewController: UIViewController {
     }
     
     @IBAction func resetPressed(_ sender: Any) {
+        defaults.set(0, forKey: "numberOfFilteredDogs")
         defaults.set("startDate", forKey: "sortBy")
         defaults.set(false, forKey: "ascend")
         
@@ -50,8 +51,10 @@ class WalkSortingViewController: UIViewController {
     }
     
     @IBAction func donePressed(_ sender: Any) {
+        var numberOfSelectedFilter = 0
         if let newSortingDefault = selectedItem {
             defaults.set(newSortingDefault, forKey: "sortBy")
+            numberOfSelectedFilter += 1
         }
         if let newAscendDefault = isAscending {
             defaults.set(newAscendDefault, forKey: "ascend")
@@ -61,6 +64,9 @@ class WalkSortingViewController: UIViewController {
             defaults.setValue(filteredDogs!.count, forKey: "numberOfFilteredDogs")
             if let unwrappedAllDogs = allDogs {
                 walkSorting.changeAllDogsValue(select: false, allDogs: unwrappedAllDogs)
+            }
+            for _ in filteredDogs! {
+                numberOfSelectedFilter += 1
             }
             walkSorting.changeDogSelectionValue(select: true, changeDogs: filteredDogs!)
         } else {

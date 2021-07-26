@@ -16,6 +16,7 @@ class WalksOverviewViewController: UIViewController {
     @IBOutlet weak var walkButton: UIButton!
     @IBOutlet weak var addWalkStack: UIStackView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
+    @IBOutlet weak var filterNumberButton: UIBarButtonItem!
     
     let realm = try! Realm()
     let converter = Converter()
@@ -26,6 +27,15 @@ class WalksOverviewViewController: UIViewController {
     var selectedWalk: Walk?
     var allDogs: Results<Dog>?
     var allWalks: Results<Walk>?
+    fileprivate var numberOfFilterSelection = 0
+    
+    fileprivate func setFilterNumber() {
+        if numberOfFilterSelection == 0 {
+            filterNumberButton.image = nil
+        } else {
+            filterNumberButton.image = UIImage(systemName: "\(numberOfFilterSelection).circle")
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -35,6 +45,8 @@ class WalksOverviewViewController: UIViewController {
         if allWalks == nil {
             addWalkStack.isHidden = false
         }
+
+        
     }
     
     override func viewDidLoad() {
@@ -59,6 +71,8 @@ class WalksOverviewViewController: UIViewController {
     }
     
     func loadWalks() {
+        numberOfFilterSelection = defaults.value(forKey: "numberOfFilteredDogs") as! Int
+        print(numberOfFilterSelection)
         if defaults.object(forKey: "numberOfFilteredDogs") != nil {
             var selectedFilterDogs: [Dog] = []
             if let nonOptionalAllDogs = allDogs {
@@ -73,10 +87,9 @@ class WalksOverviewViewController: UIViewController {
             let walksResult = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
             walks = walkSorting.realmResultToArray(realmResult: walksResult)
         }
+        setFilterNumber()
         walkOverviewTableView.reloadData()
     }
-
-    
 }
 
 //MARK: - TableView Controller
