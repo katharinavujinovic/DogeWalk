@@ -51,7 +51,7 @@ class WalkSortingViewController: UIViewController {
     }
     
     @IBAction func donePressed(_ sender: Any) {
-        var numberOfSelectedFilter = 0
+        var numberOfSelectedFilter = 1
         if let newSortingDefault = selectedItem {
             defaults.set(newSortingDefault, forKey: "sortBy")
             numberOfSelectedFilter += 1
@@ -61,7 +61,6 @@ class WalkSortingViewController: UIViewController {
         }
         
         if filteredDogs != nil {
-            defaults.setValue(filteredDogs!.count, forKey: "numberOfFilteredDogs")
             if let unwrappedAllDogs = allDogs {
                 walkSorting.changeAllDogsValue(select: false, allDogs: unwrappedAllDogs)
             }
@@ -71,10 +70,10 @@ class WalkSortingViewController: UIViewController {
             walkSorting.changeDogSelectionValue(select: true, changeDogs: filteredDogs!)
         } else {
             if let unwrappedAllDogs = allDogs {
-                defaults.setValue(nil, forKey: "numberOfFilteredDogs")
                 walkSorting.changeAllDogsValue(select: true, allDogs: unwrappedAllDogs)
             }
         }
+        defaults.setValue(numberOfSelectedFilter, forKey: "numberOfFilteredDogs")
         walksOverViewController.loadWalks()
         self.dismiss(animated: true, completion: nil)
     }

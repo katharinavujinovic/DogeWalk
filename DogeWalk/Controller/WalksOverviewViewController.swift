@@ -71,8 +71,9 @@ class WalksOverviewViewController: UIViewController {
     }
     
     func loadWalks() {
-        numberOfFilterSelection = defaults.value(forKey: "numberOfFilteredDogs") as! Int
-        print(numberOfFilterSelection)
+        if let filterNumber = defaults.value(forKey: "numberOfFilteredDogs") {
+            numberOfFilterSelection = filterNumber as! Int
+        }
         if defaults.object(forKey: "numberOfFilteredDogs") != nil {
             var selectedFilterDogs: [Dog] = []
             if let nonOptionalAllDogs = allDogs {
