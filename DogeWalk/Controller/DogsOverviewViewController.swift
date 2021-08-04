@@ -15,7 +15,7 @@ class DogsOverviewViewController: UIViewController {
     @IBOutlet weak var walkButton: UIButton!
     @IBOutlet weak var addDogStack: UIStackView!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     let converter = Converter()
     
     var selectedDog: Dog?
@@ -44,7 +44,7 @@ class DogsOverviewViewController: UIViewController {
     }
 
     fileprivate func loadDogs() {
-        dogs = realm.objects(Dog.self)
+        dogs = DatabaseManager.callResult(realm: realm, objectType: Dog.self)
         DispatchQueue.main.async {
             self.dogOverviewTableView.reloadData()
         }

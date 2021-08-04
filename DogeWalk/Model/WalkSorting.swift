@@ -10,7 +10,7 @@ import RealmSwift
 
 class WalkSorting {
     
-    let realm = try! Realm()
+//    let realm = try! Realm()
     
     func realmResultToArray<T>(realmResult: Results<T>) -> [T] {
         var allDogs = [T]()
@@ -26,9 +26,9 @@ class WalkSorting {
             var allWalks = [Walk]()
             for filterDog in filteredDogs {
                 let walkPerDogResult = filterDog.participatedWalks
-                for walk in walkPerDogResult {
-                    walkOfFilteredDog.append(walk)
-                }
+                    for walk in walkPerDogResult {
+                        walkOfFilteredDog.append(walk)
+                    }
             }
             walkOfFilteredDog.sort {
                 $0.startDate < $1.startDate
@@ -109,25 +109,40 @@ class WalkSorting {
     
     func changeDogSelectionValue(select: Bool, changeDogs: [Dog]) {
         for everyDog in changeDogs {
-            do {
+//            do {
+                if let nonOptionalRealm = DatabaseManager.realm {
+                    DatabaseManager.write(realm: nonOptionalRealm) {
+                        everyDog.isSelectedForWalkFilter = select
+                    }
+                }
+                /*
                 try realm.write {
                     everyDog.isSelectedForWalkFilter = select
                 }
+
             } catch {
                 print("Error setting all dog.isSelectedForWalkFilter to \(select) after done is pressed")
             }
+                 */
         }
     }
     
     func changeAllDogsValue(select: Bool, allDogs: Results<Dog>) {
         for everyDog in allDogs {
-            do {
+//            do {
+            if let nonOptionalRealm = DatabaseManager.realm {
+                DatabaseManager.write(realm: nonOptionalRealm) {
+                    everyDog.isSelectedForWalkFilter = select
+                }
+            }
+            /*
                 try realm.write {
                     everyDog.isSelectedForWalkFilter = select
                 }
             } catch {
                 print("Error setting all dog.isSelectedForWalkFilter to false after done is pressed")
             }
+             */
         }
     }
     

@@ -16,7 +16,7 @@ class StatsOverviewViewController: UIViewController {
     @IBOutlet weak var statTableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     let today = Date()
     let converter = Converter()
     
@@ -47,7 +47,7 @@ class StatsOverviewViewController: UIViewController {
     }
     
     func loadDogs() {
-        dogs = realm.objects(Dog.self)
+        dogs = DatabaseManager.callResult(realm: realm, objectType: Dog.self)
     }
     
     func loadWalksByDog() {

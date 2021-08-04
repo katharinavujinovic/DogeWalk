@@ -12,7 +12,6 @@ class DogFilterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dogFilterCollectionView: UICollectionView!
     
-    let realm = try! Realm()
     //make a new request for all dogs
     var dogs: Results<Dog>?
     // make the WalkSortingVC listen to this value!

@@ -36,7 +36,7 @@ class CurrentWalkViewController: UIViewController {
     @IBOutlet weak var expandableStack: UIStackView!
     @IBOutlet weak var containerStack: UIStackView!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     let converter = Converter()
     let locationManager = CLLocationManager()
     fileprivate var timer = Timer()
@@ -146,7 +146,7 @@ class CurrentWalkViewController: UIViewController {
     
     fileprivate func archiveWalk() {
         do {
-            try realm.write {
+            try realm?.write {
                 let newWalk = Walk()
                 newWalk.startDate = startTime!
                 newWalk.distance = meterCount
@@ -166,7 +166,7 @@ class CurrentWalkViewController: UIViewController {
                 if poopAnnotations != [] {
                     newWalk.poopAnnotation = try NSKeyedArchiver.archivedData(withRootObject: poopAnnotations, requiringSecureCoding: false)
                 }
-                realm.add(newWalk)
+                realm?.add(newWalk)
             }
         } catch {
             print("Walk could not be saved, \(error)")

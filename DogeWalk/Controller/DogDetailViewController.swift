@@ -15,7 +15,6 @@ class DogDetailViewController: UIViewController {
     @IBOutlet weak var dogTableView: UITableView!
     @IBOutlet weak var walksTableView: UITableView!
 
-    let realm = try! Realm()
     let converter = Converter()
     
     fileprivate var walks: Results<Walk>?

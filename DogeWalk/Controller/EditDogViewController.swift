@@ -37,7 +37,7 @@ class EditDogViewController: UIViewController {
 
     @IBOutlet weak var addNewDogButton: UIButton!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     var converter = Converter()
     var dogBreeds = DogBreeds()
     
@@ -198,15 +198,15 @@ class EditDogViewController: UIViewController {
         let alert = UIAlertController(title: Constants.AlertMessages.removeDogTitle, message: Constants.AlertMessages.removeDogMessage, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: Constants.AlertMessages.removeDog, style: .default) { [self] (action: UIAlertAction) in
             if self.dog != nil {
-                do {
-                    try realm.write {
-                        if let walks = dog?.participatedWalks {
-                            realm.delete(walks)
+                DatabaseManager.write(realm: realm) {
+                    if let walks = dog?.participatedWalks {
+                        for walk in walks {
+                            if walk.participatedDogs.count == 1 {
+                                realm?.delete(walk)
+                            }
                         }
-                        realm.delete(dog!)
                     }
-                } catch {
-                    print("Error deleting item, \(error)")
+                    realm?.delete(dog!)
                 }
             }
             self.navigationController?.popToRootViewController(animated: true)
@@ -222,76 +222,68 @@ class EditDogViewController: UIViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
- //       setSaving(isSaving: true)
         if dog != nil {
-            do {
-                try realm.write {
-                    dog?.name = nameTextField.text!
-                    dog?.profile = (dogImage.image?.pngData())!
-                    dog?.isFemale = genderIsFemale ?? true
-                    dog?.breed = breedLabel.text
-                    if converter.dayFormatter(date: birthdayPicker.date) != converter.dayFormatter(date: Date()) {
-                        dog?.age = birthdayPicker.date
-                    }
-
-                    dog?.favouriteToy = toyTextField.text
-                    dog?.favouriteTreat = treatTextField.text
-                    dog?.chipID = chipIDTextField.text
-                    dog?.neutered = neuteredSwitch.isOn
-                    if weightTextField.text != "" {
-                        guard let weightInDouble = Double(weightTextField.text!) else {
-                            fatalError("Cannot convert weight into a number")
-                        }
-                        dog?.weight = weightInDouble
-                    }
-                    if heightTextField.text != "" {
-                        guard let heightInDouble = Double(heightTextField.text!) else {
-                            fatalError("Cannot convert weight into a number")
-                        }
-                        dog?.height = heightInDouble
-                    }
+            DatabaseManager.write(realm: realm) {
+                dog?.name = nameTextField.text!
+                dog?.profile = (dogImage.image?.pngData())!
+                dog?.isFemale = genderIsFemale ?? true
+                dog?.breed = breedLabel.text
+                if converter.dayFormatter(date: birthdayPicker.date) != converter.dayFormatter(date: Date()) {
+                    dog?.age = birthdayPicker.date
                 }
-            } catch {
-                print("Error saving modified dog, \(error)")
+
+                dog?.favouriteToy = toyTextField.text
+                dog?.favouriteTreat = treatTextField.text
+                dog?.chipID = chipIDTextField.text
+                dog?.neutered = neuteredSwitch.isOn
+                if weightTextField.text != "" {
+                    guard let weightInDouble = Double(weightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    dog?.weight = weightInDouble
+                }
+                if heightTextField.text != "" {
+                    guard let heightInDouble = Double(heightTextField.text!) else {
+                        fatalError("Cannot convert weight into a number")
+                    }
+                    dog?.height = heightInDouble
+                }
             }
+
         }
         self.navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func archiveNewDog(name: String, image: UIImage, age: Date?, breed: String?, isFemale: Bool, favouritToy: String?, favouriteTreat: String?, chipID: String?) {
-        do {
-            try realm.write {
-                let newDog = Dog()
-                newDog.name = name
-                newDog.profile = image.pngData()!
-                if age != nil {
-                    if converter.dayFormatter(date: age!) != converter.dayFormatter(date: Date()) {
-                        newDog.age = age
-                    }
+        DatabaseManager.write(realm: realm) {
+            let newDog = Dog()
+            newDog.name = name
+            newDog.profile = image.pngData()!
+            if age != nil {
+                if converter.dayFormatter(date: age!) != converter.dayFormatter(date: Date()) {
+                    newDog.age = age
                 }
-                newDog.breed = breed
-                newDog.isFemale = isFemale
-                newDog.favouriteToy = favouritToy
-                newDog.favouriteTreat = favouriteTreat
-                newDog.chipID = chipID
-                newDog.neutered = neuteredSwitch.isOn
-                if weightTextField.text != "" {
-                    guard let weightInDouble = Double(weightTextField.text!) else {
-                        fatalError("Cannot convert weight into a number")
-                    }
-                    newDog.weight = weightInDouble
-                }
-                if heightTextField.text != "" {
-                    guard let heightInDouble = Double(heightTextField.text!) else {
-                        fatalError("Cannot convert weight into a number")
-                    }
-                    newDog.height = heightInDouble
-                }
-                realm.add(newDog)
             }
-        } catch {
-            print("Error saving new Dog, \(error)")
+            newDog.breed = breed
+            newDog.isFemale = isFemale
+            newDog.favouriteToy = favouritToy
+            newDog.favouriteTreat = favouriteTreat
+            newDog.chipID = chipID
+            newDog.neutered = neuteredSwitch.isOn
+            if weightTextField.text != "" {
+                guard let weightInDouble = Double(weightTextField.text!) else {
+                    fatalError("Cannot convert weight into a number")
+                }
+                newDog.weight = weightInDouble
+            }
+            if heightTextField.text != "" {
+                guard let heightInDouble = Double(heightTextField.text!) else {
+                    fatalError("Cannot convert weight into a number")
+                }
+                newDog.height = heightInDouble
+            }
+            realm?.add(newDog)
         }
     }
 

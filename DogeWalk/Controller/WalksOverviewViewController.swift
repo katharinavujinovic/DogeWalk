@@ -18,7 +18,7 @@ class WalksOverviewViewController: UIViewController {
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var filterNumberButton: UIBarButtonItem!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     let converter = Converter()
     let defaults = UserDefaults.standard
     var walkSorting = WalkSorting()
@@ -31,22 +31,26 @@ class WalksOverviewViewController: UIViewController {
     
     fileprivate func setFilterNumber() {
         if numberOfFilterSelection == 0 {
-            filterNumberButton.image = nil
+            DispatchQueue.main.async {
+                self.filterNumberButton.image = nil
+            }
         } else {
-            filterNumberButton.image = UIImage(systemName: "\(numberOfFilterSelection).circle")
+            DispatchQueue.main.async {
+                self.filterNumberButton.image = UIImage(systemName: "\(self.numberOfFilterSelection).circle")
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        allDogs = realm.objects(Dog.self)
-        allWalks = realm.objects(Walk.self)
+        allDogs = DatabaseManager.callResult(realm: realm, objectType: Dog.self)
+        allWalks = DatabaseManager.callResult(realm: realm, objectType: Walk.self)
         loadWalks()
         if allWalks == nil {
-            addWalkStack.isHidden = false
+            DispatchQueue.main.async {
+                self.addWalkStack.isHidden = false
+            }
         }
-
-        
     }
     
     override func viewDidLoad() {
@@ -85,8 +89,9 @@ class WalksOverviewViewController: UIViewController {
             }
             walks = walkSorting.walksForFetchedDogs(filteredDogs: selectedFilterDogs)
         } else {
-            let walksResult = realm.objects(Walk.self).sorted(byKeyPath: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend"))
-            walks = walkSorting.realmResultToArray(realmResult: walksResult)
+            if let walksResult = DatabaseManager.callSortedResult(realm: realm, objectType: Walk.self, sortedBy: defaults.string(forKey: "sortBy") ?? "startDate", ascending: defaults.bool(forKey: "ascend")) {
+                walks = walkSorting.realmResultToArray(realmResult: walksResult)
+            }
         }
         setFilterNumber()
         walkOverviewTableView.reloadData()

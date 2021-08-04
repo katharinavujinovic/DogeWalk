@@ -13,7 +13,7 @@ class WalkSortingViewController: UIViewController {
     
     @IBOutlet weak var sortAndFilterTableView: UITableView!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     let defaults = UserDefaults.standard
     var walksOverViewController: WalksOverviewViewController!
     let walkSorting = WalkSorting()
@@ -26,7 +26,8 @@ class WalkSortingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        allDogs = realm.objects(Dog.self)
+        allDogs = DatabaseManager.callResult(realm: realm, objectType: Dog.self)
+//        allDogs = realm.objects(Dog.self)
         let sortingNib = UINib(nibName: Constants.Nibs.sortingTableViewCell, bundle: nil)
         let filteringNib = UINib(nibName: Constants.Nibs.dogFilterTableViewCell, bundle: nil)
         sortAndFilterTableView.register(sortingNib, forCellReuseIdentifier: Constants.Nibs.sortingTableViewCell)
@@ -54,7 +55,6 @@ class WalkSortingViewController: UIViewController {
         var numberOfSelectedFilter = 1
         if let newSortingDefault = selectedItem {
             defaults.set(newSortingDefault, forKey: "sortBy")
-            numberOfSelectedFilter += 1
         }
         if let newAscendDefault = isAscending {
             defaults.set(newAscendDefault, forKey: "ascend")

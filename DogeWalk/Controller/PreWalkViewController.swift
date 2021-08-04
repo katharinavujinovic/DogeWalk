@@ -17,7 +17,7 @@ class PreWalkViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var selectDogLabel: UILabel!
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.realm
     
     var dogs: Results<Dog>?
     var selectedDogs: [Dog] = []
@@ -64,7 +64,7 @@ class PreWalkViewController: UIViewController {
     }
     
     fileprivate func loadDogs() {
-        dogs = realm.objects(Dog.self)
+        dogs = DatabaseManager.callResult(realm: realm, objectType: Dog.self)
         DispatchQueue.main.async {
             self.preWalkCollectionView.reloadData()
         }
